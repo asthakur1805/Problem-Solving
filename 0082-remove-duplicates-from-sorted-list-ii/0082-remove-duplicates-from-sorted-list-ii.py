@@ -3,6 +3,7 @@ class Solution:
 	def deleteDuplicates(self, head):
 
 		if not head:
+			
 			return
 
 		dummyNode = ListNode()
@@ -14,7 +15,7 @@ class Solution:
 		while currNode and currNode.next:
 
 			if currNode.val != currNode.next.val:
-			
+
 				prevNode = prevNode.next
 				currNode = currNode.next
 
@@ -28,8 +29,4 @@ class Solution:
 
 				prevNode.next = currNode
 
-				
-
 		return dummyNode.next
-
-			
