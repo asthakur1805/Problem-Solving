@@ -2,20 +2,16 @@ class Solution:
 
 	def middleNode(self, head):
 
-		listLength  = 0
+		if not head:
 
-		currNode = head
+			return
 
-		while currNode:
+		slowPointer = fastPointer = head 
 
-			listLength += 1
+		while fastPointer and fastPointer.next:	
 
-			currNode = currNode.next
+			slowPointer = slowPointer.next
 
-		currNode = head
+			fastPointer = fastPointer.next.next
 
-		for _ in range(listLength // 2):
-
-			currNode = currNode.next
-
-		return currNode
+		return slowPointer
