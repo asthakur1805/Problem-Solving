@@ -4,7 +4,9 @@ class Solution:
 
 		if not root:
 
-			return
+			return 
+
+		stack = []
 
 		queue = collections.deque([root])
 
@@ -28,8 +30,11 @@ class Solution:
 
 					queue.append(node.right)
 
-			result.append(level)
 
-		result.reverse()
+			stack.append(level)
+
+		while stack:
+
+			result.append(stack.pop())
 
 		return result
