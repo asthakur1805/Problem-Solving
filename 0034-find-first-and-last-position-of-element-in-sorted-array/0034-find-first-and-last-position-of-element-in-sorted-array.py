@@ -2,27 +2,51 @@ class Solution:
 
 	def searchRange(self, nums, target):
 
-		numsLength = len(nums)
+		firstIndex = -1
 
-		for index in range(numsLength):
+		leftPointer, rightPointer = 0, len(nums)-1
 
-			if nums[index] == target:
-				
-				lastIndex = firstIndex = index
-				break
+		while leftPointer <= rightPointer:
 
-		else:
+			midPointer = leftPointer + (rightPointer - leftPointer) // 2
+
+			if nums[midPointer] == target:
+
+				firstIndex = midPointer
+
+				rightPointer = midPointer - 1
+
+			elif target < nums[midPointer]:
+
+				rightPointer = midPointer - 1
+
+			else:
+
+				leftPointer = midPointer + 1
+
+		if firstIndex == -1:
 
 			return [-1, -1]
 
-		for index in range(firstIndex+1,numsLength):
 
-			if nums[index] != target:
+		leftPointer, rightPointer = firstIndex, len(nums)-1
 
-				break
+		while leftPointer <= rightPointer:
 
-			lastIndex = index
+			midPointer = leftPointer + (rightPointer - leftPointer) // 2
+
+			if nums[midPointer] == target:
+
+				lastIndex = midPointer
+
+				leftPointer = midPointer + 1
+
+			elif target < nums[midPointer]:
+
+				rightPointer = midPointer - 1
+
+			else:
+
+				leftPointer = midPointer + 1
 
 		return [firstIndex, lastIndex]
-
-		 
