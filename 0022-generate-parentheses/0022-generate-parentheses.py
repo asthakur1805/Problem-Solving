@@ -1,34 +1,34 @@
 class Solution:
 
-	def generateParenthesis(self, numParentheses):
+	def generateParenthesis(self, numParenthesis):
 
-		numLeft = numRight = numParentheses
+		leftCount = rightCount = numParenthesis
 
-		currentStr = []
+		currStr, result = [], []
 
-		result = []
-
-		self.helper(numLeft, numRight, currentStr, result)
+		self.helper(leftCount, rightCount, currStr, result)
 
 		return result
 
-	def helper(self, numLeft, numRight, currentStr, result):
+	def helper(self, leftCount, rightCount, currStr, result):
 
-		if numLeft == 0 and numRight == 0:
+		if leftCount == 0 and rightCount == 0:
 
-			result.append(''.join(currentStr.copy()))
+			result.append(''.join(currStr.copy()))
 
 			return
 
-		if numLeft > 0:
+		if leftCount > 0:
 
-			currentStr.append('(')
-			self.helper(numLeft-1, numRight, currentStr, result)
-			currentStr.pop()
+			currStr.append('(')
+			self.helper(leftCount-1, rightCount, currStr, result)
+			currStr.pop()
 
-		if numLeft < numRight:
+		if rightCount > leftCount:
 
-			currentStr.append(')')
-			self.helper(numLeft, numRight-1, currentStr, result)
-			currentStr.pop()
+			currStr.append(')')
+			self.helper(leftCount, rightCount-1, currStr, result)
+			currStr.pop()
+
 		
+	
