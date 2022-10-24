@@ -2,26 +2,21 @@ class Solution:
 
 	def removeNthFromEnd(self, head, N):
 
-		currentNode, listLength = head, 0
+		dummyNode = ListNode(0, head)
 
-		while currentNode:
+		currNode = head
 
-			listLength += 1
+		for _ in range(N):
 
-			currentNode = currentNode.next
+			currNode = currNode.next
 
-		if listLength == N:
+		prevNode = dummyNode
 
-			return head.next
+		while currNode:
 
-		currentNode = head
+			currNode = currNode.next
+			prevNode = prevNode.next
 
-		for _ in range(listLength-N-1):
+		prevNode.next = prevNode.next.next
 
-			currentNode = currentNode.next
-
-
-		currentNode.next = currentNode.next.next
-
-
-		return head
+		return dummyNode.next
