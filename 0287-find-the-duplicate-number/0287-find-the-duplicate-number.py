@@ -2,15 +2,21 @@ class Solution:
 
 	def findDuplicate(self, nums):
 
-		visitedNums = set()
+		slowPointer = fastPointer = nums[0]
 
-		for num in nums:
+		while True:
 
-			if num in visitedNums:
+			slowPointer = nums[slowPointer]
+			fastPointer = nums[nums[fastPointer]]
 
-				return num
+			if slowPointer == fastPointer:
+				break
 
-			visitedNums.add(num)
+		currPointer = nums[0]
 
+		while currPointer != slowPointer:
+			slowPointer = nums[slowPointer]
+			currPointer = nums[currPointer]
 
-		
+		return currPointer
+			
