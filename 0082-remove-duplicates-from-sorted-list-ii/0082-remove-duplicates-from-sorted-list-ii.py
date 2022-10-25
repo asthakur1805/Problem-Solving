@@ -2,13 +2,7 @@ class Solution:
 
 	def deleteDuplicates(self, head):
 
-		if not head:
-			
-			return
-
-		dummyNode = ListNode()
-
-		dummyNode.next = head
+		dummyNode = ListNode(0, head)
 
 		prevNode, currNode = dummyNode, head
 
@@ -16,17 +10,17 @@ class Solution:
 
 			if currNode.val != currNode.next.val:
 
-				prevNode = prevNode.next
+				prevNode = currNode
 				currNode = currNode.next
 
 			else:
 
-				while currNode.next and currNode.val == currNode.next.val:
-
+				while currNode and currNode.next and currNode.val == currNode.next.val:
+					
 					currNode = currNode.next
 
+				prevNode.next = currNode.next
 				currNode = currNode.next
 
-				prevNode.next = currNode
 
 		return dummyNode.next
