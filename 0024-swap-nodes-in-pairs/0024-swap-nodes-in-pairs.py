@@ -2,27 +2,19 @@ class Solution:
 
 	def swapPairs(self, head):
 
-		if not head or not head.next:
-			return head
+		dummyNode = ListNode(0,head)
 
-		firstNode, secondNode = head, head.next
+		prevNode, firstNode = dummyNode, head
 
-		dummyNode = ListNode()
+		while firstNode and firstNode.next:
 
-		prevNode = dummyNode
-
-		while firstNode and secondNode:
+			secondNode = firstNode.next
 
 			firstNode.next = secondNode.next
 			secondNode.next = firstNode
 			prevNode.next = secondNode
-			
+
 			prevNode = firstNode
 			firstNode = firstNode.next
 
-			if firstNode:
-				secondNode = firstNode.next
-
 		return dummyNode.next
-
-	
