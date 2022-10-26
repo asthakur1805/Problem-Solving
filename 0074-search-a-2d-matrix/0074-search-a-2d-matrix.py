@@ -4,12 +4,24 @@ class Solution:
 
 		numRows, numColumns = len(matrix), len(matrix[0])
 
-		for rowIndex in range(numRows):
+		leftPointer, rightPointer = 0, numRows * numColumns - 1
 
-			for columnIndex in range(numColumns):
+		while leftPointer <= rightPointer:
 
-				if matrix[rowIndex][columnIndex] == target:
+			midPointer = leftPointer + (rightPointer - leftPointer) // 2
 
-					return True
+			rowIndex, columnIndex = midPointer // numColumns, midPointer % numColumns
+
+			if matrix[rowIndex][columnIndex] == target:
+
+				return True
+
+			if target < matrix[rowIndex][columnIndex]:
+
+				rightPointer = midPointer - 1
+
+			else:
+
+				leftPointer = midPointer + 1
 
 		return False
