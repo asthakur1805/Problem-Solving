@@ -6,8 +6,10 @@ class Solution:
 
 		for num in nums:
 
-			resultSum = max(resultSum, currSum + num)
+			currSum += num
 
-			currSum = max(0, currSum + num)
+			resultSum = currSum if currSum > resultSum else resultSum
 
+			currSum = 0 if currSum < 0 else currSum
+			
 		return resultSum	
