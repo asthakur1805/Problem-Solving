@@ -2,29 +2,23 @@ class Solution:
 
 	def lengthOfLongestSubstring(self, inputStr):
 
-		inputLength, resultLength = len(inputStr), 0
+		startIndex = endIndex = resultLength = 0
 
-		charSet = set()
+		inputLength, charSet = len(inputStr), set()
 
-		for startIndex in range(inputLength):
+		while endIndex < inputLength:
 
-			currLength = 0
+			while inputStr[endIndex] in charSet:
+				
+					charSet.remove(inputStr[startIndex])
+					startIndex += 1
 
-			for currIndex in range(startIndex, inputLength):
+			charSet.add(inputStr[endIndex])
 
-				if inputStr[currIndex] in charSet:
+			resultLength = max(resultLength, endIndex - startIndex + 1)
 
-					charSet.clear()
+			endIndex += 1
 
-					break
-
-				else:
-
-					charSet.add(inputStr[currIndex])
-					
-					currLength += 1
-
-					resultLength = max(resultLength, currLength)
-
-
-		return resultLength 
+		return resultLength
+			
+			
