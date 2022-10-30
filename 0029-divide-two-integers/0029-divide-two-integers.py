@@ -2,11 +2,10 @@ class Solution:
 
 	def divide(self, dividend, divisor):
 
-		sign, boundary = 1, (1 << 31) - 1
+		if dividend == -(1 << 31) and divisor == -1:
+			return (1 << 31) - 1
 
-		if (dividend > 0) != (divisor > 0):
-			
-			sign, boundary = -1, boundary+1
+		sign = 1 if (dividend > 0) == (divisor > 0) else -1
 
 		dividend, divisor, quotient = abs(dividend), abs(divisor), 0
 
@@ -14,24 +13,12 @@ class Solution:
 
 			power = 0
 
-			while dividend - (divisor << (power + 1)) >= 0:
+			while dividend - (divisor << 1 << power) >= 0:
 
 				power += 1
-				
-				print(dividend)
-				print(power)
-
-			if quotient + (1 << power) > boundary:
-
-				return sign * boundary
 
 			quotient += (1 << power)
 
 			dividend -= (divisor << power)
 
-		return quotient * sign
-
-			
-	
-
-		
+		return sign * quotient
