@@ -3,6 +3,7 @@ class Solution:
 	def divide(self, dividend, divisor):
 
 		if dividend == -(1 << 31) and divisor == -1:
+
 			return (1 << 31) - 1
 
 		sign = 1 if (dividend > 0) == (divisor > 0) else -1
@@ -21,4 +22,5 @@ class Solution:
 
 			dividend -= (divisor << power)
 
-		return sign * quotient
+		return quotient * sign
+
