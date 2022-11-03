@@ -4,23 +4,19 @@ class Solution:
 
 		nums.sort()
 
-		result, numsLength = [], len(nums)
+		result = []
 
-		for firstIndex in range(numsLength):
+		for firstIndex, firstNumber in enumerate(nums):
 
-			firstNumber = nums[firstIndex]
-
-			if firstIndex > 0 and nums[firstIndex-1] == firstNumber:
+			if firstIndex > 0 and firstNumber == nums[firstIndex-1]:
 
 				continue
 
-			secondIndex, thirdIndex = firstIndex + 1, numsLength - 1
+			secondIndex, thirdIndex = firstIndex+1, len(nums)-1
 
 			while secondIndex < thirdIndex:
 
-				secondNumber, thirdNumber = nums[secondIndex], nums[thirdIndex]
-
-				addition = firstNumber + secondNumber + thirdNumber
+				addition = firstNumber + nums[secondIndex] + nums[thirdIndex]
 
 				if addition < 0:
 
@@ -32,8 +28,8 @@ class Solution:
 
 				else:
 
-					result.append([firstNumber, secondNumber, thirdNumber])
-
+					result.append([firstNumber, nums[secondIndex], nums[thirdIndex]])
+		
 					secondIndex += 1
 
 					while secondIndex < thirdIndex and nums[secondIndex] == nums[secondIndex-1]:
@@ -42,8 +38,5 @@ class Solution:
 
 
 		return result
-			
-
-				
 
 			
