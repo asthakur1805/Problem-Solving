@@ -4,43 +4,62 @@ class Solution:
 
 		nums.sort()
 
-		result = []
+		result, builder = [], []
 
-		for firstIndex, firstValue in enumerate(nums):
+		self.helper(nums, target, 4, 0, builder, result)
 
-			if firstIndex > 0 and nums[firstIndex-1] == firstValue:
+		return result
 
-				continue
+	def helper(self, nums, target, K, index, builder, result):
 
-			for secondIndex in range(firstIndex + 1, len(nums)):
+		if K != 2:
 
-				if secondIndex > firstIndex+1 and nums[secondIndex-1] == nums[secondIndex]:
+			for currIndex in range(index, len(nums)-K+1):
+
+				if currIndex > index and nums[currIndex] == nums[currIndex-1]:
 
 					continue
 
-				thirdIndex, fourthIndex = secondIndex + 1, len(nums)-1
+				builder.append(nums[currIndex])
 
-				while thirdIndex < fourthIndex:
+				self.helper(nums, target - nums[currIndex], K-1, currIndex+1, builder, result)
 
-					addition = firstValue + nums[secondIndex] + nums[thirdIndex] + nums[fourthIndex]
+				builder.pop()
 
-					if addition < target:
+			return
 
-						thirdIndex += 1
+		leftPointer, rightPointer = index, len(nums)-1
 
-					elif addition > target:
+		while leftPointer < rightPointer:
 
-						fourthIndex -= 1
+			addition = nums[leftPointer] + nums[rightPointer]
 
-					else:
+			if addition < target:
 
-						result.append([firstValue, nums[secondIndex], nums[thirdIndex], nums[fourthIndex]])
+				leftPointer += 1
 
-						thirdIndex += 1
+			elif addition > target:
 
-						while thirdIndex < fourthIndex and nums[thirdIndex] == nums[thirdIndex-1]:
+				rightPointer -= 1
 
-							thirdIndex += 1
+			else:
 
+				builder.append(nums[leftPointer])
+				builder.append(nums[rightPointer])
 
-		return result
+				result.append(builder.copy())
+
+				for _ in range(2):
+					builder.pop()
+
+				leftPointer += 1
+
+				while leftPointer < rightPointer and nums[leftPointer]==nums[leftPointer-1]:
+
+					leftPointer += 1
+
+		return
+
+				
+
+			
