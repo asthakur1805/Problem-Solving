@@ -6,17 +6,18 @@ class Solution:
 
 		for _ in range(numberTerms - 1):
 
-			builder, countIndex = [], 0
+			builder, index = [], 0
 
-			while countIndex < len(result):
+			while index < len(result):
 
-				character, count = result[countIndex], 0
+				character, count = result[index], 0
 
-				while countIndex < len(result) and result[countIndex] == character:
+				while index < len(result) and result[index] == character:
 
 					count += 1
-					countIndex += 1
-				
+
+					index += 1
+
 				builder.append(str(count))
 				builder.append(character)
 
