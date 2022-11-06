@@ -2,25 +2,18 @@ class Solution:
 
 	def rotate(self, matrix):
 
-		leftPointer, rightPointer = 0, len(matrix)-1
+		topPointer, bottomPointer = 0, len(matrix)-1
 
-		while leftPointer < rightPointer:
+		while topPointer < bottomPointer:
 
-			topPointer, bottomPointer = leftPointer, rightPointer
+			matrix[topPointer], matrix[bottomPointer] = matrix[bottomPointer], matrix[topPointer]
+			topPointer += 1
+			bottomPointer -= 1
 
-			for offset in range(rightPointer - leftPointer):
+		for rowNumber in range(len(matrix)):
 
-				topLeft = matrix[topPointer][leftPointer+offset]
+			for columnNumber in range(rowNumber+1, len(matrix)):
 
-				matrix[topPointer][leftPointer+offset] = matrix[bottomPointer-offset][leftPointer]
-
-				matrix[bottomPointer-offset][leftPointer] = matrix[bottomPointer][rightPointer-offset]
-
-				matrix[bottomPointer][rightPointer-offset] = matrix[topPointer+offset][rightPointer]
-
-				matrix[topPointer+offset][rightPointer] = topLeft
-
-			leftPointer += 1
-			rightPointer -= 1
-
+				matrix[rowNumber][columnNumber], matrix[columnNumber][rowNumber] = matrix[columnNumber][rowNumber], matrix[rowNumber][columnNumber]
+		
 		
