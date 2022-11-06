@@ -4,12 +4,10 @@ class Solution:
 
 		result = 0
 
-		for index in range(32):
+		for bitIndex in range(32):
 
-			bit = (number >> index) & 1
+			bit = (number >> bitIndex) & 1
 
-			result = result | bit
+			result = result | (bit << (31 - bitIndex))
 
-			result = result << 1
-
-		return result >> 1
+		return result
