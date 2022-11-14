@@ -16,17 +16,17 @@ class Solution:
 
 			return
 
+		builder.append(root.val)
+
 		if not root.left and not root.right and root.val == target:
 			
-			builder.append(root.val)
 			result.append(builder.copy())
 			builder.pop()
-			
 			return
 
-		builder.append(root.val)
 		self.helper(root.left, target-root.val, builder, result)
 		self.helper(root.right, target-root.val, builder, result)
+		
 		builder.pop()
 			
 		
