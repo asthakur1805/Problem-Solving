@@ -15,12 +15,12 @@ class Solution:
 
 				node = queue.popleft()
 
-				node.next = None if nodeNumber == levelCount-1 else queue[0]
-
-				if node.left:
+				if node:
+					
+					node.next = None if nodeNumber == levelCount-1 else queue[0]
+				
 					queue.append(node.left)
 
-				if node.right:
 					queue.append(node.right)
 
 		return root
