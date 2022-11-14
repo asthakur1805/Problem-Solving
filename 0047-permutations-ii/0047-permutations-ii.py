@@ -4,25 +4,33 @@ class Solution:
 
 		nums.sort()
 
+		builder = []
+
 		result = []
 
-		self.helper(nums, 0, result)
+		numsUsed = [False]*len(nums)
+
+		self.helper(nums, builder, numsUsed, result)
 
 		return result
 
-	def helper(self, nums, index, result):
 
-		if index == len(nums):
+	def helper(self, nums, builder, numsUsed, result):
 
-			result.append(nums.copy())
+		if len(builder) == len(nums):
+			result.append(builder.copy())
 			return
 
-		for swapIndex in range(index,len(nums)):
+		for index, num in enumerate(nums):
 
-			if swapIndex != index and nums[swapIndex] == nums[index]:
-
+			if numsUsed[index] or index > 0 and nums[index] == nums[index-1] and not numsUsed[index-1]:
 				continue
 
-			nums[index], nums[swapIndex] = nums[swapIndex], nums[index]
+			numsUsed[index] = True
+			builder.append(num)
 
-			self.helper(nums.copy(), index+1, result)
+			self.helper(nums, builder, numsUsed, result)
+
+			builder.pop()
+			numsUsed[index] = False
+	
