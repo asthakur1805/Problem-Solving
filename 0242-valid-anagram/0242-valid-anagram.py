@@ -3,27 +3,20 @@ class Solution:
 	def isAnagram(self, firstStr, secondStr):
 
 		if len(firstStr) != len(secondStr):
-
 			return False
 
-		firstStrMap, secondStrMap = self.getCounts(firstStr), self.getCounts(secondStr)
+		firstStrMap, secondStrMap = {}, {}
 
-		for currKey in firstStrMap.keys():
+		for charIndex in range(len(firstStr)):
 
-			if currKey not in secondStrMap or firstStrMap[currKey] != secondStrMap[currKey]:
+			firstStrMap[firstStr[charIndex]] = 1 + firstStrMap.get(firstStr[charIndex], 0)
+
+			secondStrMap[secondStr[charIndex]] = 1 + secondStrMap.get(secondStr[charIndex], 0)
+
+		for character in firstStrMap:
+
+			if firstStrMap[character] != secondStrMap.get(character, 0):
 
 				return False
 
 		return True
-
-	def getCounts(self, inputStr):
-
-		outputMap = {}
-
-		for character in inputStr:
-
-			outputMap[character] = outputMap.get(character, 0) + 1
-
-		return outputMap
-
-	
