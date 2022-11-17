@@ -4,10 +4,10 @@ class Solution:
 
 		result = 0
 
-		for _ in range(32):
+		while num:
 
-			result += (num & 1)
-			num >>= 1
+			num = num & (num-1)
+
+			result += 1
 
 		return result
-				
