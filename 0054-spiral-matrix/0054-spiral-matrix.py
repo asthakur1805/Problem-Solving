@@ -24,22 +24,22 @@ class Solution:
 
 			rightPointer -= 1
 			
-			
-			if topPointer <= bottomPointer:
-			
-				for columnNumber in range(rightPointer, leftPointer-1, -1):
+			if leftPointer > rightPointer or topPointer > bottomPointer:
+				
+				return result
+						
+			for columnNumber in range(rightPointer, leftPointer-1, -1):
 
-					result.append(matrix[bottomPointer][columnNumber])
+				result.append(matrix[bottomPointer][columnNumber])
 
-				bottomPointer -= 1
+			bottomPointer -= 1
 
-			if leftPointer <= rightPointer:
 
-				for rowNumber in range(bottomPointer, topPointer-1, -1):
+			for rowNumber in range(bottomPointer, topPointer-1, -1):
 
-					result.append(matrix[rowNumber][leftPointer])
+				result.append(matrix[rowNumber][leftPointer])
 
-				leftPointer += 1
+			leftPointer += 1
 
 		return result
 		
