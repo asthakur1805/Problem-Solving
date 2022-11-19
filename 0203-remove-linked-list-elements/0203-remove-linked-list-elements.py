@@ -4,18 +4,16 @@ class Solution:
 
 		dummyNode = ListNode(0, head)
 
-		prevNode, currNode = dummyNode, head
+		currNode = dummyNode
 
-		while currNode:
+		while currNode.next:
 
-			if currNode.val == inputVal:
+			if currNode.next.val == inputVal:
 
-				prevNode.next = currNode.next
+				currNode.next = currNode.next.next
 
 			else:
 
-				prevNode = prevNode.next
-
-			currNode = currNode.next
+				currNode = currNode.next
 
 		return dummyNode.next
