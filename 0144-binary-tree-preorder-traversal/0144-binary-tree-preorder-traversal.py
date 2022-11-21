@@ -2,22 +2,37 @@ class Solution:
 
 	def preorderTraversal(self, root):
 
-		result = []
-
-		self.preorder(root, result)
-
-		return result
-
-	def preorder(self, node, result):
-
-		if not node:
+		if not root:
 
 			return 
 
-		result.append(node.val)
 
-		self.preorder(node.left, result)
+		# Node, toProcess flag
+		stack = [(root, False)]
 
-		self.preorder(node.right, result)
+		result = []
 
-		
+		while stack:
+
+			node, toProcess = stack.pop()
+
+			if not toProcess:
+
+				# Push Right, Left, Root onto the stack
+
+				if node.right:
+
+					stack.append((node.right, False))
+
+				if node.left:
+
+					stack.append((node.left, False))
+
+				stack.append((node, True))
+
+
+			else:
+
+				result.append(node.val)
+
+		return result
