@@ -4,9 +4,7 @@ class Solution:
 
 		dummyNode = ListNode()
 
-		currFirstList, currSecondList, currResultList = headFirstList, headSecondList, dummyNode
-
-		carry  = 0
+		currFirstList, currSecondList, currResultList, carry = headFirstList, headSecondList, dummyNode, 0
 
 		while currFirstList or currSecondList or carry:
 
@@ -16,11 +14,10 @@ class Solution:
 			addition = digitFirstList + digitSecondList + carry
 
 			currResultList.next = ListNode(addition % 10)
-
 			carry = addition // 10
 
-			currFirstList = currFirstList.next if currFirstList else None
-			currSecondList = currSecondList.next if currSecondList else None
+			currFirstList = currFirstList.next if currFirstList else currFirstList
+			currSecondList = currSecondList.next if currSecondList else currSecondList
 			currResultList = currResultList.next
 
 		return dummyNode.next
