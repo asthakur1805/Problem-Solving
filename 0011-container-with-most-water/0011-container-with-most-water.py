@@ -2,22 +2,22 @@ class Solution:
 
 	def maxArea(self, heights):
 
-		leftPointer, rightPointer = 0, len(heights)-1
+		firstLine, secondLine = 0, len(heights)-1
 
 		resultArea = 0
 
-		while leftPointer < rightPointer:
+		while firstLine < secondLine:
 
-			currentArea = (rightPointer - leftPointer) * min(heights[leftPointer], heights[rightPointer])
+			currentArea = (secondLine - firstLine) * min(heights[firstLine], heights[secondLine])
 
-			resultArea = max(currentArea, resultArea)
+			resultArea = max(resultArea, currentArea)
 
-			if heights[leftPointer] < heights[rightPointer]:
+			if heights[firstLine] < heights[secondLine]:
 
-				leftPointer += 1
+				firstLine += 1
 
 			else:
 
-				rightPointer -= 1
+				secondLine -= 1
 
 		return resultArea
