@@ -2,21 +2,33 @@ class Solution:
 
 	def postorderTraversal(self, root):
 
-		result = []
-
-		self.postorder(root, result)
-
-		return result
-
-	def postorder(self, node, result):
-
-		if not node:
+		if not root:
 
 			return 
 
-		self.postorder(node.left, result)
+		stack = [(root, False)]
 
-		self.postorder(node.right, result)
+		result = []
 
-		result.append(node.val)
+		while stack:
+
+			node, toProcess = stack.pop()
+
+			if not toProcess:
+
+				stack.append((node, True))
+
+				if node.right:
+
+					stack.append((node.right, False))
+
+				if node.left:
+
+					stack.append((node.left, False))
+
+			else:
+
+				result.append(node.val)
+
+		return result
 		
