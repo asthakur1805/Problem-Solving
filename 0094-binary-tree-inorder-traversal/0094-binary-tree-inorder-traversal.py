@@ -2,23 +2,32 @@ class Solution:
 
 	def inorderTraversal(self, root):
 
-		result = []
-
-		self.helper(root, result)
-
-		return result
-
-	def helper(self, node, result):
-
-		if not node:
+		if not root:
 
 			return 
 
-		self.helper(node.left, result)
+		result = []
 
-		result.append(node.val)
+		stack = [(root, False)]
 
-		self.helper(node.right, result)
+		while stack:
 
+			node, toProcess = stack.pop()
 
-	
+			if not toProcess:
+
+				if node.right:
+
+					stack.append((node.right, False))
+
+				stack.append((node, True))
+
+				if node.left:
+
+					stack.append((node.left, False))
+
+			else:
+
+				result.append(node.val)
+
+		return result
