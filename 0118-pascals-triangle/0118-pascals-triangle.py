@@ -2,11 +2,10 @@ class Solution:
 
 	def generate(self, numRows):
 
-		if numRows == 0:
-
+		if not numRows:
 			return
 
-		triangleResult = [[1]]
+		result = [[1]]
 
 		for rowIndex in range(1, numRows):
 
@@ -14,10 +13,10 @@ class Solution:
 
 			for columnIndex in range(1, rowIndex):
 
-				rowResult.append(triangleResult[rowIndex-1][columnIndex] + triangleResult[rowIndex-1][columnIndex-1])
+				rowResult.append(result[rowIndex-1][columnIndex] + result[rowIndex-1][columnIndex-1])
 
 			rowResult.append(1)
 
-			triangleResult.append(rowResult)
+			result.append(rowResult)
 
-		return triangleResult
+		return result
