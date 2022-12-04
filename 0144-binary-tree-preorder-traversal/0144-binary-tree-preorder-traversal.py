@@ -4,21 +4,17 @@ class Solution:
 
 		if not root:
 
-			return 
-
-
-		# Node, toProcess flag
-		stack = [(root, False)]
+			return
 
 		result = []
+
+		stack = [(root, False)]
 
 		while stack:
 
 			node, toProcess = stack.pop()
 
 			if not toProcess:
-
-				# Push Right, Left, Root onto the stack
 
 				if node.right:
 
@@ -34,5 +30,6 @@ class Solution:
 			else:
 
 				result.append(node.val)
+
 
 		return result
