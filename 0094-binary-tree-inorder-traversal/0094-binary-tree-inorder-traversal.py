@@ -4,7 +4,7 @@ class Solution:
 
 		if not root:
 
-			return 
+			return
 
 		result = []
 
@@ -29,5 +29,6 @@ class Solution:
 			else:
 
 				result.append(node.val)
+
 
 		return result
