@@ -1,19 +1,20 @@
 class Solution:
 
-	def getRow(self, rowIndex):
+	def getRow(self, index):
 
-		rowResult = [1]
+		result = [[1]]
 
-		for rowNumber in range(1, rowIndex+1):
+		for rowIndex in range(1, index+1):
 
-			columnIndex = len(rowResult)-1
+			rowResult = [1]
 
-			for _ in range(rowNumber-1):
+			for columnIndex in range(1, rowIndex):
 
-				rowResult[columnIndex] += rowResult[columnIndex-1]
-
-				columnIndex -= 1
+				rowResult.append(result[rowIndex-1][columnIndex] + result[rowIndex-1][columnIndex-1])
 
 			rowResult.append(1)
 
-		return rowResult
+			result.append(rowResult)
+
+		return result[index]
+
