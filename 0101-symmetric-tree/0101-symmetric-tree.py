@@ -1,23 +1,17 @@
 class Solution:
 
 	def isSymmetric(self, root):
+		
+		return self.helper(root, root)
+	
+	def helper(self, leftTreeNode, rightTreeNode):
 
-		stack = [(root, root)]
+		if not leftTreeNode and not rightTreeNode:
 
-		while stack:
+			return True
 
-			leftTreeNode, rightTreeNode = stack.pop()
+		if not leftTreeNode or not rightTreeNode or leftTreeNode.val != rightTreeNode.val:
 
-			if not leftTreeNode and not rightTreeNode:
+			return False
 
-				continue
-
-			if not leftTreeNode or not rightTreeNode or leftTreeNode.val != rightTreeNode.val:
-
-				return False
-
-			stack.append((leftTreeNode.left, rightTreeNode.right))
-			
-			stack.append((leftTreeNode.right, rightTreeNode.left))
-
-		return True
+		return self.helper(leftTreeNode.left, rightTreeNode.right) and self.helper(leftTreeNode.right, rightTreeNode.left)
