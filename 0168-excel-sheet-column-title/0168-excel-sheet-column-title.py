@@ -6,9 +6,11 @@ class Solution:
 
 		while columnNumber:
 
-			charValue = (columnNumber - 1) % 26
+			faceValue = (columnNumber - 1) % 26
 
-			columnTitle.append(chr(charValue + ord('A')))
+			columnCharacter = chr(faceValue + ord('A'))
+
+			columnTitle.append(columnCharacter)
 
 			columnNumber = (columnNumber - 1) // 26
 
