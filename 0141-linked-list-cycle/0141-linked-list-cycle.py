@@ -1,17 +1,18 @@
+
 class Solution:
 
 	def hasCycle(self, head):
 
-		slowPointer = fastPointer = head
+		currNode, visitedNodes = head, set()
 
-		while fastPointer and fastPointer.next:
+		while currNode:
 
-			slowPointer = slowPointer.next
-			fastPointer = fastPointer.next.next
+			if currNode in visitedNodes:
 
-			if slowPointer == fastPointer:
-				
 				return True
 
+			visitedNodes.add(currNode)
+
+			currNode = currNode.next
 
 		return False
