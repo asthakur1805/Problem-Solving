@@ -2,28 +2,24 @@ class Solution:
 
 	def maxDepth(self, root):
 
-		resultDepth = 0
-
 		if not root:
 
-			return resultDepth
+			return 0
 
-		stack = [(root, 1)]
+		queue = collections.deque([(root, 1)])
 
-		while stack:
+		while queue:
+	
+			for _ in range(len(queue)):
 
-			node, depth = stack.pop()
+				node, depth = queue.popleft()
 
-			if depth > resultDepth:
+				if node.left:
 
-				resultDepth = depth
+					queue.append((node.left, depth+1))
 
-			if node.right:
+				if node.right:
 
-				stack.append((node.right, depth+1))
+					queue.append((node.right, depth+1))
 
-			if node.left:
-
-				stack.append((node.left, depth+1))
-
-		return resultDepth
+		return depth
