@@ -1,18 +1,17 @@
-# Brute
-
 class Solution:
 
 	def twoSum(self, nums, target):
 
-		numsLength = len(nums)
+		visitedNums = {}
 
-		for firstIndex in range(numsLength-1):
+		for index, value in enumerate(nums):
 
-			for secondIndex in range(firstIndex+1, numsLength):
+			difference = target - value
 
-				if nums[firstIndex] + nums[secondIndex] == target:
+			if difference in visitedNums:
 
-					return [firstIndex, secondIndex]
+				return [visitedNums[difference], index]
 
+			visitedNums[value] = index
 
 		return []
