@@ -4,10 +4,10 @@ class Solution:
 
 		columnNumber = 0
 
-		for columnChar in columnTitle:
+		for columnCharacter in columnTitle:
 
-			charValue = ord(columnChar) - ord('A') + 1
+			faceValue = ord(columnCharacter) - ord('A') + 1
 
-			columnNumber = columnNumber * 26 + charValue
+			columnNumber = columnNumber * 26 + faceValue
 
 		return columnNumber
