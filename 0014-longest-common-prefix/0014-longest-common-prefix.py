@@ -1,19 +1,20 @@
 class Solution:
-
-	def longestCommonPrefix(self, inputStrings):
-
-		inputStrings.sort()
-
-		firstString, lastString = inputStrings[0], inputStrings[-1]
+	
+	def longestCommonPrefix(self, inputStrs):
 
 		resultPrefix = []
 
-		for charIndex in range(len(firstString)):
+		for index, character in enumerate(inputStrs[0]):
 
-			if firstString[charIndex] != lastString[charIndex]:
-				break
+			for remaining in range(1, len(inputStrs)):
 
-			resultPrefix.append(firstString[charIndex])
+				word = inputStrs[remaining]
+
+				if index == len(word) or word[index] != character:
+
+					return ''.join(resultPrefix)
+
+
+			resultPrefix.append(character)
 
 		return ''.join(resultPrefix)
-
