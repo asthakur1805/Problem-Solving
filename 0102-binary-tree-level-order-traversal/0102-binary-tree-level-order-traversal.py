@@ -3,8 +3,8 @@ class Solution:
 	def levelOrder(self, root):
 
 		if not root:
-
-			return 
+			
+			return
 
 		result = []
 
