@@ -2,7 +2,7 @@ class Solution:
 
 	def generate(self, numRows):
 
-		if not numRows:
+		if numRows < 1:
 
 			return
 
