@@ -2,10 +2,6 @@ class Solution:
 
 	def generate(self, numRows):
 
-		if numRows < 1:
-
-			return
-
 		result = [[1]]
 
 		for rowIndex in range(1, numRows):
