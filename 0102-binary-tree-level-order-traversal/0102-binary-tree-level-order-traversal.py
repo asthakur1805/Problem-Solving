@@ -3,12 +3,12 @@ class Solution:
 	def levelOrder(self, root):
 
 		if not root:
-			
+
 			return
 
-		result = []
-
 		queue = collections.deque([root])
+
+		result = []
 
 		while queue:
 
@@ -27,7 +27,6 @@ class Solution:
 				if node.right:
 
 					queue.append(node.right)
-
 
 			result.append(level)
 
