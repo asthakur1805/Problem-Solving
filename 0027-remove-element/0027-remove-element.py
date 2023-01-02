@@ -9,7 +9,7 @@ class Solution:
 			if nums[fastPointer] != val:
 
 				nums[slowPointer] = nums[fastPointer]
-
+				
 				slowPointer += 1
 
 		return slowPointer
