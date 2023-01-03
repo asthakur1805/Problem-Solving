@@ -8,14 +8,16 @@ class Solution:
 
 		if leftPointer > rightPointer:
 
-			return
+			return 
 
 		midPointer = leftPointer + (rightPointer - leftPointer) // 2
 
-		root = TreeNode(nums[midPointer])
+		rootNode = TreeNode(nums[midPointer])
 
-		root.left = self.helper(nums, leftPointer, midPointer-1)
+		rootNode.left = self.helper(nums, leftPointer, midPointer - 1)
 
-		root.right = self.helper(nums, midPointer+1, rightPointer)
+		rootNode.right = self.helper(nums, midPointer + 1, rightPointer)
 
-		return root
+		return rootNode
+
+	
