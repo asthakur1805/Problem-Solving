@@ -2,20 +2,28 @@ class Solution:
 
 	def postorder(self, root):
 
-		result = []
-
-		self.helper(root, result)
-
-		return result
-
-	def helper(self, node, result):
-
-		if not node:
+		if not root:
 
 			return
 
-		for childNode in node.children:
+		result = []
 
-			self.helper(childNode, result)
+		stack = [(root, False)]
 
-		result.append(node.val)
+		while stack:
+
+			node, toProcess = stack.pop()
+
+			if not toProcess:
+
+				stack.append((node, True))
+
+				for childIndex in range(len(node.children)-1,-1,-1):
+
+					stack.append((node.children[childIndex], False))
+
+			else:
+
+				result.append(node.val)
+
+		return result
