@@ -2,20 +2,33 @@ class Solution:
 
 	def preorderTraversal(self, root):
 
+		if not root:
+
+			return
+
+		stack = [(root, False)]
+
 		result = []
 
-		self.helper(root, result)
+		while stack:
+
+			node, toProcess = stack.pop()
+
+			if not toProcess:
+
+				if node.right:
+
+					stack.append((node.right, False))
+
+				if node.left:
+
+					stack.append((node.left, False))
+
+				stack.append((node, True))
+
+			else:
+
+				result.append(node.val)
+
 
 		return result
-
-	def helper(self, node, result):
-
-		if not node:
-
-			return 
-
-		result.append(node.val)
-
-		self.helper(node.left, result)
-
-		self.helper(node.right, result)
