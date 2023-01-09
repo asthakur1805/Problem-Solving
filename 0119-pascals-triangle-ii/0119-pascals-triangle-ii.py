@@ -2,18 +2,18 @@ class Solution:
 
 	def getRow(self, index):
 
-		rowResult = [1]
+		triangle = [[1]]
 
 		for rowIndex in range(1, index+1):
 
-			columnIndex = len(rowResult)-1
+			rowResult = [1]
 
-			for _ in range(rowIndex-1):
+			for columnIndex in range(1, rowIndex):
 
-				rowResult[columnIndex] += rowResult[columnIndex-1]
-
-				columnIndex -= 1
+				rowResult.append(triangle[rowIndex-1][columnIndex] + triangle[rowIndex-1][columnIndex-1])
 
 			rowResult.append(1)
 
-		return rowResult
+			triangle.append(rowResult)
+
+		return triangle[index]
