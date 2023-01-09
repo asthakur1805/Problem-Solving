@@ -6,8 +6,8 @@ class Solution:
 
 		for columnCharacter in columnTitle:
 
-			digit = ord(columnCharacter) - ord('A') + 1
+			placeValue = ord(columnCharacter) - ord('A') + 1
 
-			columnNumber = columnNumber * 26 + digit
+			columnNumber  = columnNumber * 26 + placeValue
 
 		return columnNumber
