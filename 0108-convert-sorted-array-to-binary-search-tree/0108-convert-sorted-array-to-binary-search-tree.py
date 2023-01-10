@@ -14,10 +14,6 @@ class Solution:
 
 		rootNode = TreeNode(nums[midPointer])
 
-		rootNode.left = self.helper(nums, leftPointer, midPointer - 1)
-
-		rootNode.right = self.helper(nums, midPointer + 1, rightPointer)
+		rootNode.left, rootNode.right = self.helper(nums, leftPointer, midPointer-1), self.helper(nums, midPointer+1, rightPointer)
 
 		return rootNode
-
-	
