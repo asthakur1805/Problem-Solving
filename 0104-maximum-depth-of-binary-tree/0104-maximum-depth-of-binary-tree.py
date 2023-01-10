@@ -3,23 +3,8 @@ class Solution:
 	def maxDepth(self, root):
 
 		if not root:
-			
+
 			return 0
 
-		queue = collections.deque([(root,1)])
+		return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
-		while queue:
-
-			for _ in range(len(queue)):
-
-				node, depth = queue.popleft()
-
-				if node.left:
-
-					queue.append((node.left, depth+1))
-
-				if node.right:
-
-					queue.append((node.right, depth+1))
-
-		return depth
