@@ -2,7 +2,7 @@ class Solution:
 
 	def hasCycle(self, head):
 
-		slowPointer, fastPointer = head, head
+		slowPointer = fastPointer = head
 
 		while fastPointer and fastPointer.next:
 
@@ -10,6 +10,7 @@ class Solution:
 			fastPointer = fastPointer.next.next
 
 			if slowPointer == fastPointer:
+
 				return True
 
 		return False
