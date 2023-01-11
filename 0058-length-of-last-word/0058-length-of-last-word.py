@@ -2,17 +2,18 @@ class Solution:
 
 	def lengthOfLastWord(self, inputStr):
 
-		charIndex = len(inputStr)-1
+		index = len(inputStr)-1
 
-		while inputStr[charIndex] == ' ':
+		while inputStr[index] == ' ':
 
-			charIndex -= 1
+			index -= 1
 
 		resultLength = 0
 
-		while charIndex >= 0 and inputStr[charIndex] != ' ':
+		while index >= 0 and inputStr[index] != ' ':
 
 			resultLength += 1
-			charIndex -= 1
+
+			index -= 1
 
 		return resultLength
