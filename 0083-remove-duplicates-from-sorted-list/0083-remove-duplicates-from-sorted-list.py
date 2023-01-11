@@ -18,6 +18,7 @@ class Solution:
 
 			fastPointer = fastPointer.next
 
+
 		slowPointer.next = None
 
 		return head
