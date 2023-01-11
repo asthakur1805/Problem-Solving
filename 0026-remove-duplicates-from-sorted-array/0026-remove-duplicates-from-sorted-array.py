@@ -2,9 +2,9 @@ class Solution:
 
 	def removeDuplicates(self, nums):
 
-		if len(nums) < 1:
+		if len(nums) <= 1:
 
-			return 
+			return len(nums)
 
 		slowPointer = 1
 
@@ -13,6 +13,7 @@ class Solution:
 			if nums[slowPointer-1] != nums[fastPointer]:
 
 				nums[slowPointer] = nums[fastPointer]
+
 				slowPointer += 1
 
 		return slowPointer
