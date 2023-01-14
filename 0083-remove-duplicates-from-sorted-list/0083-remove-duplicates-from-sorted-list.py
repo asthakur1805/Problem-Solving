@@ -16,8 +16,8 @@ class Solution:
 
 				slowPointer.val = fastPointer.val
 
-			fastPointer = fastPointer.next
 
+			fastPointer = fastPointer.next
 
 		slowPointer.next = None
 
