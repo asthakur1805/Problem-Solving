@@ -2,16 +2,15 @@ class Solution:
 
 	def twoSum(self, nums, target):
 
-		visitedNums = {}
+		numsLength = len(nums)
 
-		for index, value in enumerate(nums):
+		for firstIndex in range(numsLength-1):
 
-			difference = target - value
+			for secondIndex in range(firstIndex + 1, numsLength):
 
-			if difference in visitedNums:
+				if nums[firstIndex] + nums[secondIndex] == target:
 
-				return [visitedNums[difference], index]
+					return [firstIndex, secondIndex]
 
-			visitedNums[value] = index
 
 		return []
