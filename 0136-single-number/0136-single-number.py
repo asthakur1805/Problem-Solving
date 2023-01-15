@@ -2,10 +2,18 @@ class Solution:
 
 	def singleNumber(self, nums):
 
-		result = 0
+		visitedNums = set()
 
 		for num in nums:
 
-			result ^= num
+			if num in visitedNums:
 
-		return result
+				visitedNums.remove(num)
+
+			else:
+
+				visitedNums.add(num)
+
+		for num in visitedNums:
+
+			return num
