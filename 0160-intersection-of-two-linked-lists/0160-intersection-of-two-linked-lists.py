@@ -1,25 +1,38 @@
 class Solution:
 
+	def calculateLength(self, head):
+
+		result, currNode = 0, head
+
+		while currNode:
+
+			result += 1
+
+			currNode = currNode.next
+
+		return result
+
 	def getIntersectionNode(self, headFirstList, headSecondList):
 
-		visitedNodes = set()
+		firstListLength, secondListLength = self.calculateLength(headFirstList), self.calculateLength(headSecondList)
 
-		currFirstList = headFirstList	
+		currFirstList, currSecondList = headFirstList, headSecondList
 
-		while currFirstList:
+		if firstListLength >= secondListLength:
 
-			visitedNodes.add(currFirstList)
+			for _ in range(firstListLength-secondListLength):
+
+				currFirstList = currFirstList.next
+
+		else:
+
+			for _ in range(secondListLength-firstListLength):
+
+				currSecondList = currSecondList.next
+
+		while currFirstList != currSecondList:
 
 			currFirstList = currFirstList.next
-
-		currSecondList = headSecondList
-
-		while currSecondList:
-
-			if currSecondList in visitedNodes:
-
-				return currSecondList
-
 			currSecondList = currSecondList.next
 
-		return
+		return currFirstList
