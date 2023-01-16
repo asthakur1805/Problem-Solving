@@ -2,16 +2,16 @@ class Solution:
 
 	def reverseList(self, head):
 
-		prevNode, currNode = None, head
+		return self.helper(head, None)
 
-		while currNode:
+	def helper(self, currNode, prevNode):
 
-			nextNode = currNode.next
+		if not currNode:
 
-			currNode.next = prevNode
+			return prevNode
 
-			prevNode = currNode
+		nextNode = currNode.next
 
-			currNode = nextNode
+		currNode.next = prevNode
 
-		return prevNode
+		return self.helper(nextNode, currNode)
