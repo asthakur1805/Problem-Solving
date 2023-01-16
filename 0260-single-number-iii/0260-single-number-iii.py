@@ -2,16 +2,24 @@ class Solution:
 
 	def singleNumber(self, nums):
 
-		counts, result = {}, []
+		xorResult = 0
 
 		for num in nums:
 
-			counts[num] = counts.get(num, 0) + 1
+			xorResult ^= num
 
-		for num, count in counts.items():
+		bitDiff = xorResult & (-xorResult)
 
-			if count == 1:
+		result = [0, 0]
 
-				result.append(num)
+		for num in nums:
+
+			if bitDiff & num:
+
+				result[0] ^= num
+
+			else:
+			
+				result[1] ^= num
 
 		return result
