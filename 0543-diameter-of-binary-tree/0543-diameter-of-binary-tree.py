@@ -2,20 +2,33 @@ class Solution:
 
 	def diameterOfBinaryTree(self, root):
 
-		return self.helper(root)[0]
-		
-	def helper(self, node):
+		resultDiameter = [0]
 
-		# Returns a tuple(diameter, height)
+		self.helper(root, resultDiameter)
+
+		return resultDiameter[0]
+
+	def helper(self, node, resultDiameter):
 
 		if not node:
 
-			return (0, 0)
+			return
 
-		leftDiameter, leftHeight = self.helper(node.left)
+		leftHeight, rightHeight = self.calculateHeight(node.left), self.calculateHeight(node.right)
 
-		rightDiameter, rightHeight = self.helper(node.right)
+		resultDiameter[0] = max(resultDiameter[0], leftHeight + rightHeight)
 
-		nodeDiameter = max(leftDiameter, rightDiameter, leftHeight+rightHeight)
+		self.helper(node.left, resultDiameter)
 
-		return (nodeDiameter, 1 + max(leftHeight, rightHeight))
+		self.helper(node.right, resultDiameter)
+
+
+	def calculateHeight(self, node):
+
+		if not node:
+
+			return 0
+
+		return 1 + max(self.calculateHeight(node.left), self.calculateHeight(node.right))
+
+		
