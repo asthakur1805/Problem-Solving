@@ -2,17 +2,23 @@ class Solution:
 
 	def isHappy(self, number):
 
-		visitedNums = set()
+		slowPointer = number
 
-		while number not in visitedNums:
+		fastPointer = number
 
-			if number == 1:
+		while True:
 
-				return True
+			slowPointer = self.sumOfSquares(slowPointer)
 
-			visitedNums.add(number)
+			fastPointer = self.sumOfSquares(self.sumOfSquares(fastPointer))
 
-			number = self.sumOfSquares(number)
+			if slowPointer == fastPointer:
+
+				break
+
+		if slowPointer == 1:
+
+			return True
 
 		return False
 
