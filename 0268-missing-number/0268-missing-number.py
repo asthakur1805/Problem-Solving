@@ -6,8 +6,6 @@ class Solution:
 
 		for index in range(len(nums)):
 
-			result += index - nums[index]
+			result = result ^ index ^ nums[index]
 
-		return result + len(nums)
-
-		
+		return result ^ len(nums)
