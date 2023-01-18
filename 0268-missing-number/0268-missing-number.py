@@ -2,10 +2,12 @@ class Solution:
 
 	def missingNumber(self, nums):
 
-		existingNums = set(nums)
+		result = 0
 
-		for num in range(len(nums)+1):
+		for index in range(len(nums)):
 
-			if num not in existingNums:
+			result += index - nums[index]
 
-				return num
+		return result + len(nums)
+
+		
