@@ -18,12 +18,12 @@ class Solution:
 
 			if count % 3:
 
-				if result + mask < (2 ** 31):
+				if result + mask < (1 << 31):
 
 					result += mask
 
 				else:
 
-					result += mask - (2 ** 32)
+					result += mask - (1 << 32)
 
 		return result
