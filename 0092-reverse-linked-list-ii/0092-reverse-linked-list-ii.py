@@ -2,31 +2,26 @@ class Solution:
 
 	def reverseBetween(self, head, left, right):
 
-		dummy = ListNode(0,head)
+		dummyNode = ListNode(0,head)
 
-		leftBreak, currNode, position = dummy, head, 1
+		leftBreak, currNode = dummyNode, head
 
-		while position < left:
-
-			leftBreak = leftBreak.next
+		for _ in range(left-1):
 
 			currNode = currNode.next
-
-			position += 1
-
-		rightBreak = currNode
+			leftBreak = leftBreak.next
 
 		prevNode = None
 
-		while position <= right:
+		for _ in range(right-left+1):
 
 			nextNode = currNode.next
 			currNode.next = prevNode
 			prevNode = currNode
 			currNode = nextNode
-			position += 1
 
+		leftBreak.next.next = currNode
 		leftBreak.next = prevNode
-		rightBreak.next = currNode
-			
-		return dummy.next
+
+		return dummyNode.next
+		
