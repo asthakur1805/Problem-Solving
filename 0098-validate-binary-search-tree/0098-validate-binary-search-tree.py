@@ -2,13 +2,8 @@ class Solution:
 
 	def isValidBST(self, root):
 
-		if not root:
+		return self.helper(root, float(-inf),float(inf))
 
-			return True
-
-		return self.helper(root.left, float('-inf'), root.val) and self.helper(root.right, root.val, float('inf')) and self.isValidBST(root.left) and self.isValidBST(root.right)
-
-		
 	def helper(self, node, leftBound, rightBound):
 
 		if not node:
@@ -19,4 +14,4 @@ class Solution:
 
 			return False
 
-		return self.helper(node.left, leftBound, rightBound) and self.helper(node.right, leftBound, rightBound)
+		return self.helper(node.left, leftBound, node.val) and self.helper(node.right, node.val, rightBound)
