@@ -4,7 +4,7 @@ class Solution:
 
 		if not root:
 
-			return
+			return 
 
 		result = []
 
@@ -17,7 +17,7 @@ class Solution:
 			for _ in range(len(queue)):
 
 				node = queue.popleft()
-
+				
 				level.append(node.val)
 
 				for childNode in node.children:
