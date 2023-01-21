@@ -1,54 +1,54 @@
-
 class Solution:
-	
+
 	def recoverTree(self, root):
 
-		self.firstViolationNode, self.secondViolationNode, self.index = None, None, 0
-		
-		inorderResult = []
+		self.prevNode, self.currNode, self.firstViolationNode, self.secondViolationNode = TreeNode(float('-inf')), root, None, None
 
-		self.inorderBuilder(root, inorderResult)
+		while self.currNode:
 
-		inorderResult.sort()
+			if not self.currNode.left:
 
-		self.violationDetector(root, inorderResult)
-
-		self.firstViolationNode.val, self.secondViolationNode.val = self.secondViolationNode.val, self.firstViolationNode.val
-
-	def inorderBuilder(self, node, inorderResult):
-
-		if not node:
-
-			return 
-
-		self.inorderBuilder(node.left, inorderResult)
-
-		inorderResult.append(node.val)
-
-		self.inorderBuilder(node.right, inorderResult)
-
-	def violationDetector(self, node, inorderResult):
-
-		if not node:
-
-			return 
-
-		self.violationDetector(node.left, inorderResult)
-
-		if node.val != inorderResult[self.index]:
-
-			if not self.firstViolationNode:
-
-				self.firstViolationNode = node
+				self.helper()
 
 			else:
 
-				self.secondViolationNode = node
+				rightmostOfLeft = self.currNode.left
 
-		self.index += 1
+				while rightmostOfLeft.right and rightmostOfLeft.right != self.currNode:
 
-		self.violationDetector(node.right, inorderResult)
+					rightmostOfLeft = rightmostOfLeft.right
+
+				if not rightmostOfLeft.right:
+
+					rightmostOfLeft.right = self.currNode
+
+					self.currNode = self.currNode.left
+
+				else:
+
+					rightmostOfLeft.right = None
+
+					self.helper()
+
+
+		self.firstViolationNode.val, self.secondViolationNode.val = self.secondViolationNode.val, self.firstViolationNode.val
+
+	def helper(self):
+
+		if not self.firstViolationNode and not(self.prevNode.val < self.currNode.val):
+
+			self.firstViolationNode = self.prevNode
+
+		if self.firstViolationNode and not(self.prevNode.val < self.currNode.val):
+
+			self.secondViolationNode = self.currNode
+
+		self.prevNode = self.currNode
+
+		self.currNode = self.currNode.right
 
 
 
-	
+			
+				
+				
