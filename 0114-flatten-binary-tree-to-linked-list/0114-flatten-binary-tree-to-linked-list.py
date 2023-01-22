@@ -1,21 +1,25 @@
 class Solution:
 
-	def __init__(self):
-
-		self.prev = None
-
 	def flatten(self, root):
 
-		if not root:
+		curr = root
 
-			return
+		while curr:
 
-		self.flatten(root.right)
+			if curr.left:
 
-		self.flatten(root.left)
+				prev = curr.left
 
-		root.right = self.prev
+				while prev.right:
 
-		root.left = None
+					prev = prev.right
 
-		self.prev = root
+				prev.right = curr.right
+	
+				curr.right = curr.left
+
+				curr.left = None
+
+			curr = curr.right
+
+		
