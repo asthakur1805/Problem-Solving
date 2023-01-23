@@ -4,13 +4,20 @@ class Solution:
 
 		numsLength = len(nums)
 
-		rotated = [0] * numsLength 
+		rotations %= numsLength
 
-		for index in range(len(nums)):
+		self.reverse(nums, 0, numsLength - 1)
 
-			rotated[(index+rotations) % numsLength] = nums[index]
+		self.reverse(nums, 0, rotations-1)
 
-		for index in range(len(nums)):
+		self.reverse(nums, rotations, numsLength-1)
+		
+	def reverse(self, nums, leftPointer, rightPointer):
 
-			nums[index] = rotated[index]
+		while leftPointer < rightPointer:
 
+			nums[leftPointer], nums[rightPointer] = nums[rightPointer], nums[leftPointer]
+
+			leftPointer, rightPointer = leftPointer + 1 , rightPointer - 1
+
+	
