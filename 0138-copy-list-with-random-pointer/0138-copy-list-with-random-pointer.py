@@ -6,29 +6,35 @@ class Solution:
 
 			return
 
-		originalToCopied = {}
+		curr = head
 
-		originalNode = head
+		while curr:
 
-		while originalNode:
+			copy = ListNode(curr.val)
 
-			copiedNode = ListNode(originalNode.val)
+			copy.next = curr.next
 
-			originalToCopied[originalNode] = copiedNode
+			curr.next = copy
 
-			originalNode = originalNode.next
+			curr = curr.next.next
 
-		originalNode = head
+		curr = head
 
-		resultHead = originalToCopied[originalNode]
+		while curr:
 
-		while originalNode:
-			
-			copiedNode = originalToCopied[originalNode]
+			curr.next.random = curr.random.next if curr.random else None
 
-			copiedNode.next = originalToCopied.get(originalNode.next,None)
-			copiedNode.random = originalToCopied.get(originalNode.random, None)
+			curr = curr.next.next
 
-			originalNode = originalNode.next
+		curr, resultHead = head, head.next
+
+		while curr:
+
+			copy = curr.next
+
+			curr.next = curr.next.next
+			copy.next = copy.next.next if copy.next else None
+
+			curr = curr.next
 
 		return resultHead
