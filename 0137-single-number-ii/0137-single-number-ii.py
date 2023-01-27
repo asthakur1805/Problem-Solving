@@ -2,14 +2,22 @@ class Solution:
 
 	def singleNumber(self, nums):
 
-		counts = {}
+		if len(nums) == 1:
 
-		for num in nums:
+			return nums[0]
 
-			counts[num] = counts.get(num, 0) + 1
+		nums.sort()
 
-		for num, count in counts.items():
+		if nums[0] != nums[1]:
 
-			if count == 1:
+			return nums[0]
 
-				return num
+		if nums[-1] != nums[-2]:
+
+			return nums[-1]
+
+		for index in range(1,len(nums),3):
+
+			if nums[index] != nums[index-1]:
+
+				return nums[index-1]
