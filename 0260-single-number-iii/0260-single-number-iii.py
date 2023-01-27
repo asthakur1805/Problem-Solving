@@ -2,24 +2,18 @@ class Solution:
 
 	def singleNumber(self, nums):
 
-		xorResult = 0
+		counts = {}
+
+		result = []
 
 		for num in nums:
 
-			xorResult ^= num
+			counts[num] = counts.get(num, 0) + 1
 
-		mask = xorResult & (-xorResult)
+		for num, count in counts.items():
 
-		result = [0, 0]
+			if count == 1:
 
-		for num in nums:
-
-			if mask & num:
-
-				result[0] ^= num
-
-			else:
-
-				result[1] ^= num
+				result.append(num)
 
 		return result
