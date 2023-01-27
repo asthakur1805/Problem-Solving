@@ -2,16 +2,16 @@ class Solution:
 
 	def reverseList(self, head):
 
-		prevPointer = None
+		curr, prev = head, None
 
-		while head:
+		while curr:
 
-			nextNode = head.next
+			nextNode = curr.next
 
-			head.next = prevPointer
+			curr.next = prev
 
-			prevPointer = head
+			prev = curr
 
-			head = nextNode
+			curr = nextNode
 
-		return prevPointer
+		return prev
