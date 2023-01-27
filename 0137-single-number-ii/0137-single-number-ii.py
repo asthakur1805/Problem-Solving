@@ -2,28 +2,14 @@ class Solution:
 
 	def singleNumber(self, nums):
 
-		result = 0
+		counts = {}
 
-		for bitPosition in range(32):
+		for num in nums:
 
-			mask = (1 << bitPosition)
+			counts[num] = counts.get(num, 0) + 1
 
-			count = 0
+		for num, count in counts.items():
 
-			for num in nums:
+			if count == 1:
 
-				if num & mask:
-
-					count += 1
-
-			if count % 3:
-
-				if result + mask < (1 << 31):
-
-					result += mask
-
-				else:
-
-					result += mask - (1 << 32)
-
-		return result
+				return num
