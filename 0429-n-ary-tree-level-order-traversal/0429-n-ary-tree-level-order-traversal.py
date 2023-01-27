@@ -4,11 +4,11 @@ class Solution:
 
 		if not root:
 
-			return 
-
-		result = []
+			return
 
 		queue = collections.deque([root])
+
+		result = []
 
 		while queue:
 
@@ -17,7 +17,7 @@ class Solution:
 			for _ in range(len(queue)):
 
 				node = queue.popleft()
-				
+
 				level.append(node.val)
 
 				for childNode in node.children:
@@ -27,3 +27,5 @@ class Solution:
 			result.append(level)
 
 		return result
+
+			
