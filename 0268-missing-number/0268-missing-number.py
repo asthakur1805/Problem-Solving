@@ -2,10 +2,16 @@ class Solution:
 
 	def missingNumber(self, nums):
 
-		result = 0
+		numsLength = len(nums)
 
-		for index in range(len(nums)):
+		visitedNums = set()
 
-			result = result ^ index ^ nums[index]
+		for num in nums:
 
-		return result ^ len(nums)
+			visitedNums.add(num)
+
+		for num in range(numsLength+1):
+
+			if num not in visitedNums:
+
+				return num
