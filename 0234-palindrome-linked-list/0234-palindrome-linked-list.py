@@ -2,23 +2,32 @@ class Solution:
 
 	def isPalindrome(self, head):
 
-		curr, numsList = head, []
+		slowPointer, fastPointer = head, head
 
-		while curr:
-	
-			numsList.append(curr.val)
+		while fastPointer and fastPointer.next:
 
-			curr = curr.next
+			slowPointer = slowPointer.next
+			fastPointer = fastPointer.next.next
 
-		leftPointer, rightPointer = 0, len(numsList)-1
+		prev = None
 
-		while leftPointer < rightPointer:
+		while slowPointer:
 
-			if numsList[leftPointer] != numsList[rightPointer]:
+			nextNode = slowPointer.next
+			slowPointer.next = prev
+			prev = slowPointer
+			slowPointer = nextNode
+
+		leftPointer, rightPointer = head, prev
+
+		while rightPointer:
+
+			if leftPointer.val != rightPointer.val:
 
 				return False
 
-			leftPointer, rightPointer = leftPointer + 1, rightPointer - 1
+			leftPointer = leftPointer.next
+			rightPointer = rightPointer.next
 
 		return True
-
+	
