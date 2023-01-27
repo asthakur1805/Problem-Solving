@@ -4,13 +4,13 @@ class Solution:
 
 		counts = {}
 
-		for inputChar in inputStr:
+		for char in inputStr:
 
-			counts[inputChar] = counts.get(inputChar, 0) + 1
+			counts[char] = counts.get(char, 0) + 1
 
-		for index, inputChar in enumerate(inputStr):
+		for index, char in enumerate(inputStr):
 
-			if counts[inputChar] == 1:
+			if counts[char] == 1:
 
 				return index
 
