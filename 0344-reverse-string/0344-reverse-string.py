@@ -2,18 +2,14 @@ class Solution:
 
 	def reverseString(self, inputStr):
 
-		self.reverse(inputStr, 0, len(inputStr)-1)
+		stack = []
+
+		for character in inputStr:
+
+			stack.append(character)
+
+		for index in range(len(inputStr)):
+
+			inputStr[index] = stack.pop()
+
 		
-	
-	def reverse(self, inputStr, leftPointer, rightPointer):
-
-		if leftPointer >= rightPointer:
-
-			return
-
-		inputStr[leftPointer], inputStr[rightPointer] = inputStr[rightPointer], inputStr[leftPointer]
-
-		self.reverse(inputStr, leftPointer+1, rightPointer-1)
-
-
-
