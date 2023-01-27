@@ -9,7 +9,7 @@ class Solution:
 		result = self.maxDepth(root.left) + self.maxDepth(root.right)
 
 		return max(result, self.diameterOfBinaryTree(root.left), self.diameterOfBinaryTree(root.right))
-		
+
 	def maxDepth(self, node):
 
 		if not node:
