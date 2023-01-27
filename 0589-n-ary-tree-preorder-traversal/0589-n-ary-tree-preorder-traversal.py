@@ -2,21 +2,31 @@ class Solution:
 
 	def preorder(self, root):
 
-		result = []
-
-		self.helper(root, result)
-
-		return result
-
-	def helper(self, node, result):
-
-		if not node:
+		if not root:
 
 			return
 
-		result.append(node.val)
+		stack = [(root, False)]
 
-		for childNode in node.children:
+		result = []
 
-			self.helper(childNode, result)
+		while stack:
 
+			node, toProcess = stack.pop()
+
+			if not toProcess:
+
+				for childIndex in range(len(node.children)-1,-1,-1):
+
+					childNode = node.children[childIndex]
+
+					stack.append((childNode, False))
+
+				stack.append((node, True))
+
+			else:
+
+				result.append(node.val)
+
+
+		return result
