@@ -1,27 +1,27 @@
 class Solution:
 
-	def reverseBetween(self, head, left, right):
+	def reverseBetween(self, head, start, end):
 
-		dummyNode = ListNode(0,head)
+		dummy = ListNode(0, head)
 
-		leftBreak, currNode = dummyNode, head
+		leftPrev, curr = dummy, head
 
-		for _ in range(left-1):
+		for _ in range(start-1):
 
-			currNode = currNode.next
-			leftBreak = leftBreak.next
+			leftPrev = leftPrev.next
+			curr = curr.next
 
-		prevNode = None
+		prev = None
 
-		for _ in range(right-left+1):
+		for _ in range(end-start+1):
 
-			nextNode = currNode.next
-			currNode.next = prevNode
-			prevNode = currNode
-			currNode = nextNode
+			nextNode = curr.next
+			curr.next = prev
+			prev = curr
+			curr = nextNode
 
-		leftBreak.next.next = currNode
-		leftBreak.next = prevNode
+		leftPrev.next.next = curr
+		leftPrev.next = prev
 
-		return dummyNode.next
-		
+		return dummy.next
+			
