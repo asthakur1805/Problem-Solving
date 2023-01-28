@@ -2,24 +2,34 @@ class Solution:
 
 	def fizzBuzz(self, upperLimit):
 
-		result = []
+		result, fizz, buzz = [], 1, 1
 
-		for num in range(1, upperLimit+1):
 
-			if not num % 3 and not num % 5:
+		for num in range(1,upperLimit+1):
+
+			if fizz == 3 and buzz == 5:
 
 				result.append('FizzBuzz')
 
-			elif not num % 3:
+				fizz = 0
+				buzz = 0
+
+			elif fizz == 3:
 
 				result.append('Fizz')
 
-			elif not num % 5:
+				fizz = 0
+
+			elif buzz == 5:
 
 				result.append('Buzz')
+
+				buzz = 0
 
 			else:
 
 				result.append(str(num))
+
+			fizz, buzz = fizz+1, buzz+1
 
 		return result
