@@ -2,12 +2,20 @@ class Solution:
 
 	def rotate(self, nums, numRotations):
 
-		clone = nums.copy()
+		numRotations %= len(nums)
 
-		for index in range(len(nums)):
+		self.reverse(nums, 0, len(nums)-1)
 
-			clone[(index+numRotations)%len(nums)] = nums[index]
+		self.reverse(nums, 0, numRotations-1)
 
-		for index in range(len(nums)):
+		self.reverse(nums, numRotations, len(nums)-1)
 
-			nums[index] = clone[index]
+	def reverse(self, nums, leftPointer, rightPointer):
+
+		while leftPointer < rightPointer:
+
+			nums[leftPointer], nums[rightPointer] = nums[rightPointer], nums[leftPointer]
+
+			leftPointer, rightPointer = leftPointer + 1, rightPointer - 1
+
+
