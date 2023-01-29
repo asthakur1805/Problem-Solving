@@ -2,22 +2,28 @@ class Solution:
 
 	def flatten(self, root):
 
-		self.prev = None		
-
-		self.helper(root)
-
-	def helper(self, node):
-
-		if not node:
+		if not root:
 
 			return
 
-		self.helper(node.right)
+		curr = root
 
-		self.helper(node.left)
+		while curr:
 
-		node.right = self.prev
+			if curr.left:
 
-		node.left = None
+				prev = curr.left
 
-		self.prev = node
+				while prev.right:
+
+					prev = prev.right
+
+				prev.right = curr.right
+
+				curr.right = curr.left
+
+				curr.left = None
+				
+			curr = curr.right
+
+		
