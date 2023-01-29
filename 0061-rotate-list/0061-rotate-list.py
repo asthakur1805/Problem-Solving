@@ -2,30 +2,32 @@ class Solution:
 
 	def rotateRight(self, head, numRotations):
 
-		nums = []
+		if not head:
 
-		curr = head
+			return
 
-		while curr:
+		tail, numsLength = head, 1
 
-			nums.append(curr.val)
+		while tail.next:
 
-			curr = curr.next
+			numsLength += 1
 
-		curr = head
+			tail = tail.next
 
-		for index in range(len(nums)):
+		leftBreak, numRotations = head, numRotations % numsLength
 
-			nums[(index+numRotations)%len(nums)] = curr.val
+		for _ in range(numsLength-numRotations-1):
 
-			curr = curr.next
+			leftBreak = leftBreak.next
 
-		curr = head
+		tail.next = head
 
-		for num in nums:
+		head = leftBreak.next
 
-			curr.val = num
-
-			curr = curr.next
+		leftBreak.next = None
 
 		return head
+
+		
+
+		
