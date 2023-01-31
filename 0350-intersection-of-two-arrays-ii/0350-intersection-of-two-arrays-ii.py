@@ -1,25 +1,30 @@
 class Solution:
 
-	def intersect(self, smallArr, largeArr):
+	def intersect(self, firstArr, secondArr):
 
-		if len(largeArr) < len(smallArr):
+		firstArr.sort()
 
-			return self.intersect(largeArr, smallArr)
+		secondArr.sort()
 
-		counts = {}
+		firstIndex, secondIndex, result = 0, 0, []
 
-		for num in smallArr:
+		while firstIndex < len(firstArr) and secondIndex < len(secondArr):
 
-			counts[num] = counts.get(num, 0) + 1
+			if firstArr[firstIndex] < secondArr[secondIndex]:
 
-		result = []
+				firstIndex += 1
 
-		for num in largeArr:
+			elif firstArr[firstIndex] > secondArr[secondIndex]:
 
-			if counts.get(num, 0) > 0:
+				secondIndex += 1
 
-				result.append(num)
+			else:
+		
+				result.append(firstArr[firstIndex])
 
-				counts[num] -= 1
+				firstIndex += 1
+
+				secondIndex += 1
 
 		return result
+				
