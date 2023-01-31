@@ -1,24 +1,29 @@
 class Solution:
 
-	def intersection(self, smallArr, largeArr):
+	def intersection(self, firstArr, secondArr):
 
-		if len(smallArr) > len(largeArr):
+		firstArr.sort()
+		secondArr.sort()
 
-			return self.intersection(largeArr, smallArr)
+		firstIndex, secondIndex, intersectSet = 0, 0, set()
 
-		numsSet = set()
+		while firstIndex < len(firstArr) and secondIndex < len(secondArr):
 
-		intersectSet = set()
+			if firstArr[firstIndex] < secondArr[secondIndex]:
 
-		for num in smallArr:
+				firstIndex += 1
 
-			numsSet.add(num)
+			elif secondArr[secondIndex] < firstArr[firstIndex]:
 
-		for num in largeArr:
+				secondIndex += 1
 
-			if num in numsSet:
+			else:
 
-				intersectSet.add(num)
+				intersectSet.add(firstArr[firstIndex])
+				firstIndex += 1
+				secondIndex += 1
 
 		return list(intersectSet)
+
 		
+	
