@@ -2,25 +2,43 @@ class Solution:
 
 	def copyRandomList(self, head):
 
-		oldToNew = {None:None}
+		if not head:
+
+			return
 
 		curr = head
 
 		while curr:
 
-			oldToNew[curr] = ListNode(curr.val)
+			newNode = ListNode(curr.val)
 
-			curr = curr.next
+			newNode.next = curr.next
+
+			curr.next = newNode
+
+			curr = curr.next.next
 
 		curr = head
 
 		while curr:
 
-			newNode = oldToNew[curr]
+			curr.next.random = curr.random.next if curr.random else None
 
-			newNode.next = oldToNew[curr.next]
-			newNode.random = oldToNew[curr.random]
+			curr = curr.next.next
+
+		curr = head
+		newHead = curr.next
+
+		while curr:
+
+			newNode = curr.next
+
+			curr.next = curr.next.next
+
+			newNode.next = newNode.next.next if newNode.next else None
 
 			curr = curr.next
 
-		return oldToNew[head]
+		return newHead
+
+			
