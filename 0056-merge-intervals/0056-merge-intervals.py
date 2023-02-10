@@ -10,20 +10,22 @@ class Solution:
 
 		result = [intervals[0]]
 
-		for index in range(1, len(intervals)):
-
-			interval = intervals[index]
-
-			currentStart, currentEnd = interval[0], interval[1]
+		for currStart, currEnd in intervals[1:]:
 
 			lastEnd = result[-1][1]
 
-			if currentStart <= lastEnd:
-				
-				result[-1][1] = max(currentEnd, lastEnd)
+			if currStart <= lastEnd:
+
+				result[-1][1] = max(currEnd, lastEnd)
 
 			else:
 
-				result.append(interval)
+				result.append([currStart, currEnd])
 
 		return result
+
+		
+
+			
+
+		
