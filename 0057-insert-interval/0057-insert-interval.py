@@ -4,21 +4,24 @@ class Solution:
 
 		result = []
 
-		for index in range(len(intervals)):
+		for index, interval in enumerate(intervals):
 
-			if newInterval[1] < intervals[index][0]:
+			if newInterval[1] < interval[0]:
 
 				result.append(newInterval)
-				return result + intervals[index:]
 
-			if newInterval[0] > intervals[index][1]:
+				return result + intervals[index: ]
 
-				result.append(intervals[index])
+			elif newInterval[0] > interval[1]:
+
+				result.append(interval)
 
 			else:
 
-				newInterval = [min(newInterval[0], intervals[index][0]), max(newInterval[1], intervals[index][1])]
+				newInterval = [min(interval[0],newInterval[0]), max(interval[1],newInterval[1])]
 
 		result.append(newInterval)
 
 		return result
+
+				
