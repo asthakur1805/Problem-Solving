@@ -2,23 +2,28 @@ class Solution:
 
 	def merge(self, intervals):
 
-		intervals.sort(key=lambda interval: interval[0])
+		if not intervals:
+
+			return
+
+		intervals.sort(key=lambda interval:interval[0])
 
 		result = [intervals[0]]
 
-		for intervalIndex in range(1, len(intervals)):
+		for index in range(1, len(intervals)):
 
-			currStart, currEnd = intervals[intervalIndex]
+			interval = intervals[index]
+
+			currentStart, currentEnd = interval[0], interval[1]
 
 			lastEnd = result[-1][1]
 
-			if lastEnd >= currStart:
-
-				result[-1][1] = max(lastEnd, currEnd)
+			if currentStart <= lastEnd:
+				
+				result[-1][1] = max(currentEnd, lastEnd)
 
 			else:
 
-				result.append([currStart, currEnd])
-
+				result.append(interval)
 
 		return result
