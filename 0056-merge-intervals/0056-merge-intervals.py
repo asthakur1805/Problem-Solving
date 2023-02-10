@@ -10,7 +10,11 @@ class Solution:
 
 		result = [intervals[0]]
 
-		for currStart, currEnd in intervals[1:]:
+		for index in range(1, len(intervals)):
+
+			interval = intervals[index]
+
+			currStart, currEnd = interval[0], interval[1]
 
 			lastEnd = result[-1][1]
 
@@ -20,12 +24,6 @@ class Solution:
 
 			else:
 
-				result.append([currStart, currEnd])
+				result.append(interval)
 
 		return result
-
-		
-
-			
-
-		
