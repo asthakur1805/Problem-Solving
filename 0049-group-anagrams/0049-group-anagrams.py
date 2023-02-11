@@ -8,12 +8,12 @@ class Solution:
 
 		for inputStr in inputStrs:
 
-			counts = {}
+			counts = [0]*26
 
 			for char in inputStr:
 
-				counts[char] = counts.get(char, 0) + 1
+				counts[ord(char)-ord('a')] += 1
 
-			groups[frozenset(counts.items())].append(inputStr)
+			groups[tuple(counts)].append(inputStr)
 
 		return groups.values()
