@@ -2,44 +2,41 @@ class Solution:
 
 	def spiralOrder(self, matrix):
 
-		numRows, numColumns = len(matrix), len(matrix[0])
-
 		result = []
 
-		leftPointer, rightPointer = 0, numColumns-1
-		
-		topPointer, bottomPointer = 0, numRows-1
+		numRows, numColumns = len(matrix), len(matrix[0])
 
-		while leftPointer <= rightPointer and topPointer <= bottomPointer:
+		left, right, top, bottom = 0, numColumns, 0, numRows
 
-			for columnNumber in range(leftPointer, rightPointer+1):
+		while left < right and top < bottom:
 
-				result.append(matrix[topPointer][columnNumber])
+			for column in range(left, right):
 
-			topPointer += 1
+				result.append(matrix[top][column])
 
-			for rowNumber in range(topPointer, bottomPointer+1):
+			top += 1
 
-				result.append(matrix[rowNumber][rightPointer])
+			for row in range(top, bottom):
 
-			rightPointer -= 1
-			
-			if leftPointer > rightPointer or topPointer > bottomPointer:
-				
-				return result
-						
-			for columnNumber in range(rightPointer, leftPointer-1, -1):
+				result.append(matrix[row][right-1])
 
-				result.append(matrix[bottomPointer][columnNumber])
+			right -= 1
 
-			bottomPointer -= 1
+			if not(left < right and top < bottom):
 
+				break
 
-			for rowNumber in range(bottomPointer, topPointer-1, -1):
+			for column in range(right-1, left-1, -1):
 
-				result.append(matrix[rowNumber][leftPointer])
+				result.append(matrix[bottom-1][column])
 
-			leftPointer += 1
+			bottom -= 1
+
+			for row in range(bottom-1, top-1, -1):
+
+				result.append(matrix[row][left])
+
+			left += 1
 
 		return result
-		
+				
