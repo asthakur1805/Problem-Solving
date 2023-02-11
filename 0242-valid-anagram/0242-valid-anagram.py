@@ -2,23 +2,7 @@ class Solution:
 
 	def isAnagram(self, firstStr, secondStr):
 
-		if len(firstStr) != len(secondStr):
+		from collections import Counter
 
-			return False
+		return Counter(firstStr) == Counter(secondStr)
 
-		countFirst, countSecond = {}, {}
-
-		for index in range(len(firstStr)):
-
-			countFirst[firstStr[index]] = countFirst.get(firstStr[index], 0 ) + 1
-
-			countSecond[secondStr[index]] = countSecond.get(secondStr[index], 0) + 1
-
-		for char in countFirst:
-
-			if countFirst[char] != countSecond.get(char, 0):
-
-				return False
-
-		return True
-		
