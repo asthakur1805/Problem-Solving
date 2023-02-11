@@ -1,55 +1,45 @@
 class Solution:
 
-	def generateMatrix(self, matrixOrder):
+	def generateMatrix(self, base):
 
-		matrix = [[0] * matrixOrder for _ in range(matrixOrder)]
+		matrix = [[0 for _ in range(base)] for _ in range(base)]
 
-		leftPointer, rightPointer = 0, matrixOrder - 1  
-	
-		topPointer, bottomPointer = 0, matrixOrder - 1
+		left, right, top, bottom = 0, base, 0, base
 
-		matrixElement = 1
+		count = 1
 
-		while leftPointer <= rightPointer:
+		while left < right and top < bottom:
 
-			# Top Row
+			for column in range(left, right):
 
-			for columnNumber in range(leftPointer, rightPointer+1):
-				
-				matrix[topPointer][columnNumber] = matrixElement
-				matrixElement += 1
+				matrix[top][column] = count
 
-			topPointer += 1
+				count += 1
 
-			# Right Column
+			top += 1
 
-			for rowNumber in range(topPointer, bottomPointer+1):
+			for row in range(top, bottom):
 
-				matrix[rowNumber][rightPointer] = matrixElement
-				matrixElement+=1
+				matrix[row][right-1] = count
 
-			rightPointer -= 1
+				count += 1
 
-			# Bottom Row
+			right -= 1
 
-			for columnNumber in range(rightPointer, leftPointer-1, -1):
+			for column in range(right-1, left-1, -1):
 
-				matrix[bottomPointer][columnNumber] = matrixElement
-				matrixElement += 1
+				matrix[bottom-1][column] = count
 
-			bottomPointer -= 1
+				count += 1
 
-			# Left Column
+			bottom -= 1
 
-			for rowNumber in range(bottomPointer, topPointer-1, -1):
+			for row in range(bottom-1, top-1, -1):
 
-				matrix[rowNumber][leftPointer] = matrixElement
-				matrixElement += 1
+				matrix[row][left] = count
 
-			leftPointer += 1
+				count += 1
+
+			left += 1
 
 		return matrix
-	
-		
-
-		
