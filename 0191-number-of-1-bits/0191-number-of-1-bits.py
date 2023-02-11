@@ -1,13 +1,13 @@
 class Solution:
 
-	def hammingWeight(self, num):
+	def hammingWeight(self, number):
 
 		result = 0
 
-		while num:
+		for bitPosition in range(32):
 
-			num = num & (num-1)
+			if (number >> bitPosition) & 1:
 
-			result += 1
+				result += 1
 
 		return result
