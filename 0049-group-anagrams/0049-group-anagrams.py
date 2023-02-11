@@ -2,16 +2,18 @@ class Solution:
 
 	def groupAnagrams(self, inputStrs):
 
-		result = collections.defaultdict(list)
+		from collections import defaultdict
 
-		for str in inputStrs:
+		groups = defaultdict(list)
 
-			charCounts = [0] * 26
+		for inputStr in inputStrs:
 
-			for character in str:
+			counts = {}
 
-				charCounts[ord(character)-ord('a')] += 1
+			for char in inputStr:
 
-			result[tuple(charCounts)].append(str)
+				counts[char] = counts.get(char, 0) + 1
 
-		return result.values()
+			groups[frozenset(counts.items())].append(inputStr)
+
+		return groups.values()
