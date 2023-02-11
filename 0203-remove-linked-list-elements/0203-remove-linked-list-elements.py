@@ -1,19 +1,25 @@
 class Solution:
 
-	def removeElements(self, head, inputVal):
+	def removeElements(self, head, number):
 
-		dummyNode = ListNode(0, head)
+		if not head:
 
-		currNode = dummyNode
+			return
 
-		while currNode.next:
+		dummy = ListNode(0, head)
 
-			if currNode.next.val == inputVal:
+		prev, curr = dummy, head
 
-				currNode.next = currNode.next.next
+		while curr:
+
+			if curr.val != number:
+
+				prev = prev.next
 
 			else:
 
-				currNode = currNode.next
+				prev.next = curr.next
 
-		return dummyNode.next
+			curr = curr.next
+
+		return dummy.next
