@@ -4,25 +4,25 @@ class Solution:
 
 		for row in range(len(matrix)):
 
-			if self.binarySearch(matrix, row, target):
+			if self.binarySearch(matrix[row], target):
 
 				return True
 
 		return False
 
-	def binarySearch(self, matrix, row, target):
+	def binarySearch(self, nums, target):
 
-		left, right = 0, len(matrix[row])-1
+		left, right = 0, len(nums)-1
 
 		while left <= right:
 
 			mid = left + (right - left) // 2
 
-			if matrix[row][mid] == target:
-	
+			if nums[mid] == target:
+
 				return True
 
-			if matrix[row][mid] < target:
+			if nums[mid] < target:
 
 				left = mid + 1
 
