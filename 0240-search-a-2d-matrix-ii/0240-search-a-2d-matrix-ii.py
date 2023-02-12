@@ -2,32 +2,22 @@ class Solution:
 
 	def searchMatrix(self, matrix, target):
 
-		for row in range(len(matrix)):
+		row, column = len(matrix)-1, 0
 
-			if self.binarySearch(matrix[row], target):
+		while row >= 0 and column <= len(matrix[0])-1:
 
-				return True
+			cellValue = matrix[row][column]
 
-		return False
-
-	def binarySearch(self, nums, target):
-
-		left, right = 0, len(nums)-1
-
-		while left <= right:
-
-			mid = left + (right - left) // 2
-
-			if nums[mid] == target:
+			if  cellValue == target:
 
 				return True
 
-			if nums[mid] < target:
+			elif cellValue < target:
 
-				left = mid + 1
+				column += 1
 
 			else:
 
-				right = mid - 1
+				row -= 1
 
 		return False
