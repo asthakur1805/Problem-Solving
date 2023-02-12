@@ -6,14 +6,10 @@ class Solution:
 
 		for fast in range(len(nums)):
 
-			if nums[fast]:
-
-				nums[slow] = nums[fast]
+			if nums[fast]: 
+			
+				nums[slow], nums[fast] = nums[fast], nums[slow]
 
 				slow += 1
 
-		for remaining in range(slow, len(nums)):
-
-			nums[remaining] = 0
-
-  
+		
