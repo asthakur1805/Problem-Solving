@@ -2,14 +2,18 @@ class Solution:
 
 	def moveZeroes(self, nums):
 
-		slowPointer = 0
+		slow = 0
 
-		for fastPointer in range(len(nums)):
+		for fast in range(len(nums)):
 
-			if nums[fastPointer]:
+			if nums[fast]:
 
-				nums[slowPointer], nums[fastPointer] = nums[fastPointer], nums[slowPointer]
+				nums[slow] = nums[fast]
 
-				slowPointer += 1
+				slow += 1
 
-		
+		for remaining in range(slow, len(nums)):
+
+			nums[remaining] = 0
+
+  
