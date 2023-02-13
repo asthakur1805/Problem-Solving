@@ -27,5 +27,3 @@ class Solution:
 			result.append(level)
 
 		return result
-
-			
