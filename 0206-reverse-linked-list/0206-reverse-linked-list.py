@@ -2,7 +2,11 @@ class Solution:
 
 	def reverseList(self, head):
 
-		curr, prev = head, None
+		if not head:
+
+			return
+
+		prev,curr = None, head
 
 		while curr:
 
