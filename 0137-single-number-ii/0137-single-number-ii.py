@@ -1,19 +1,30 @@
 class Solution:
 
 	def singleNumber(self, nums):
+		
+		result = 0
 
-		if len(nums) == 1:
+		for bitPosition in range(32):
 
-			return nums[0]
+			mask = (1 << bitPosition)
 
-		nums.sort()
+			countSetBits = 0
 
-		if nums[-1] > nums[-2]:
+			for num in nums:
 
-			return nums[-1]
+				if num & mask:
 
-		for index in range(1,len(nums),3):
+					countSetBits += 1
 
-			if nums[index-1] != nums[index]:
+			if countSetBits % 3:
 
-				return nums[index-1]
+				if result + mask >= (1 << 31):
+
+					result += (mask - (1 << 32))
+
+				else:
+
+					result += mask
+
+
+		return result
