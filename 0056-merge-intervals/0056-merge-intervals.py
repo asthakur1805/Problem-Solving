@@ -2,10 +2,6 @@ class Solution:
 
 	def merge(self, intervals):
 
-		if not intervals:
-
-			return
-
 		intervals.sort(key=lambda interval:interval[0])
 
 		result = [intervals[0]]
@@ -14,9 +10,7 @@ class Solution:
 
 			interval = intervals[index]
 
-			currStart, currEnd = interval[0], interval[1]
-
-			lastEnd = result[-1][1]
+			currStart, currEnd, lastEnd = interval[0], interval[1], result[-1][1]
 
 			if currStart <= lastEnd:
 
@@ -26,4 +20,7 @@ class Solution:
 
 				result.append(interval)
 
+
 		return result
+
+			
