@@ -4,8 +4,8 @@ class Solution:
 
 		resultProfit = 0
 
-		for sellPointer in range(1, len(prices)):
+		for sell in range(1, len(prices)):
 
-			resultProfit += max(prices[sellPointer]-prices[sellPointer-1],0)
+			resultProfit += max(0, prices[sell]-prices[sell-1])
 
 		return resultProfit
