@@ -2,7 +2,16 @@ class Solution:
 
 	def isAnagram(self, firstStr, secondStr):
 
-		from collections import Counter
+		countsFirstStr, countsSecondStr = [0]*26,[0]*26
 
-		return Counter(firstStr) == Counter(secondStr)
+		for char in firstStr:
 
+			countsFirstStr[ord(char)-ord('a')] += 1
+
+		for char in secondStr:
+
+			countsSecondStr[ord(char)-ord('a')] += 1
+
+		return countsFirstStr == countsSecondStr
+
+			
