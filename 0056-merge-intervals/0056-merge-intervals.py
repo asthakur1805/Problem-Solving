@@ -2,6 +2,10 @@ class Solution:
 
 	def merge(self, intervals):
 
+		if not intervals:
+
+			return
+
 		intervals.sort(key=lambda interval:interval[0])
 
 		result = [intervals[0]]
@@ -20,7 +24,4 @@ class Solution:
 
 				result.append(interval)
 
-
 		return result
-
-			
