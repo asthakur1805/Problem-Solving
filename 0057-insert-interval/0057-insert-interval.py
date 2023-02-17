@@ -1,7 +1,7 @@
 class Solution:
 
 	def insert(self, intervals, newInterval):
-
+	
 		result = []
 
 		for index, interval in enumerate(intervals):
@@ -10,18 +10,16 @@ class Solution:
 
 				result.append(newInterval)
 
-				return result + intervals[index: ]
+				return result + intervals[index:]
 
-			elif newInterval[0] > interval[1]:
+			elif interval[1] < newInterval[0]:
 
 				result.append(interval)
 
 			else:
 
-				newInterval = [min(interval[0],newInterval[0]), max(interval[1],newInterval[1])]
+				newInterval[0],newInterval[1] = min(interval[0],newInterval[0]), max(interval[1], newInterval[1])
 
 		result.append(newInterval)
 
 		return result
-
-				
