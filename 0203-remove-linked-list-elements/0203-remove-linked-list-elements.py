@@ -1,6 +1,6 @@
 class Solution:
 
-	def removeElements(self, head, number):
+	def removeElements(self, head, inputValue):
 
 		if not head:
 
@@ -12,14 +12,15 @@ class Solution:
 
 		while curr:
 
-			if curr.val != number:
-
-				prev = prev.next
-
-			else:
+			if curr.val == inputValue:
 
 				prev.next = curr.next
 
+			else:
+
+				prev = prev.next
+
 			curr = curr.next
+
 
 		return dummy.next
