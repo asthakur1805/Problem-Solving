@@ -1,44 +1,44 @@
 class Solution:
 
-	def generateMatrix(self, base):
+	def generateMatrix(self, rankMatrix):
 
-		matrix = [[0 for _ in range(base)] for _ in range(base)]
+		matrix = [[0 for _ in range(rankMatrix)] for _ in range(rankMatrix)]
 
-		left, right, top, bottom = 0, base, 0, base
+		matrixValue = 1
 
-		count = 1
+		left, right, top, bottom = 0, len(matrix), 0, len(matrix)
 
 		while left < right and top < bottom:
 
 			for column in range(left, right):
 
-				matrix[top][column] = count
+				matrix[top][column] = matrixValue
 
-				count += 1
+				matrixValue += 1
 
 			top += 1
 
 			for row in range(top, bottom):
 
-				matrix[row][right-1] = count
+				matrix[row][right-1] = matrixValue
 
-				count += 1
+				matrixValue += 1
 
 			right -= 1
 
 			for column in range(right-1, left-1, -1):
 
-				matrix[bottom-1][column] = count
+				matrix[bottom-1][column] = matrixValue
 
-				count += 1
+				matrixValue += 1
 
 			bottom -= 1
 
 			for row in range(bottom-1, top-1, -1):
 
-				matrix[row][left] = count
+				matrix[row][left] = matrixValue
 
-				count += 1
+				matrixValue += 1
 
 			left += 1
 
