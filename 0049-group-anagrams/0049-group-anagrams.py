@@ -8,7 +8,7 @@ class Solution:
 
 		for inputStr in inputStrs:
 
-			counts = [0]*26
+			counts = [0] * 26
 
 			for char in inputStr:
 
