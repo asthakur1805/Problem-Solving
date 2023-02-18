@@ -2,12 +2,12 @@ class Solution:
 
 	def hammingWeight(self, number):
 
-		result = 0
-
+		count = 0
+	
 		for bitPosition in range(32):
 
-			if (number >> bitPosition) & 1:
+			if number & (1 << bitPosition):
 
-				result += 1
+				count += 1
 
-		return result
+		return count
