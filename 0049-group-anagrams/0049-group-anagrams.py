@@ -4,7 +4,7 @@ class Solution:
 
 		from collections import defaultdict
 
-		groups = defaultdict(list)
+		groups = defaultdict(list) 
 
 		for inputStr in inputStrs:
 
