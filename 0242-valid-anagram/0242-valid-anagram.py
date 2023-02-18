@@ -11,7 +11,7 @@ class Solution:
 		for index in range(len(firstStr)):
 
 			countsFirstStr[ord(firstStr[index])-ord('a')] += 1
+
 			countsSecondStr[ord(secondStr[index])-ord('a')] += 1
 
 		return countsFirstStr == countsSecondStr
-			
