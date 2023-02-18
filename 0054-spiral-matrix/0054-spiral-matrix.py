@@ -2,11 +2,9 @@ class Solution:
 
 	def spiralOrder(self, matrix):
 
+		left, right, top, bottom = 0, len(matrix[0]), 0, len(matrix)
+
 		result = []
-
-		numRows, numColumns = len(matrix), len(matrix[0])
-
-		left, right, top, bottom = 0, numColumns, 0, numRows
 
 		while left < right and top < bottom:
 
@@ -39,4 +37,3 @@ class Solution:
 			left += 1
 
 		return result
-				
