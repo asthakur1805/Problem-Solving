@@ -4,11 +4,10 @@ class Solution:
 
 		result = 0
 
-		for bitPosition in range(32):
+		while inputNumber:
 
-			if inputNumber & (1 << bitPosition):
+			inputNumber &= (inputNumber-1)
 
-				result += 1
+			result += 1
 
 		return result
-		
