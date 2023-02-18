@@ -3,11 +3,11 @@ class Solution:
 	def hammingWeight(self, number):
 
 		count = 0
-	
-		for bitPosition in range(32):
 
-			if number & (1 << bitPosition):
+		while number:
 
-				count += 1
+			number &= (number-1)
+
+			count += 1
 
 		return count
