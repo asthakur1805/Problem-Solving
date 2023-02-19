@@ -1,30 +1,15 @@
 class Solution:
 
 	def singleNumber(self, nums):
-		
-		result = 0
 
-		for bitPosition in range(32):
+		numCounts = {}
 
-			mask = (1 << bitPosition)
+		for num in nums:
 
-			countSetBits = 0
+			numCounts[num] = numCounts.get(num, 0) + 1
 
-			for num in nums:
+		for num, count in numCounts.items():
 
-				if num & mask:
+			if count == 1:
 
-					countSetBits += 1
-
-			if countSetBits % 3:
-
-				if result + mask >= (1 << 31):
-
-					result += (mask - (1 << 32))
-
-				else:
-
-					result += mask
-
-
-		return result
+				return num
