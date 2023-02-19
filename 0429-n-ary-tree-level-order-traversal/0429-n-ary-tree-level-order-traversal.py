@@ -6,9 +6,9 @@ class Solution:
 
 			return
 
-		queue = collections.deque([root])
-
 		result = []
+
+		queue = collections.deque([root])
 
 		while queue:
 
