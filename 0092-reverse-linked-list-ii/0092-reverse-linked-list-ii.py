@@ -1,19 +1,19 @@
 class Solution:
 
-	def reverseBetween(self, head, start, end):
+	def reverseBetween(self, head, left, right):
 
 		dummy = ListNode(0, head)
 
 		leftPrev, curr = dummy, head
 
-		for _ in range(start-1):
+		for _ in range(left-1):
 
 			leftPrev = leftPrev.next
 			curr = curr.next
 
 		prev = None
 
-		for _ in range(end-start+1):
+		for _ in range(right-left+1):
 
 			nextNode = curr.next
 			curr.next = prev
@@ -24,4 +24,4 @@ class Solution:
 		leftPrev.next = prev
 
 		return dummy.next
-			
+		
