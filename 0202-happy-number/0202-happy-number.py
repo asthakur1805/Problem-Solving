@@ -1,35 +1,31 @@
 class Solution:
 
-	def isHappy(self, number):
+	def isHappy(self, inputNumber):
 
-		visitedNums = set()
+		slow, fast = inputNumber, inputNumber
 
 		while True:
 
-			if number == 1:
+			slow = self.sumOfSquares(slow)
+			fast = self.sumOfSquares(self.sumOfSquares(fast))
 
-				return True
+			if slow == fast:
 
-			if number in visitedNums:
+				break
 
-				return False
+		return slow == 1
 
-			visitedNums.add(number)
-
-			number = self.sumOfSquares(number)
-
-		return
-
-	def sumOfSquares(self, number):
+	def sumOfSquares(self, inputNumber):
 
 		result = 0
 
-		while number:
+		while inputNumber:
 
-			digit = number % 10
+			digit = inputNumber % 10
 
 			result += digit ** 2
 
-			number //= 10
+			inputNumber //= 10
+
 
 		return result
