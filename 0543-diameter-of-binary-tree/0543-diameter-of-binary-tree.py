@@ -2,21 +2,19 @@ class Solution:
 
 	def diameterOfBinaryTree(self, root):
 
-		self.resultDiameter = 0
+		if not root:
 
-		self.helper(root)
+			return 0
 
-		return self.resultDiameter
+		leftDepth, rightDepth = self.calculateDepth(root.left), self.calculateDepth(root.right)
 
-	def helper(self, node):
+		return max(leftDepth + rightDepth, self.diameterOfBinaryTree(root.left), self.diameterOfBinaryTree(root.right))
+
+
+	def calculateDepth(self, node):
 
 		if not node:
 
 			return 0
 
-		leftDepth, rightDepth = self.helper(node.left), self.helper(node.right)
-
-		self.resultDiameter = max(self.resultDiameter, leftDepth + rightDepth)
-
-		return 1 + max(leftDepth, rightDepth)
-
+		return 1 + max(self.calculateDepth(node.left), self.calculateDepth(node.right))
