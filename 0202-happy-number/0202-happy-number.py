@@ -1,36 +1,35 @@
 class Solution:
 
-	def isHappy(self, num):
+	def isHappy(self, number):
 
-		slowPointer, fastPointer = num, num
+		visitedNums = set()
 
 		while True:
 
-			slowPointer = self.sumOfSquares(slowPointer)
-			fastPointer = self.sumOfSquares(self.sumOfSquares(fastPointer))
+			if number == 1:
 
-			if slowPointer == fastPointer:
+				return True
 
-				break
+			if number in visitedNums:
 
-		if slowPointer == 1:
+				return False
 
-			return True
+			visitedNums.add(number)
 
-		return False
+			number = self.sumOfSquares(number)
 
-	def sumOfSquares(self, num):
+		return
+
+	def sumOfSquares(self, number):
 
 		result = 0
 
-		while num:
+		while number:
 
-			digit = num % 10
+			digit = number % 10
 
 			result += digit ** 2
 
-			num //= 10
+			number //= 10
 
 		return result
-
-		
