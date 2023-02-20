@@ -2,24 +2,31 @@ class Solution:
 
 	def fizzBuzz(self, upperBound):
 
+		fizzCount, buzzCount = 1, 1
+
 		result = []
 
-		for num in range(1, upperBound+1):
+		for number in range(1, upperBound+1):
 
-			if num % 15 == 0:
+			if fizzCount == 3 and buzzCount == 5:
 
 				result.append('FizzBuzz')
+				fizzCount, buzzCount = 0, 0
 
-			elif num % 3 == 0:
+			elif fizzCount == 3:
 
 				result.append('Fizz')
+				fizzCount = 0
 
-			elif num % 5 == 0:
+			elif buzzCount == 5:
 
 				result.append('Buzz')
+				buzzCount = 0
 
 			else:
 
-				result.append(str(num))
+				result.append(str(number))
+
+			fizzCount, buzzCount = fizzCount + 1, buzzCount + 1
 
 		return result
