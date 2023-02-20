@@ -2,18 +2,24 @@ class Solution:
 
 	def sumNumbers(self, root):
 
-		return self.helper(root, 0)
+		self.resultSum = 0
+
+		self.helper(root, 0)
+
+		return self.resultSum
 
 	def helper(self, node, pathNumber):
 
 		if not node:
+		
+			return
 
-			return 0
+		pathNumber = pathNumber * 10 + node.val
 
 		if not node.left and not node.right:
 
-			return pathNumber * 10 + node.val
+			self.resultSum += pathNumber
 
-		return self.helper(node.left, pathNumber * 10 + node.val) + self.helper(node.right, pathNumber * 10 + node.val)
+		self.helper(node.left, pathNumber)
 
-	
+		self.helper(node.right, pathNumber)
