@@ -1,11 +1,15 @@
 class Solution:
 
-	def missingNumber(self, nums):
+	def missingNumber(self, inputNums):
 
-		result = 0
+		visitedNums = set()
 
-		for index in range(len(nums)):
+		for num in inputNums:
 
-			result ^= index ^ nums[index]
+			visitedNums.add(num)
 
-		return result ^ len(nums)
+		for number in range(len(inputNums)+1):
+
+			if number not in visitedNums:
+
+				return number
