@@ -2,10 +2,12 @@ class Solution:
 
 	def reverseString(self, inputStr):
 
-		leftPointer, rightPointer = 0, len(inputStr)-1
+		left, right = 0, len(inputStr)-1
 
-		while leftPointer < rightPointer:
+		while left < right:
 
-			inputStr[leftPointer], inputStr[rightPointer] = inputStr[rightPointer], inputStr[leftPointer]
+			inputStr[left], inputStr[right] = inputStr[right], inputStr[left]
 
-			leftPointer, rightPointer = leftPointer + 1, rightPointer - 1
+			left, right = left+1, right-1
+
+		
