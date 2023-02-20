@@ -1,35 +1,25 @@
 class Solution:
 
-	def fizzBuzz(self, upperLimit):
+	def fizzBuzz(self, upperBound):
 
-		result, fizz, buzz = [], 1, 1
+		result = []
 
+		for num in range(1, upperBound+1):
 
-		for num in range(1,upperLimit+1):
-
-			if fizz == 3 and buzz == 5:
+			if num % 15 == 0:
 
 				result.append('FizzBuzz')
 
-				fizz = 0
-				buzz = 0
-
-			elif fizz == 3:
+			elif num % 3 == 0:
 
 				result.append('Fizz')
 
-				fizz = 0
-
-			elif buzz == 5:
+			elif num % 5 == 0:
 
 				result.append('Buzz')
-
-				buzz = 0
 
 			else:
 
 				result.append(str(num))
-
-			fizz, buzz = fizz+1, buzz+1
 
 		return result
