@@ -2,55 +2,53 @@ class Solution:
 
 	def recoverTree(self, root):
 
-		if not root:
+		inorderResult = []
+
+		self.inorder(root, inorderResult)
+
+		inorderResult.sort()
+
+		self.index, self.firstViolationNode, self.secondViolationNode = 0, None, None
+
+		self.helper(root, inorderResult)
+
+		self.firstViolationNode.val, self.secondViolationNode.val = self.secondViolationNode.val, self.firstViolationNode.val
+
+	
+	def inorder(self, node, result):
+
+		if not node:
 
 			return
 
-		self.curr, self.prev, self.firstViolation, self.secondViolation = root, TreeNode(float('-inf')), None, None
+		self.inorder(node.left, result)
 
-		while self.curr:
+		result.append(node.val)
 
-			if not self.curr.left:
+		self.inorder(node.right, result)
 
-				self.checkViolations()
+	def helper(self, node, inorderResult):
+
+		if not node:
+
+			return
+
+		self.helper(node.left, inorderResult)
+
+		if node.val != inorderResult[self.index]:
+
+			if not self.firstViolationNode:
+
+				self.firstViolationNode = node
 
 			else:
 
-				rightmostOfLeft = self.curr.left
+				self.secondViolationNode = node
 
-				while rightmostOfLeft.right and rightmostOfLeft.right != self.curr:
+		self.index += 1
 
-					rightmostOfLeft = rightmostOfLeft.right
-
-				if not rightmostOfLeft.right:
-
-					rightmostOfLeft.right = self.curr
-
-					self.curr = self.curr.left
-
-				else:
-
-					rightmostOfLeft.right = None
-
-					self.checkViolations()
-
-		self.firstViolation.val, self.secondViolation.val = self.secondViolation.val, self.firstViolation.val
-
-	def checkViolations(self):
-
-		if not self.firstViolation and not(self.prev.val < self.curr.val):
-
-			self.firstViolation = self.prev
-
-		if self.firstViolation and not(self.prev.val < self.curr.val):
-
-			self.secondViolation = self.curr
-
-		self.prev = self.curr
-
-		self.curr = self.curr.right
+		self.helper(node.right, inorderResult)
 
 			
 
-				
-			
+		
