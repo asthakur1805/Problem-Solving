@@ -4,7 +4,7 @@ class Solution:
 
 		rowResult = [1]
 
-		for rowIndex in range(1,inputIndex+1):
+		for rowIndex in range(1, inputIndex+1):
 
 			columnIndex = len(rowResult) - 1
 
@@ -17,5 +17,3 @@ class Solution:
 			rowResult.append(1)
 
 		return rowResult
-
-		
