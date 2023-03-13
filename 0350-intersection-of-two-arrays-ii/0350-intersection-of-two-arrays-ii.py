@@ -1,30 +1,29 @@
 class Solution:
 
-	def intersect(self, firstArr, secondArr):
+	def intersect(self, firstList, secondList):
 
-		firstArr.sort()
+		result = []
 
-		secondArr.sort()
+		firstList.sort()
 
-		firstIndex, secondIndex, result = 0, 0, []
+		secondList.sort()
 
-		while firstIndex < len(firstArr) and secondIndex < len(secondArr):
+		firstIndex, secondIndex = 0, 0
 
-			if firstArr[firstIndex] < secondArr[secondIndex]:
+		while firstIndex < len(firstList) and secondIndex < len(secondList):
+
+			if firstList[firstIndex] == secondList[secondIndex]:
+
+				result.append(firstList[firstIndex])
+
+				firstIndex, secondIndex = firstIndex + 1, secondIndex + 1
+
+			elif firstList[firstIndex] < secondList[secondIndex]:
 
 				firstIndex += 1
-
-			elif firstArr[firstIndex] > secondArr[secondIndex]:
-
-				secondIndex += 1
 
 			else:
-		
-				result.append(firstArr[firstIndex])
-
-				firstIndex += 1
 
 				secondIndex += 1
 
 		return result
-				
