@@ -2,30 +2,24 @@ class Solution:
 
 	def intersect(self, firstList, secondList):
 
+		if len(firstList) > len(secondList):
+
+			return self.intersect(secondList, firstList)
+
 		result = []
+
+		counts = {}
+
+		for num in firstList:
+
+			counts[num] = counts.get(num,0) + 1
+
+		for num in secondList:
+
+			if counts.get(num,0) > 0:
+
+				result.append(num)
+
+				counts[num] -= 1
 	
-		firstList.sort()
-
-		secondList.sort()
-
-		firstIndex, secondIndex = 0, 0
-
-		while firstIndex < len(firstList) and secondIndex < len(secondList):
-
-			if firstList[firstIndex] < secondList[secondIndex]:
-
-				firstIndex += 1
-
-			elif secondList[secondIndex] < firstList[firstIndex]:
-
-				secondIndex += 1
-
-			else:
-
-				result.append(firstList[firstIndex])
-
-				firstIndex += 1
-
-				secondIndex += 1
-
 		return result
