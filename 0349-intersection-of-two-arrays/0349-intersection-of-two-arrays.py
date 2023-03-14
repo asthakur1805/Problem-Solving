@@ -2,32 +2,25 @@ class Solution:
 
 	def intersection(self, firstList, secondList):
 
+		if len(firstList) < len(secondList):
+
+			return self.intersection(secondList, firstList)
+
 		result = []
 
-		firstList.sort()
+		numSet = set()
 
-		secondList.sort()
+		for num in firstList:
 
-		firstIndex, secondIndex = 0, 0
+			numSet.add(num)
 
-		while firstIndex < len(firstList) and secondIndex < len(secondList):
+		for num in secondList:
 
-			if firstList[firstIndex] < secondList[secondIndex]:
+			if num in numSet:
 
-				firstIndex += 1
+				result.append(num)
 
-			elif secondList[secondIndex] < firstList[firstIndex]:
-
-				secondIndex += 1
-
-			else:
-
-				if not result or result[-1] != firstList[firstIndex]:
-
-					result.append(firstList[firstIndex])
-
-				firstIndex += 1
-
-				secondIndex += 1
+				numSet.remove(num)
 
 		return result
+
