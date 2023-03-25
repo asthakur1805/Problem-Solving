@@ -1,26 +1,25 @@
 class Solution:
 
-	def intersection(self, firstList, secondList):
+	def intersection(self, nums1, nums2):
 
-		if len(firstList) < len(secondList):
+		if len(nums2) < len(nums1):
 
-			return self.intersection(secondList, firstList)
+			return self.intersection(nums2, nums1)
+
+		numsSet = set()
+
+		for num in nums1:
+
+			numsSet.add(num)
 
 		result = []
 
-		numSet = set()
+		for num in nums2:
 
-		for num in firstList:
-
-			numSet.add(num)
-
-		for num in secondList:
-
-			if num in numSet:
+			if num in numsSet:
 
 				result.append(num)
 
-				numSet.remove(num)
+				numsSet.remove(num)
 
 		return result
-
