@@ -2,32 +2,32 @@ class Solution:
 
 	def reorderList(self, head):
 
-		slow, fast = head, head
+		if not head:
 
-		while fast and fast.next:
+			return
 
-			slow = slow.next
-			fast = fast.next.next
+		slowPointer, fastPointer = head, head
 
-		prev = None
+		while fastPointer and fastPointer.next:
 
-		while slow:
+			slowPointer = slowPointer.next
+			fastPointer = fastPointer.next.next
 
-			nextNode = slow.next
-			slow.next = prev
-			prev = slow
-			slow = nextNode
+		prevPointer = None
 
-		left, right = head, prev
+		while slowPointer:
 
-		while right.next:
+			nextNode = slowPointer.next
+			slowPointer.next = prevPointer
+			prevPointer = slowPointer
+			slowPointer = nextNode
 
-			leftNext, rightNext = left.next, right.next
-			left.next = right
-			right.next = leftNext
-			left = leftNext
-			right = rightNext
+		leftPointer, rightPointer = head, prevPointer
+
+		while rightPointer.next:
+
+			nextLeft, nextRight = leftPointer.next, rightPointer.next
+			leftPointer.next, rightPointer.next = rightPointer, nextLeft
+			leftPointer, rightPointer = nextLeft, nextRight
 
 		return head
-		
-		
