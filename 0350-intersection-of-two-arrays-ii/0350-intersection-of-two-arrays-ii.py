@@ -1,25 +1,24 @@
 class Solution:
 
-	def intersect(self, firstList, secondList):
+	def intersect(self, nums1, nums2):
 
-		if len(firstList) > len(secondList):
+		if len(nums2) < len(nums1):
 
-			return self.intersect(secondList, firstList)
-
-		result = []
+			return self.intersect(nums2, nums1)
 
 		counts = {}
 
-		for num in firstList:
+		for num in nums1:
 
-			counts[num] = counts.get(num,0) + 1
+			counts[num] = counts.get(num, 0) + 1
 
-		for num in secondList:
+		result = []
 
-			if counts.get(num,0) > 0:
+		for num in nums2:
+
+			if counts.get(num, 0) > 0:
 
 				result.append(num)
-
 				counts[num] -= 1
-	
+
 		return result
