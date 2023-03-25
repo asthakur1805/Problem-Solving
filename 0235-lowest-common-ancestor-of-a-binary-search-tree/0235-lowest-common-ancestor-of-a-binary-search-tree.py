@@ -1,19 +1,19 @@
 class Solution:
 
-	def lowestCommonAncestor(self, root, firstTreeNode, secondTreeNode):
+	def lowestCommonAncestor(self, root, firstNode, secondNode):
 
-		resultTreeNode = root
+		curr = root
 
 		while True:
 
-			if firstTreeNode.val < resultTreeNode.val and secondTreeNode.val < resultTreeNode.val:
+			if firstNode.val < curr.val and secondNode.val < curr.val:
 
-				resultTreeNode = resultTreeNode.left
+				curr = curr.left
 
-			elif firstTreeNode.val > resultTreeNode.val and secondTreeNode.val > resultTreeNode.val:
+			elif firstNode.val > curr.val and secondNode.val > curr.val:
 
-				resultTreeNode = resultTreeNode.right
+				curr = curr.right
 
 			else:
 
-				return resultTreeNode
+				return curr
