@@ -2,18 +2,18 @@ class Solution:
 
 	def generate(self, numRows):
 
-		resultTriangle = [[1]]
+		result = [[1]]
 
-		for rowIndex in range(1,numRows):
+		for row in range(1, numRows):
 
 			rowResult = [1]
 
-			for columnIndex in range(1, rowIndex):
+			for column in range(1, row):
 
-				rowResult.append(resultTriangle[rowIndex-1][columnIndex] + resultTriangle[rowIndex-1][columnIndex-1])
+				rowResult.append(result[row-1][column] + result[row-1][column-1])
 
 			rowResult.append(1)
 
-			resultTriangle.append(rowResult)
+			result.append(rowResult)
 
-		return resultTriangle
+		return result
