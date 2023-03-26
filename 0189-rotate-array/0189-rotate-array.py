@@ -2,12 +2,20 @@ class Solution:
 
 	def rotate(self, nums, numRotations):
 
-		copy = [0]*len(nums)
+		numRotations %= len(nums)
 
-		for index, num in enumerate(nums):
+		self.reverseHelper(nums, 0, len(nums)-1)
 
-			copy[(index+numRotations)%len(nums)] = num
+		self.reverseHelper(nums, 0, numRotations-1)
 
-		for index in range(len(nums)):
+		self.reverseHelper(nums, numRotations, len(nums)-1)
 
-			nums[index] = copy[index]
+	def reverseHelper(self, nums, leftPointer, rightPointer):
+
+		while leftPointer < rightPointer:
+
+			nums[leftPointer], nums[rightPointer] = nums[rightPointer], nums[leftPointer]
+			leftPointer += 1
+			rightPointer -= 1
+
+		
