@@ -4,11 +4,11 @@ class Solution:
 
 		if not root:
 
-			return
-
-		result = []
+			return 
 
 		queue = collections.deque([root])
+
+		result = []
 
 		while queue:
 
@@ -31,3 +31,4 @@ class Solution:
 			result.append(level)
 
 		return result
+		
