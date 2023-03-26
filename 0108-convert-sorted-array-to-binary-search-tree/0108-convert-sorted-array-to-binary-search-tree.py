@@ -2,18 +2,20 @@ class Solution:
 
 	def sortedArrayToBST(self, nums):
 
-		return self.helper(nums, 0, len(nums)-1)
+		leftPointer, rightPointer = 0, len(nums)-1
 
+		return self.helper(nums, leftPointer, rightPointer)
+	
 	def helper(self, nums, leftPointer, rightPointer):
 
 		if leftPointer > rightPointer:
 
-			return 
+			return
 
 		midPointer = leftPointer + (rightPointer - leftPointer) // 2
 
-		rootNode = TreeNode(nums[midPointer])
+		root = TreeNode(nums[midPointer])
 
-		rootNode.left, rootNode.right = self.helper(nums, leftPointer, midPointer-1), self.helper(nums, midPointer+1, rightPointer)
+		root.left, root.right = self.helper(nums, leftPointer, midPointer-1), self.helper(nums, midPointer+1, rightPointer)
 
-		return rootNode
+		return root
