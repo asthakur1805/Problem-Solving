@@ -11,7 +11,6 @@ class Solution:
 		while tail.next:
 
 			numsLength += 1
-
 			tail = tail.next
 
 		leftBreak, numRotations = head, numRotations % numsLength
@@ -21,13 +20,7 @@ class Solution:
 			leftBreak = leftBreak.next
 
 		tail.next = head
-
 		head = leftBreak.next
-
 		leftBreak.next = None
 
 		return head
-
-		
-
-		
