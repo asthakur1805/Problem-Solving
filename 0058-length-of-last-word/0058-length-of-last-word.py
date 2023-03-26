@@ -13,7 +13,6 @@ class Solution:
 		while index >= 0 and inputStr[index] != ' ':
 
 			resultLength += 1
-
 			index -= 1
 
 		return resultLength
