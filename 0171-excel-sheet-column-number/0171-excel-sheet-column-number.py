@@ -1,13 +1,13 @@
 class Solution:
 
-	def titleToNumber(self, columnTitle):
+	def titleToNumber(self, title):
 
-		columnNumber = 0
+		result = 0
 
-		for columnCharacter in columnTitle:
+		for character in title:
 
-			placeValue = ord(columnCharacter) - ord('A') + 1
+			value = ord(character) - ord('A') + 1
 
-			columnNumber  = columnNumber * 26 + placeValue
+			result = result * 26 + value
 
-		return columnNumber
+		return result
