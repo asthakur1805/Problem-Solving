@@ -2,7 +2,7 @@ class Solution:
 
 	def hasCycle(self, head):
 
-		slowPointer = fastPointer = head
+		slowPointer, fastPointer = head, head
 
 		while fastPointer and fastPointer.next:
 
