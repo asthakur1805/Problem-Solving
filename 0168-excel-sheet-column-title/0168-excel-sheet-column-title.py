@@ -2,18 +2,18 @@ class Solution:
 
 	def convertToTitle(self, columnNumber):
 
-		columnTitle = []
+		result = []
 
 		while columnNumber:
 
-			digit = (columnNumber - 1) % 26
+			columnNumber -= 1
 
-			columnCharacter = chr(digit + ord('A'))
+			columnValue = columnNumber % 26
 
-			columnTitle.append(columnCharacter)
+			result.append(chr(columnValue + ord('A')))
 
-			columnNumber = (columnNumber - 1) // 26
+			columnNumber //= 26
 
-		columnTitle.reverse()
+		result.reverse()
 
-		return ''.join(columnTitle)
+		return ''.join(result)
