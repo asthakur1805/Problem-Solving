@@ -6,22 +6,20 @@ class Solution:
 
 			return 0
 
-		resultDepth = 0
+		queue = collections.deque([(root, 1)])
 
-		stack = [(root, 1)]
+		while queue:
 
-		while stack:
+			for _ in range(len(queue)):
 
-			node, depth = stack.pop()
+				node, depth = queue.popleft()
 
-			resultDepth = max(resultDepth, depth)
+				if node.left:
 
-			if node.right:
+					queue.append((node.left, depth+1))
 
-				stack.append((node.right, depth+1))
+				if node.right:
 
-			if node.left:
+					queue.append((node.right, depth+1))
 
-				stack.append((node.left, depth+1))
-
-		return resultDepth
+		return depth
