@@ -8,7 +8,8 @@ class Solution:
 
 			if nums[fastPointer] != val:
 
-				nums[slowPointer] = nums[fastPointer]
+				nums[slowPointer], nums[fastPointer] = nums[fastPointer], nums[slowPointer]
+
 				slowPointer += 1
 
 		return slowPointer
