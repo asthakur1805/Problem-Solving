@@ -2,24 +2,32 @@ class Solution:
 
 	def reverseBetween(self, head, start, end):
 
+		if not head:
+
+			return 
+
 		dummy = ListNode(0, head)
 
-		leftPrev, curr = dummy, head
+		#Phase 1
+	
+		leftBreak, curr = dummy, head
 
 		for _ in range(start-1):
 
-			leftPrev, curr = leftPrev.next, curr.next
+			leftBreak = leftBreak.next
+			curr = curr.next
 
+		#Phase 2
 		prev = None
 
 		for _ in range(end-start+1):
 
-			nextNode = curr.next
+			currNext = curr.next
 			curr.next = prev
 			prev = curr
-			curr = nextNode
+			curr = currNext
 
-		leftPrev.next.next = curr
-		leftPrev.next = prev
+		leftBreak.next.next = curr
+		leftBreak.next = prev
 
 		return dummy.next
