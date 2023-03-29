@@ -2,29 +2,24 @@ class Solution:
 
 	def intersect(self, nums1, nums2):
 
-		nums1.sort()
-		nums2.sort()
+		if len(nums2) < len(nums1):
 
-		firstIndex, secondIndex = 0, 0
+			return self.intersect(nums2, nums1)
+
+		counts = {}
+
+		for num in nums1:
+
+			counts[num] = counts.get(num,0) + 1
 
 		result = []
 
-		while firstIndex < len(nums1) and secondIndex < len(nums2):
+		for num in nums2:
 
-			if nums1[firstIndex] < nums2[secondIndex]:
+			if counts.get(num,0) > 0:
 
-				firstIndex += 1
-
-			elif nums2[secondIndex] < nums1[firstIndex]:
-
-				secondIndex += 1
-
-			else:
-
-				result.append(nums1[firstIndex])
-				firstIndex += 1
-				secondIndex += 1
+				result.append(num)
+				counts[num] -= 1
 
 		return result
-
 		
