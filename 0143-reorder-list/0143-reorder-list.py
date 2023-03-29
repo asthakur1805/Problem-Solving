@@ -1,33 +1,33 @@
 class Solution:
 
 	def reorderList(self, head):
-
+	
 		if not head:
 
-			return
+			return 
 
-		slowPointer, fastPointer = head, head
+		slow, fast = head, head
 
-		while fastPointer and fastPointer.next:
+		while fast and fast.next:
 
-			slowPointer = slowPointer.next
-			fastPointer = fastPointer.next.next
+			slow = slow.next
+			fast = fast.next.next
 
-		prevPointer = None
+		prev = None
 
-		while slowPointer:
+		while slow:
 
-			nextNode = slowPointer.next
-			slowPointer.next = prevPointer
-			prevPointer = slowPointer
-			slowPointer = nextNode
+			slowNext = slow.next
+			slow.next = prev
+			prev = slow
+			slow = slowNext
 
-		leftPointer, rightPointer = head, prevPointer
+		left, right = head, prev
 
-		while rightPointer.next:
+		while right.next:
 
-			nextLeft, nextRight = leftPointer.next, rightPointer.next
-			leftPointer.next, rightPointer.next = rightPointer, nextLeft
-			leftPointer, rightPointer = nextLeft, nextRight
+			leftNext, rightNext = left.next, right.next
+			left.next, right.next = right, leftNext
+			left, right = leftNext, rightNext
 
 		return head
