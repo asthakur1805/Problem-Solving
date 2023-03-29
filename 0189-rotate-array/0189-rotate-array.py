@@ -4,18 +4,19 @@ class Solution:
 
 		numRotations %= len(nums)
 
-		self.reverseHelper(nums, 0, len(nums)-1)
+		self.reverse(nums, 0, len(nums)-1)
 
-		self.reverseHelper(nums, 0, numRotations-1)
+		self.reverse(nums, 0, numRotations-1)
 
-		self.reverseHelper(nums, numRotations, len(nums)-1)
+		self.reverse(nums, numRotations, len(nums)-1)
 
-	def reverseHelper(self, nums, leftPointer, rightPointer):
+	def reverse(self, nums, left, right):
 
-		while leftPointer < rightPointer:
+		while left < right:
 
-			nums[leftPointer], nums[rightPointer] = nums[rightPointer], nums[leftPointer]
-			leftPointer += 1
-			rightPointer -= 1
+			nums[left], nums[right] = nums[right], nums[left]
+			left += 1
+			right -= 1
 
-		
+	
+
