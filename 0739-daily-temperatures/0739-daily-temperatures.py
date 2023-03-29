@@ -2,20 +2,16 @@ class Solution:
 
 	def dailyTemperatures(self, temperatures):
 
-		if not temperatures:
-
-			return
-
-		result = [0]*len(temperatures)
+		result = [0] * len(temperatures)
 
 		stack = []
 
-		for currIndex, currTemp in enumerate(temperatures):
+		for currIndex, temperature in enumerate(temperatures):
 
-			while stack and currTemp > temperatures[stack[-1]]:
+			while stack and temperature > temperatures[stack[-1]]:
 
-				prevIndex = stack.pop()
-				result[prevIndex] = currIndex - prevIndex
+				oldIndex = stack.pop()
+				result[oldIndex] = currIndex - oldIndex
 
 			stack.append(currIndex)
 
@@ -24,5 +20,3 @@ class Solution:
 			result[stack.pop()] = 0
 
 		return result
-
-		
