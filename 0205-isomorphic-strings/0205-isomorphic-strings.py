@@ -8,13 +8,13 @@ class Solution:
 
 		firstMap, secondMap = [0] * 256, [0] * 256
 
-		for index in range(len(firstStr)):
+		for index, (firstChar, secondChar) in enumerate(zip(firstStr, secondStr)):
 
-			if firstMap[ord(firstStr[index])] != secondMap[ord(secondStr[index])]:
+			if firstMap[ord(firstChar)] != secondMap[ord(secondChar)]:
 
 				return False
 
-			firstMap[ord(firstStr[index])] = index + 1
-			secondMap[ord(secondStr[index])] = index + 1
+			firstMap[ord(firstChar)], secondMap[ord(secondChar)] = index + 1, index + 1
 
 		return True
+			
