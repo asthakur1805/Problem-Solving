@@ -6,35 +6,24 @@ class Solution:
 
 			return
 
-		curr = head
-
-		while curr:
-
-			newNode = ListNode(curr.val)
-
-			newNode.next = curr.next
-
-			curr.next = newNode
-
-			curr = curr.next.next
+		oldToNew = {None:None}
 
 		curr = head
 
 		while curr:
 
-			curr.next.random = curr.random.next if curr.random else None
+			oldToNew[curr] = ListNode(curr.val)
 
-			curr = curr.next.next
-
-		curr, resultHead = head, head.next
-
-		while curr:
-
-			newNode = curr.next
-			curr.next = curr.next.next
-			newNode.next = newNode.next.next if newNode.next else None
 			curr = curr.next
-			
-		return resultHead
 
-		
+		curr = head
+
+		while curr:
+
+			newNode = oldToNew[curr]
+
+			newNode.next, newNode.random = oldToNew[curr.next], oldToNew[curr.random] 
+
+			curr = curr.next
+
+		return oldToNew[head]
