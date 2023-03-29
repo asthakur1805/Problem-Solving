@@ -6,16 +6,16 @@ class Solution:
 
 			return
 
-		tail, numsLength = head, 1
+		tail, listLength = head, 1
 
 		while tail.next:
 
-			numsLength += 1
+			listLength += 1
 			tail = tail.next
 
-		leftBreak, numRotations = head, numRotations % numsLength
+		leftBreak, numRotations = head, numRotations % listLength
 
-		for _ in range(numsLength-numRotations-1):
+		for _ in range(listLength - numRotations - 1):
 
 			leftBreak = leftBreak.next
 
