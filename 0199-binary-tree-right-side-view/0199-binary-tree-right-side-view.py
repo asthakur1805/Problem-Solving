@@ -6,9 +6,9 @@ class Solution:
 
 			return
 
-		queue = collections.deque([root])
-
 		result = []
+
+		queue = collections.deque([root])
 
 		while queue:
 
@@ -25,5 +25,5 @@ class Solution:
 				if node.right:
 
 					queue.append(node.right)
-			
+
 		return result
