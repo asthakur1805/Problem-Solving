@@ -2,15 +2,14 @@ class Solution:
 
 	def inorderTraversal(self, root):
 
-		curr = root
-
-		result = []
+		curr, result = root, []
 
 		while curr:
 
 			if not curr.left:
 
 				result.append(curr.val)
+
 				curr = curr.right
 
 			else:
@@ -24,13 +23,16 @@ class Solution:
 				if not prev.right:
 
 					prev.right = curr
+
 					curr = curr.left
 
 				else:
 
 					prev.right = None
+
 					result.append(curr.val)
+
 					curr = curr.right
 
+
 		return result
-	
