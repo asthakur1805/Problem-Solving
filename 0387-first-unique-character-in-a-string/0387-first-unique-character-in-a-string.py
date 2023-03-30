@@ -2,15 +2,15 @@ class Solution:
 
 	def firstUniqChar(self, inputStr):
 
-		charCounts = {}
+		counts = {}
 
 		for char in inputStr:
 
-			charCounts[char] = charCounts.get(char, 0) + 1
+			counts[char] = counts.get(char, 0) + 1
 
 		for index, char in enumerate(inputStr):
 
-			if charCounts[char] == 1:
+			if counts[char] == 1:
 
 				return index
 
