@@ -2,7 +2,7 @@ class Solution:
 
 	def recoverTree(self, root):
 
-		self.former, self.curr, self.firstViolation, self.secondViolation = TreeNode(float('-inf')), root, None, None
+		self.former, self.curr, self.firstViolationNode, self.secondViolationNode = TreeNode(float('-inf')), root, None, None
 
 		while self.curr:
 
@@ -21,27 +21,26 @@ class Solution:
 				if not prev.right:
 
 					prev.right = self.curr
+
 					self.curr = self.curr.left
 
 				else:
 
 					prev.right = None
-					
+
 					self.checkViolations()
 
-		self.firstViolation.val, self.secondViolation.val = self.secondViolation.val, self.firstViolation.val
-
+		self.firstViolationNode.val, self.secondViolationNode.val = self.secondViolationNode.val, self.firstViolationNode.val
 
 	def checkViolations(self):
 
-		if not self.firstViolation and not(self.former.val < self.curr.val):
+		if not self.firstViolationNode and not(self.former.val < self.curr.val):
 
-				self.firstViolation = self.former
-	
-		if self.firstViolation and not(self.former.val < self.curr.val):
+			self.firstViolationNode = self.former
 
-				self.secondViolation = self.curr
+		if self.firstViolationNode and not(self.former.val < self.curr.val):
+
+			self.secondViolationNode = self.curr
 
 		self.former = self.curr
 		self.curr = self.curr.right
-				
