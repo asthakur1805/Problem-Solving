@@ -1,32 +1,25 @@
 class Solution:
 
-	def fizzBuzz(self, upperBound):
-
-		fizzCount, buzzCount = 1, 1
+	def fizzBuzz(self, inputLimit):
 
 		result = []
 
-		for number in range(1, upperBound+1):
+		for num in range(1, inputLimit+1):
 
-			if fizzCount == 3 and buzzCount == 5:
+			if not num % 3 and not num % 5:
 
-				result.append('FizzBuzz')
-				fizzCount, buzzCount = 0, 0
+				result.append("FizzBuzz")
 
-			elif fizzCount == 3:
+			elif not num % 3:
 
-				result.append('Fizz')
-				fizzCount = 0
+				result.append("Fizz")
 
-			elif buzzCount == 5:
+			elif not num % 5:
 
-				result.append('Buzz')
-				buzzCount = 0
+				result.append("Buzz")
 
 			else:
 
-				result.append(str(number))
-
-			fizzCount, buzzCount = fizzCount + 1, buzzCount + 1
+				result.append(str(num))
 
 		return result
