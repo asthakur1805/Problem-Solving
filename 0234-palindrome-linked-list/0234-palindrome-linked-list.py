@@ -2,24 +2,30 @@ class Solution:
 
 	def isPalindrome(self, head):
 
-		numsList = []
+		slow, fast = head, head
 
-		curr = head
+		while fast and fast.next:
 
-		while curr:
+			slow = slow.next
+			fast = fast.next.next
 
-			numsList.append(curr.val)
+		prev = None
 
-			curr = curr.next
+		while slow:
 
-		left, right = 0, len(numsList)-1
+			slowNext = slow.next
+			slow.next = prev
+			prev = slow
+			slow = slowNext
 
-		while left < right:
+		left, right = head, prev
 
-			if numsList[left] != numsList[right]:
+		while right:
+
+			if left.val != right.val:
 
 				return False
 
-			left, right = left + 1, right - 1
+			left, right = left.next, right.next
 
 		return True
