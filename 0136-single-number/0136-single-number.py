@@ -2,10 +2,14 @@ class Solution:
 
 	def singleNumber(self, nums):
 
-		result = 0
+		counts = {}
 
 		for num in nums:
 
-			result ^= num
+			counts[num] = counts.get(num, 0) + 1
 
-		return result
+		for num, count in counts.items():
+
+			if count == 1:
+
+				return num
