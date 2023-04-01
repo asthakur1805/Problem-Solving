@@ -2,20 +2,16 @@ class Solution:
 
 	def maxProfit(self, prices):
 
-		buyPointer = 0
+		buy, resultProfit = 0, 0
 
-		resultProfit = 0
+		for sell in range(1, len(prices)):
 
-		for sellPointer in range(1, len(prices)):
+			if prices[buy] > prices[sell]:
 
-			if prices[sellPointer] < prices[buyPointer]:
-
-				buyPointer = sellPointer
+				buy = sell
 
 			else:
 
-				resultProfit = max(resultProfit, prices[sellPointer]-prices[buyPointer])
-
+				resultProfit = max(resultProfit, prices[sell]-prices[buy])
 
 		return resultProfit
-					
