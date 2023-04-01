@@ -6,19 +6,17 @@ class Solution:
 
 			return
 
-		slowPointer, fastPointer = head, head.next
+		slow, fast = head, head.next
 
-		while fastPointer:
+		while fast:
 
-			if slowPointer.val != fastPointer.val:
+			if slow.val != fast.val:
 
-				slowPointer = slowPointer.next
+				slow = slow.next
+				slow.val = fast.val
 
-				slowPointer.val = fastPointer.val
+			fast = fast.next
 
-
-			fastPointer = fastPointer.next
-
-		slowPointer.next = None
+		slow.next = None
 
 		return head
