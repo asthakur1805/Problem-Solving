@@ -2,7 +2,7 @@ class Solution:
 
 	def containsDuplicate(self, nums):
 
-		visitedNums = set({})
+		visitedNums = set()
 
 		for num in nums:
 
@@ -11,6 +11,5 @@ class Solution:
 				return True
 
 			visitedNums.add(num)
-
 
 		return False
