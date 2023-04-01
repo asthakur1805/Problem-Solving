@@ -2,12 +2,22 @@ class Solution:
 
 	def getIntersectionNode(self, headFirstList, headSecondList):
 
-		currFirstList, currSecondList = headFirstList, headSecondList
+		curr, visitedNodes = headFirstList, set()
 
-		while currFirstList != currSecondList:
+		while curr:
 
-			currFirstList = currFirstList.next if currFirstList else headSecondList
+			visitedNodes.add(curr)
 
-			currSecondList = currSecondList.next if currSecondList else headFirstList
+			curr = curr.next
 
-		return currFirstList
+		curr = headSecondList
+
+		while curr:
+
+			if curr in visitedNodes:
+
+				return curr
+
+			curr = curr.next
+
+		return None
