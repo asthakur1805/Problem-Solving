@@ -6,14 +6,14 @@ class Solution:
 
 			return len(nums)
 
-		slowPointer = 1
+		slow = 1
 
-		for fastPointer in range(1, len(nums)):
+		for fast in range(1, len(nums)):
 
-			if nums[slowPointer-1] != nums[fastPointer]:
+			if nums[slow-1] != nums[fast]:
 
-				nums[slowPointer] = nums[fastPointer]
+				nums[slow] = nums[fast]
 
-				slowPointer += 1
+				slow += 1
 
-		return slowPointer
+		return slow
