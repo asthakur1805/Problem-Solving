@@ -2,16 +2,13 @@ class Solution:
 
 	def reverseList(self, head):
 
-		prev, curr = None, head
+		curr, prev = head, None
 
 		while curr:
 
-			nextNode = curr.next
-
+			currNext = curr.next
 			curr.next = prev
-	
 			prev = curr
-	
-			curr = nextNode
+			curr = currNext
 
 		return prev
