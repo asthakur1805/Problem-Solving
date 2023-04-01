@@ -6,6 +6,6 @@ class Solution:
 
 		for sell in range(1, len(prices)):
 
-			resultProfit += max(prices[sell]-prices[sell-1], 0)
+			resultProfit += max(0, prices[sell]-prices[sell-1])
 
 		return resultProfit
