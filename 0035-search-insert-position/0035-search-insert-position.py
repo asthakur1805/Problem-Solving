@@ -2,10 +2,22 @@ class Solution:
 
 	def searchInsert(self, nums, inputVal):
 
-		for index, num in enumerate(nums):
+		left, right = 0, len(nums)-1
 
-			if inputVal <= num:
+		while left <= right:
 
-				return index
+			mid = left + (right - left) // 2
 
-		return len(nums)
+			if nums[mid] == inputVal:
+
+				return mid
+
+			if nums[mid] < inputVal:
+
+				left = mid + 1
+
+			else:
+
+				right = mid - 1
+
+		return left
