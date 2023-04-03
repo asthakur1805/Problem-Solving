@@ -6,12 +6,23 @@ class Solution:
 
 			return 0
 
-		if not root.left:
+		queue = collections.deque([(root, 1)])
 
-			return 1 + self.minDepth(root.right)
+		while queue:
 
-		if not root.right:
+			for _ in range(len(queue)):
 
-			return 1 + self.minDepth(root.left)
+				node, depth = queue.popleft()
 
-		return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
+				if not node.left and not node.right:
+
+					return depth
+
+				if node.left:
+
+					queue.append((node.left, depth+1))
+
+				if node.right:
+
+					queue.append((node.right, depth+1))
+
