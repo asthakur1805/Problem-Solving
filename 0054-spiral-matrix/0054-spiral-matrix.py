@@ -2,15 +2,15 @@ class Solution:
 
 	def spiralOrder(self, matrix):
 
-		left, right, top, bottom = 0, len(matrix[0]), 0, len(matrix)
+		top, bottom, left, right = 0, len(matrix), 0, len(matrix[0])
 
 		result = []
 
 		while left < right and top < bottom:
 
-			for column in range(left, right):
+			for col in range(left, right):
 
-				result.append(matrix[top][column])
+				result.append(matrix[top][col])
 
 			top += 1
 
@@ -24,9 +24,9 @@ class Solution:
 
 				break
 
-			for column in range(right-1, left-1, -1):
+			for col in range(right-1, left-1, -1):
 
-				result.append(matrix[bottom-1][column])
+				result.append(matrix[bottom-1][col])
 
 			bottom -= 1
 
