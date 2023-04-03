@@ -1,45 +1,42 @@
 class Solution:
 
-	def generateMatrix(self, rankMatrix):
+	def generateMatrix(self, base):
 
-		matrix = [[0 for _ in range(rankMatrix)] for _ in range(rankMatrix)]
+		matrix = [[0] * base for _ in range(base)]
 
-		matrixValue = 1
+		count = 1
 
-		left, right, top, bottom = 0, len(matrix), 0, len(matrix)
+		top, bottom, left, right = 0, base, 0, base
 
-		while left < right and top < bottom:
+		while top < bottom and left < right:
 
-			for column in range(left, right):
+			for col in range(left, right):
 
-				matrix[top][column] = matrixValue
-
-				matrixValue += 1
+				matrix[top][col] = count
+				count += 1
 
 			top += 1
 
 			for row in range(top, bottom):
 
-				matrix[row][right-1] = matrixValue
-
-				matrixValue += 1
+				matrix[row][right-1] = count
+				count += 1
 
 			right -= 1
 
-			for column in range(right-1, left-1, -1):
+			for col in range(right-1, left-1, -1):
 
-				matrix[bottom-1][column] = matrixValue
-
-				matrixValue += 1
+				matrix[bottom-1][col] = count
+				count += 1
 
 			bottom -= 1
 
 			for row in range(bottom-1, top-1, -1):
 
-				matrix[row][left] = matrixValue
-
-				matrixValue += 1
+				matrix[row][left] = count
+				count += 1
 
 			left += 1
 
 		return matrix
+			
