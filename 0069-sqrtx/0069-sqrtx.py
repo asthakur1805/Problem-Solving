@@ -2,18 +2,22 @@ class Solution:
 
 	def mySqrt(self, square):
 
-		if not square:
+		left, right = 1, square
 
-			return 0
+		while left <= right:
 
-		squareRoot = 1
+			mid = left + (right - left) // 2
 
-		while True:
+			if mid == square / mid:
 
-			if squareRoot <= square / squareRoot and square / (squareRoot + 1) < (squareRoot + 1):
+				return mid
 
-				return squareRoot
+			if mid < square / mid:
 
-			squareRoot += 1
+				left = mid + 1
 
-		return
+			else:
+
+				right = mid - 1
+
+		return right
