@@ -1,14 +1,22 @@
 class Solution:
 
-	def isSameTree(self, firstTreeNode, secondTreeNode):
+	def isSameTree(self, firstRoot, secondRoot):
 
-		if not firstTreeNode and not secondTreeNode:
+		stack = [(firstRoot, secondRoot)]
 
-			return True
+		while stack:
 
-		if not firstTreeNode or not secondTreeNode or firstTreeNode.val != secondTreeNode.val:
+			firstTreeNode, secondTreeNode = stack.pop()
 
-			return False
+			if not firstTreeNode and not secondTreeNode:
 
-		return self.isSameTree(firstTreeNode.left, secondTreeNode.left) and self.isSameTree(firstTreeNode.right, secondTreeNode.right)
-		
+				continue
+
+			if not firstTreeNode or not secondTreeNode or firstTreeNode.val != secondTreeNode.val:
+
+				return False
+
+			stack.append((firstTreeNode.left, secondTreeNode.left))
+			stack.append((firstTreeNode.right, secondTreeNode.right))
+
+		return True
