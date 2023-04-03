@@ -4,11 +4,11 @@ class Solution:
 
 		if not root:
 
-			return 
-
-		result = []
+			return
 
 		stack = [(root, False)]
+
+		result = []
 
 		while stack:
 
