@@ -1,10 +1,6 @@
 class Solution:
 
-	def removeElements(self, head, inputValue):
-
-		if not head:
-
-			return
+	def removeElements(self, head, inputVal):
 
 		dummy = ListNode(0, head)
 
@@ -12,7 +8,7 @@ class Solution:
 
 		while curr:
 
-			if curr.val == inputValue:
+			if curr.val == inputVal:
 
 				prev.next = curr.next
 
@@ -21,6 +17,5 @@ class Solution:
 				prev = prev.next
 
 			curr = curr.next
-
 
 		return dummy.next
