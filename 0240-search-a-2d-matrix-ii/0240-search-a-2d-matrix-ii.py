@@ -2,22 +2,14 @@ class Solution:
 
 	def searchMatrix(self, matrix, target):
 
-		row, column = len(matrix)-1, 0
+		numRows, numColumns = len(matrix), len(matrix[0])
 
-		while row >= 0 and column < len(matrix[0]):
+		for row in range(numRows):
 
-			if matrix[row][column] == target:
+			for col in range(numColumns):
 
-				return True
+				if matrix[row][col] == target:
 
-			if matrix[row][column] < target:
-
-				column += 1
-
-			else:
-
-				row -= 1
+					return True
 
 		return False
-
-			
