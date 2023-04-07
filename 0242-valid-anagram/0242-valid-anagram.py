@@ -6,14 +6,11 @@ class Solution:
 
 			return False
 
-		countsFirstStr, countsSecondStr = {}, {}
+		countsFirstStr, countsSecondStr = [0]*26, [0]*26
 
-		for char in firstStr:
+		for index in range(len(firstStr)):
 
-			countsFirstStr[char] = countsFirstStr.get(char, 0) + 1
-
-		for char in secondStr:
-
-			countsSecondStr[char] = countsSecondStr.get(char, 0) + 1
+			countsFirstStr[ord(firstStr[index])-ord('a')] += 1
+			countsSecondStr[ord(secondStr[index])-ord('a')] += 1
 
 		return countsFirstStr == countsSecondStr
