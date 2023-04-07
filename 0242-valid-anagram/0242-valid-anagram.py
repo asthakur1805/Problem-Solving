@@ -16,11 +16,4 @@ class Solution:
 
 			countsSecondStr[char] = countsSecondStr.get(char, 0) + 1
 
-		for char in firstStr:
-
-			if countsFirstStr[char] != countsSecondStr.get(char, 0):
-
-				return False
-
-		return True
-		
+		return countsFirstStr == countsSecondStr
