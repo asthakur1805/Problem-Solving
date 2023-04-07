@@ -6,7 +6,7 @@ class Solution:
 
 		for index, currInterval in enumerate(intervals):
 
-			newStart, newEnd, currStart, currEnd = newInterval[0], newInterval[1], currInterval[0], currInterval[1]
+			currStart, currEnd, newStart, newEnd = currInterval[0], currInterval[1], newInterval[0], newInterval[1]
 
 			if newEnd < currStart:
 
@@ -14,7 +14,7 @@ class Solution:
 
 				return result + intervals[index:]
 
-			if newStart > currEnd:
+			elif newStart > currEnd:
 
 				result.append(currInterval)
 
