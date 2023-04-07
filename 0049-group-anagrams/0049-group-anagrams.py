@@ -4,16 +4,16 @@ class Solution:
 
 		from collections import defaultdict
 
-		groups = defaultdict(list) 
+		anagrams = defaultdict(list) 
 
-		for inputStr in inputStrs:
+		for currStr in inputStrs:
 
 			counts = [0] * 26
 
-			for char in inputStr:
+			for char in currStr:
 
 				counts[ord(char)-ord('a')] += 1
 
-			groups[tuple(counts)].append(inputStr)
+			anagrams[tuple(counts)].append(currStr)
 
-		return groups.values()
+		return anagrams.values()
