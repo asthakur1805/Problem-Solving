@@ -4,7 +4,7 @@ class Solution:
 
 		if not intervals:
 
-			return
+			return 
 
 		intervals.sort(key=lambda interval:interval[0])
 
