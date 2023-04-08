@@ -4,7 +4,7 @@ class Solution:
 
 		from collections import defaultdict
 
-		anagrams = defaultdict(list) 
+		anagrams = defaultdict(list)
 
 		for currStr in inputStrs:
 
