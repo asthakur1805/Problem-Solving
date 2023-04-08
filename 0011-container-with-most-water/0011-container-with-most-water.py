@@ -2,22 +2,18 @@ class Solution:
 
 	def maxArea(self, heights):
 
-		firstLine, secondLine = 0, len(heights)-1
+		left, right, resultArea = 0, len(heights)-1, 0
 
-		resultArea = 0
+		while left < right:
 
-		while firstLine < secondLine:
+			resultArea = max(resultArea, (right - left) * min(heights[left], heights[right]))
 
-			currentArea = (secondLine - firstLine) * min(heights[firstLine], heights[secondLine])
+			if heights[left] < heights[right]:
 
-			resultArea = max(resultArea, currentArea)
-
-			if heights[firstLine] < heights[secondLine]:
-
-				firstLine += 1
+				left += 1
 
 			else:
 
-				secondLine -= 1
+				right -= 1
 
 		return resultArea
