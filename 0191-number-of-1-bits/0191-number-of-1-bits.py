@@ -6,8 +6,8 @@ class Solution:
 
 		while inputNumber:
 
-			inputNumber &= (inputNumber-1)
+			result += (inputNumber & 1)
 
-			result += 1
+			inputNumber >>= 1
 
 		return result
