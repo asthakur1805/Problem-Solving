@@ -2,16 +2,11 @@ class Solution:
 
 	def middleNode(self, head):
 
-		if not head:
+		slow, fast = head, head
 
-			return
+		while fast and fast.next:
 
-		slowPointer = fastPointer = head 
+			slow = slow.next
+			fast = fast.next.next
 
-		while fastPointer and fastPointer.next:	
-
-			slowPointer = slowPointer.next
-
-			fastPointer = fastPointer.next.next
-
-		return slowPointer
+		return slow
