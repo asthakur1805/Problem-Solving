@@ -2,24 +2,26 @@ class Solution:
 
 	def detectCycle(self, head):
 
-		slowPointer = fastPointer = head
+		slow, fast = head, head
 
-		while fastPointer and fastPointer.next:
+		while fast and fast.next:
 
-			slowPointer = slowPointer.next
-			fastPointer = fastPointer.next.next
+			slow = slow.next
+			fast = fast.next.next
 
-			if slowPointer == fastPointer:
+			if slow == fast:
+
 				break
-
+		
 		else:
-			return
 
-		currPointer = head
+			return None
 
-		while currPointer != slowPointer:
+		curr = head
 
-			currPointer = currPointer.next
-			slowPointer = slowPointer.next
+		while curr != slow:
 
-		return slowPointer
+			curr = curr.next
+			slow = slow.next
+
+		return slow
