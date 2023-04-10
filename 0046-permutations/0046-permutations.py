@@ -2,30 +2,24 @@ class Solution:
 
 	def permute(self, nums):
 
-		visited, builder, result = set(), [], []
+		index, result = 0, []
 
-		self.helper(nums, builder, visited, result)
+		self.helper(nums, index, result)
 
 		return result
 
-	def helper(self, nums, builder, visited, result):
+	def helper(self, nums, index, result):
 
-		if len(builder) == len(nums):
+		if index == len(nums):
 
-			result.append(builder.copy())
+			result.append(nums.copy())
 
 			return
 
-		for num in nums:
+		for swapIndex in range(index, len(nums)):
 
-			if num not in visited:
+			nums[index], nums[swapIndex] = nums[swapIndex], nums[index]
 
-				visited.add(num)
-				builder.append(num)
+			self.helper(nums, index+1, result)
 
-				self.helper(nums, builder, visited, result)
-
-				visited.remove(num)
-				builder.pop()
-
-		
+			nums[index], nums[swapIndex] = nums[swapIndex], nums[index]
