@@ -14,7 +14,7 @@ class Solution:
 
 		if index == len(nums):
 
-			result.append(nums.copy())
+			result.append(nums)
 			return
 
 		for swapIndex in range(index, len(nums)):
