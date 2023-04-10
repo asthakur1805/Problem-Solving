@@ -4,9 +4,9 @@ class Solution:
 
 		nums.sort()
 
-		result = []
+		index, result = 0, []
 
-		self.helper(nums, 0, result)
+		self.helper(nums, index, result)
 
 		return result
 
@@ -17,11 +17,10 @@ class Solution:
 			result.append(nums.copy())
 			return
 
-		for swapIndex in range(index,len(nums)):
+		for swapIndex in range(index, len(nums)):
 
 			if swapIndex == index or nums[swapIndex] != nums[index]:
 
+				nums[index], nums[swapIndex] = nums[swapIndex], nums[index]
 
-			    nums[index], nums[swapIndex] = nums[swapIndex], nums[index]
-
-			    self.helper(nums.copy(), index+1, result)   
+				self.helper(nums.copy(), index+1, result)
