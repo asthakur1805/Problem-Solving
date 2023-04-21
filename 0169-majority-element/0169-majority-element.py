@@ -6,9 +6,9 @@ class Solution:
 
 		for num in nums:
 
-			if count == 0:
+			result = num if count == 0 else result
 
-				result = num
+				
 
 			count += (1 if result == num else -1)
 
