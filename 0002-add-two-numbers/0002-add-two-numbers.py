@@ -8,11 +8,13 @@ class Solution:
 
 		while currFirstList or currSecondList or carry:
 
-			firstNum = currFirstList.val if currFirstList else 0
-			secondNum = currSecondList.val if currSecondList else 0
+			firstVal = currFirstList.val if currFirstList else 0 
+			secondVal = currSecondList.val if currSecondList else 0
 
-			addition = firstNum + secondNum + carry
+			addition = firstVal + secondVal + carry
+
 			currResultList.next = ListNode(addition % 10)
+
 			carry = addition // 10
 
 			currFirstList = currFirstList.next if currFirstList else None
@@ -20,4 +22,3 @@ class Solution:
 			currResultList = currResultList.next
 
 		return dummyNode.next
-		
