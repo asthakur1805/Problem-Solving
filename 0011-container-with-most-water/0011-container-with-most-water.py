@@ -2,9 +2,9 @@ class Solution:
 
 	def maxArea(self, heights):
 
-		left, right = 0, len(heights)-1
-
 		resultArea = 0
+
+		left, right = 0, len(heights)-1
 
 		while left < right:
 
@@ -19,3 +19,4 @@ class Solution:
 				right -= 1
 
 		return resultArea
+		
