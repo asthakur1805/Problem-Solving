@@ -2,24 +2,22 @@ class Solution:
 
 	def intToRoman(self, inputNumber):
 
-		result, romanIndex = [], 0
+		mapping = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400,'CD'), (100,'C'), (90,'XC'), (50,'L'), (40,'XL'), (10,'X'), (9,'IX'), (5,'V'), (4,'IV'), (1,'I')]
 
-		mapping = [(1000,'M'),(900,'CM'),(500,'D'),(400,'CD'),(100,'C'),(90,'XC'),(50,'L'),(40,'XL'),(10,'X'),(9,'IX'),(5,'V'),(4,'IV'),(1,'I')]
+		index, result = 0, []
 
 		while inputNumber:
 
-			base, roman = mapping[romanIndex]
+			value, roman = mapping[index]
 
-			numRepeats = inputNumber // base
+			if inputNumber >= value:
 
-			if numRepeats > 0:
+				repeat = inputNumber // value
 
-				result.append(roman * numRepeats)
+				result.append(roman * repeat)
 
-				inputNumber %= base
+				inputNumber %= value
 
-			romanIndex += 1
+			index += 1
 
 		return ''.join(result)
-
-			
