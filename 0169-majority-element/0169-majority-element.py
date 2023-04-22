@@ -2,14 +2,17 @@ class Solution:
 
 	def majorityElement(self, nums):
 
-		result, count = None, 0
+		maxCount, result = 0, None
+
+		counts = {}
 
 		for num in nums:
 
-			result = num if count == 0 else result
+			counts[num] = counts.get(num, 0) + 1
 
-				
+			if counts[num] > maxCount:
 
-			count += (1 if result == num else -1)
+				maxCount = counts[num]
+				result = num
 
 		return result
