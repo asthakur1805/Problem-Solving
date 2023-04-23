@@ -2,23 +2,24 @@ class Solution:
 
 	def subsets(self, nums):
 
-		index, currSubset, result = 0, [], []
+		builder, result = [], []
 
-		self.helper(nums, index, currSubset, result)
+		self.helper(nums, 0, builder, result)
 
 		return result
 
-	def helper(self, nums, index, currSubset, result):
+	def helper(self, nums, index, builder, result):
 
 		if index == len(nums):
 
-			result.append(currSubset.copy())
-			return
+			result.append(builder.copy())
 
-		currSubset.append(nums[index])
+			return 
 
-		self.helper(nums, index+1, currSubset, result)
+		builder.append(nums[index])
 
-		currSubset.pop()
+		self.helper(nums, index+1, builder, result)
 
-		self.helper(nums, index+1, currSubset, result)
+		builder.pop()
+
+		self.helper(nums, index+1, builder, result)
