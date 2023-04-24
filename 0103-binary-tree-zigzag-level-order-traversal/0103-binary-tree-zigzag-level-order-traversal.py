@@ -4,18 +4,19 @@ class Solution:
 
 		if not root:
 
-			return 
-
-		result = []
+			return
 
 		queue = collections.deque([root])
+
+		result = []
 
 		while queue:
 
 			level = []
 
+			# Even Case
 			if not len(result) % 2:
-
+				
 				for _ in range(len(queue)):
 
 					node = queue.popleft()
@@ -29,7 +30,8 @@ class Solution:
 					if node.right:
 
 						queue.append(node.right)
-
+				
+			# Odd Case
 			else:
 
 				for _ in range(len(queue)):
