@@ -6,9 +6,11 @@ class Solution:
 
 			return
 
-		queue = collections.deque([root])
-
 		stack = []
+
+		result = []
+
+		queue = collections.deque([root])
 
 		while queue:
 
@@ -29,8 +31,6 @@ class Solution:
 					queue.append(node.right)
 
 			stack.append(level)
-
-		result = []
 
 		while stack:
 
