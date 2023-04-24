@@ -4,9 +4,9 @@ class Solution:
 
 		nums.sort()
 
-		index, builder, result = 0, [], []
+		builder, result = [], []
 
-		self.helper(nums, index, builder, result)
+		self.helper(nums, 0, builder, result)
 
 		return result
 
@@ -15,6 +15,7 @@ class Solution:
 		if index == len(nums):
 
 			result.append(builder.copy())
+
 			return
 
 		builder.append(nums[index])
