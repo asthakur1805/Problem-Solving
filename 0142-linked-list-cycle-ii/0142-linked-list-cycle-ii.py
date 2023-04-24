@@ -2,18 +2,25 @@ class Solution:
 
 	def detectCycle(self, head):
 
-		visitedNodes = set()
+		slow, fast = head, head
+
+		while fast and fast.next:
+
+			slow = slow.next
+			fast = fast.next.next
+
+			if slow == fast:
+
+				break
+
+		else:
+
+			return None
 
 		curr = head
 
-		while curr:
+		while curr != slow:
 
-			if curr in visitedNodes:
+			curr, slow = curr.next, slow.next
 
-				return curr
-
-			visitedNodes.add(curr)
-
-			curr = curr.next
-
-		return None
+		return slow
