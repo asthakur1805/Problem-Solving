@@ -2,11 +2,18 @@ class Solution:
 
 	def middleNode(self, head):
 
-		slow, fast = head, head
+		curr, length = head, 0
 
-		while fast and fast.next:
+		while curr:
 
-			slow = slow.next
-			fast = fast.next.next
+			length += 1
 
-		return slow
+			curr = curr.next
+
+		curr = head
+
+		for _ in range(length // 2):
+
+			curr = curr.next
+
+		return curr
