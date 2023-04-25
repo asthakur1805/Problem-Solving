@@ -2,33 +2,32 @@ class Solution:
 
 	def sortedListToBST(self, head):
 
-		if not head:
-			return
+		nums = []
 
-		mid = self.findMidNode(head)
+		curr = head
 
-		root = TreeNode(mid.val)
+		while curr:
 
-		if mid == head:
-			return root
+			nums.append(curr.val)
 
-		root.left = self.sortedListToBST(head)
-		root.right = self.sortedListToBST(mid.next)
-			
-		return root
+			curr = curr.next
+
+		print(nums)
+
+		return self.helper(nums, 0, len(nums)-1)
+
+	def helper(self, nums, left, right):
+
+		if left > right:
+
+			return 
+
+		mid = left + (right - left) // 2
+
+		rootNode = TreeNode(nums[mid])
 	
-	def findMidNode(self, head):
+		rootNode.left = self.helper(nums, left, mid-1)
 
-		prevPointer = slowPointer = fastPointer = head
+		rootNode.right = self.helper(nums, mid+1, right)
 
-		while fastPointer and fastPointer.next:
-
-			prevPointer = slowPointer
-			slowPointer = slowPointer.next
-			fastPointer = fastPointer.next.next
-
-		prevPointer.next = None
-
-		return slowPointer
-
-	
+		return rootNode
