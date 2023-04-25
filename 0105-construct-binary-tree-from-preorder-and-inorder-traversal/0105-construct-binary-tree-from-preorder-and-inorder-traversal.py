@@ -2,25 +2,27 @@ class Solution:
 
 	def buildTree(self, preorder, inorder):
 
-		inorderMap = {value:index for index,value in enumerate(inorder)}
+		inorderStart, inorderEnd, preorderStart, preorderEnd = 0, len(inorder)-1, 0, len(preorder)-1
 
-		preorderStart, preorderEnd, inorderStart, inorderEnd = 0, len(preorder)-1, 0, len(inorder)-1
+		inorderMap = {num: index for index, num in enumerate(inorder)}
 
 		return self.helper(preorder, inorder, preorderStart, preorderEnd, inorderStart, inorderEnd, inorderMap)
 
-		
 	def helper(self, preorder, inorder, preorderStart, preorderEnd, inorderStart, inorderEnd, inorderMap):
 
-		if inorderStart > inorderEnd or preorderStart > preorderEnd:
+		if preorderStart > preorderEnd or inorderStart > inorderEnd:
 
 			return
 
 		root = TreeNode(preorder[preorderStart])
 
-		rootIndex = inorderMap[root.val]
+		mid = inorderMap[preorder[preorderStart]]
 
-		root.left = self.helper(preorder, inorder, preorderStart+1, preorderStart+rootIndex-inorderStart, inorderStart, rootIndex-1, inorderMap)
+		root.left = self.helper(preorder, inorder, preorderStart+1, preorderStart+mid-inorderStart, inorderStart, mid-1, inorderMap)
 
-		root.right = self.helper(preorder, inorder, preorderStart+rootIndex-inorderStart+1, preorderEnd, rootIndex+1, inorderEnd, inorderMap)
+		root.right = self.helper(preorder, inorder, preorderStart+mid-inorderStart+1, preorderEnd, mid+1, inorderEnd, inorderMap)
 
 		return root
+	
+
+		
