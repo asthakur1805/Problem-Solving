@@ -2,24 +2,20 @@ class Solution:
 
 	def sortColors(self, nums):
 
-		leftPointer, midPointer, rightPointer = 0, 0, len(nums)-1
+		counts = {0:0, 1:0, 2:0}
 
-		while midPointer <= rightPointer:
+		for num in nums:
 
-			if nums[midPointer] == 0:
+			counts[num] += 1
 
-				nums[leftPointer], nums[midPointer] = nums[midPointer], nums[leftPointer]
-				midPointer += 1
-				leftPointer += 1
+		for index in range(counts[0]):
 
-			elif nums[midPointer] == 1:
+			nums[index] = 0
 
-				midPointer += 1
+		for index in range(counts[0], counts[0]+counts[1]):
 
-			else:
+			nums[index] = 1
 
-				nums[midPointer], nums[rightPointer] = nums[rightPointer], nums[midPointer]
-				rightPointer -= 1
+		for index in range(counts[0]+counts[1], counts[0]+counts[1]+counts[2]):
 
-		
-		
+			nums[index] = 2
