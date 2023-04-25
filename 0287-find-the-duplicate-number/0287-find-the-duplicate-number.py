@@ -2,21 +2,23 @@ class Solution:
 
 	def findDuplicate(self, nums):
 
-		slowPointer = fastPointer = nums[0]
+		slow, fast = 0, 0
 
 		while True:
 
-			slowPointer = nums[slowPointer]
-			fastPointer = nums[nums[fastPointer]]
+			slow = nums[slow]
+			fast = nums[nums[fast]]
 
-			if slowPointer == fastPointer:
+			if slow == fast:
+
 				break
 
-		currPointer = nums[0]
+		curr = 0
 
-		while currPointer != slowPointer:
-			slowPointer = nums[slowPointer]
-			currPointer = nums[currPointer]
+		while curr != slow:
 
-		return currPointer
+			curr = nums[curr]
+			slow = nums[slow]
+
+		return slow
 			
