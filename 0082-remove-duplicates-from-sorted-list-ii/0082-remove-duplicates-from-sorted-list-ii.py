@@ -2,25 +2,25 @@ class Solution:
 
 	def deleteDuplicates(self, head):
 
-		dummyNode = ListNode(0, head)
+		dummy = ListNode(0, head)
 
-		prevNode, currNode = dummyNode, head
+		prev, curr = dummy, head
 
-		while currNode and currNode.next:
+		while curr and curr.next:
 
-			if currNode.val != currNode.next.val:
-
-				prevNode = currNode
-				currNode = currNode.next
+			if curr.val != curr.next.val:
+	
+				prev = prev.next
+				curr = curr.next
 
 			else:
 
-				while currNode and currNode.next and currNode.val == currNode.next.val:
-					
-					currNode = currNode.next
+				while curr and curr.next and curr.val == curr.next.val:
 
-				prevNode.next = currNode.next
-				currNode = currNode.next
+					curr = curr.next
 
+				prev.next = curr.next
+				curr = curr.next
 
-		return dummyNode.next
+		return dummy.next
+				
