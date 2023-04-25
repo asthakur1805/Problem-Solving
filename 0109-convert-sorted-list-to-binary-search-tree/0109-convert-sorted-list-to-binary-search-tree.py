@@ -4,35 +4,33 @@ class Solution:
 
 		if not head:
 
-			return None
-
-		if not head.next:
-
-			return TreeNode(head.val)
+			return
 
 		mid = self.middleNode(head)
 
 		root = TreeNode(mid.val)
 
-		prev = head
+		if mid == head:
 
-		while prev.next != mid:
+			return root
 
-			prev = prev.next
+		root.left = self.sortedListToBST(head)
 
-		prev.next = None
-
-		root.left, root.right = self.sortedListToBST(head), self.sortedListToBST(mid.next)
+		root.right = self.sortedListToBST(mid.next)
 
 		return root
 
-
+		
 	def middleNode(self, head):
 
-		slow, fast = head, head
+		prev, slow, fast = head, head, head
 
 		while fast and fast.next:
 
-			slow, fast = slow.next, fast.next.next
+			prev = slow
+			slow = slow.next
+			fast = fast.next.next
+
+		prev.next = None
 
 		return slow
