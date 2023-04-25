@@ -4,23 +4,48 @@ class Solution:
 
 		firstIndex, lastIndex = -1, -1
 
-		for currIndex in range(len(nums)):
+		left, right = 0, len(nums)-1
 
-			if nums[currIndex] == target:
+		while left <= right:
 
-				firstIndex, lastIndex = currIndex, currIndex
-				break
+			mid = left + (right - left) // 2
 
-		else:
+			if nums[mid] == target:
+
+				firstIndex = mid
+
+				right = mid - 1
+
+			elif nums[mid] < target:
+
+				left = mid + 1
+
+			else:
+
+				right = mid - 1
+
+		if firstIndex == -1:
 
 			return [firstIndex, lastIndex]
 
-		for currIndex in range(firstIndex+1, len(nums)):
+		left, right = 0, len(nums)-1
 
-			if nums[currIndex] == target:
+		while left <= right:
 
-				lastIndex = currIndex
+			mid = left + (right - left) // 2
+
+			if nums[mid] == target:
+
+				lastIndex = mid
+
+				left = mid + 1
+
+			elif nums[mid] < target:
+
+				left = mid + 1
+
+			else:
+
+				right = mid - 1
 
 		return [firstIndex, lastIndex]
- 
-		
