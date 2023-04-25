@@ -2,20 +2,23 @@ class Solution:
 
 	def sortColors(self, nums):
 
-		counts = {0:0, 1:0, 2:0}
+		left, mid, right = 0, 0, len(nums)-1
 
-		for num in nums:
+		while mid <= right:
 
-			counts[num] += 1
+			if nums[mid] == 0:
 
-		for index in range(counts[0]):
+				nums[mid], nums[left] = nums[left], nums[mid]
+				left += 1
+				mid += 1
 
-			nums[index] = 0
+			elif nums[mid] == 1:
 
-		for index in range(counts[0], counts[0]+counts[1]):
+				mid += 1
 
-			nums[index] = 1
+			else:
 
-		for index in range(counts[0]+counts[1], counts[0]+counts[1]+counts[2]):
+				nums[mid], nums[right] = nums[right], nums[mid]
+				right -= 1
 
-			nums[index] = 2
+		
