@@ -2,9 +2,9 @@ class Solution:
 
 	def buildTree(self, inorder, postorder):
 
-		inorderMap = {value:index for index,value in enumerate(inorder)}
-
 		inorderStart, inorderEnd, postorderStart, postorderEnd = 0, len(inorder)-1, 0, len(postorder)-1
+
+		inorderMap = {num:index for index, num in enumerate(inorder)}
 
 		return self.helper(inorder, postorder, inorderStart, inorderEnd, postorderStart, postorderEnd, inorderMap)
 
@@ -14,13 +14,12 @@ class Solution:
 
 			return
 
-		rootNode = TreeNode(postorder[postorderEnd])
+		root = TreeNode(postorder[postorderEnd])
 
-		rootIndex = inorderMap[rootNode.val]
+		mid = inorderMap[postorder[postorderEnd]]
 
-		rootNode.left = self.helper(inorder, postorder, inorderStart, rootIndex-1, postorderStart, postorderEnd-inorderEnd+rootIndex-1, inorderMap)
+		root.left = self.helper(inorder, postorder, inorderStart, mid-1, postorderStart, postorderEnd-inorderEnd+mid-1, inorderMap)
 
-		rootNode.right = self.helper(inorder, postorder, rootIndex+1, inorderEnd, postorderEnd-inorderEnd+rootIndex, postorderEnd-1, inorderMap)
+		root.right = self.helper(inorder, postorder, mid+1, inorderEnd, postorderEnd-inorderEnd+mid, postorderEnd-1, inorderMap)
 
-		return rootNode
-	
+		return root
