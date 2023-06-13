@@ -6,19 +6,18 @@ class MinStack:
 
 	def push(self, element):
 
-		currMin = min(element, element if not self.stack else self.stack[-1][1])
-		self.stack.append((element,currMin))
-		
+		currMin = element if not self.stack else min(element, self.stack[-1][1])
+  
+		self.stack.append((element, currMin))
 
 	def pop(self):
 
-		return self.stack.pop()[0]
+		return self.stack.pop()[0] if self.stack else None
 
 	def top(self):
 
-		return self.stack[-1][0]
+		return self.stack[-1][0] if self.stack else None
 
 	def getMin(self):
 
-		return self.stack[-1][1]
-		
+		return self.stack[-1][1] if self.stack else None
