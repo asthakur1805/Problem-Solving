@@ -2,9 +2,9 @@ class Solution:
 
 	def oddEvenList(self, head):
 
-		if not head or not head.next:
+		if not head:
 
-			return head
+			return 
 
 		headEven = head.next
 
