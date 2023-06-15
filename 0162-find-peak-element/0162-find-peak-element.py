@@ -8,14 +8,16 @@ class Solution:
 
 			mid = left + (right - left) // 2
 
-			if left == right or nums[mid-1] < nums[mid] > nums[mid+1]:
+			if mid > 0 and nums[mid-1] > nums[mid]:
 
-				return mid
+				right = mid - 1
 
-			if nums[mid+1] > nums[mid]:
+			elif mid < len(nums)-1 and nums[mid+1] > nums[mid]:
 
 				left = mid + 1
 
 			else:
 
-				right = mid - 1
+				return mid
+
+		
