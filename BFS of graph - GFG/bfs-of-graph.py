@@ -2,17 +2,16 @@ from collections import deque
 
 class Solution:
 
-	def bfsOfGraph(self,numberNodes,adjList):
+	def bfsOfGraph(self, numberNodes, adjList):
 
 		if not numberNodes:
 
-			return
+			return 
 
+		visited = set({0})
 		queue = deque([0])
 
 		result = []
-
-		visited = set({0})
 
 		while queue:
 
@@ -30,7 +29,7 @@ class Solution:
 						queue.append(neighbor)
 
 		return result
-		
+
 
 #{ 
  # Driver Code Starts
