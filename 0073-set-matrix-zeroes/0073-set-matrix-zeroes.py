@@ -4,29 +4,21 @@ class Solution:
 
 		numRows, numColumns = len(matrix), len(matrix[0])
 
+		setRows, setColumns = [1]*numRows, [1]*numColumns
+
 		for currRow in range(numRows):
 
 			for currColumn in range(numColumns):
 
 				if matrix[currRow][currColumn] == 0:
 
-					for row in range(numRows):
-
-						if matrix[row][currColumn] != 0:
-
-							matrix[row][currColumn] = None
-
-					for column in range(numColumns):
-
-						if matrix[currRow][column] != 0:
-
-							matrix[currRow][column] = None
+					setRows[currRow] = 0
+					setColumns[currColumn] = 0
 
 		for currRow in range(numRows):
 
 			for currColumn in range(numColumns):
 
-				if matrix[currRow][currColumn] == None:
-
+				if setRows[currRow] == 0 or setColumns[currColumn] == 0:
+				
 					matrix[currRow][currColumn] = 0
-
