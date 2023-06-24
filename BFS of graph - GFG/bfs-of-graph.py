@@ -6,7 +6,7 @@ class Solution:
 
 		if not numberNodes:
 
-			return 
+			return
 
 		visited = set({0})
 		queue = deque([0])
@@ -30,6 +30,7 @@ class Solution:
 
 		return result
 
+		
 
 #{ 
  # Driver Code Starts
