@@ -6,7 +6,7 @@ class Solution:
 
 		# 0: Empty, 1: Fresh, 2: Rotten
 
-		visited, numRows, numColumns, numFresh, queue = set(), len(grid), len(grid[0]), 0, deque([])
+		numRows, numColumns, numFresh, directions, queue = len(grid), len(grid[0]), 0, [(-1,0), (1,0), (0,-1), (0,1)], deque([])
 
 		for row in range(numRows):
 
@@ -15,34 +15,37 @@ class Solution:
 				if grid[row][column] == 2:
 
 					queue.append((row, column))
-					visited.add((row, column))
 
 				elif grid[row][column] == 1:
 
 					numFresh += 1
 
-		time, directions = 0, [(-1,0), (1,0), (0,-1), (0,1)]
+		time = 0
 
 		while queue and numFresh > 0:
 
 			for _ in range(len(queue)):
 
 				currRow, currColumn = queue.popleft()
-				grid[currRow][currColumn] = 2
 
 				for rowDirection, columnDirection in directions:
 
 					neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
 
-					if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and grid[neighborRow][neighborColumn] == 1 and (neighborRow, neighborColumn) not in visited:
+					if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and grid[neighborRow][neighborColumn] == 1:
 
-						queue.append((neighborRow, neighborColumn))
-						visited.add((neighborRow, neighborColumn))
 						numFresh -= 1
+						queue.append((neighborRow, neighborColumn))
+						grid[neighborRow][neighborColumn] = 2
 
 			time += 1
-	
-		return time if not numFresh else -1 
+
+		return time if numFresh == 0 else -1
 
 		
-				
+
+			
+
+		
+
+		
