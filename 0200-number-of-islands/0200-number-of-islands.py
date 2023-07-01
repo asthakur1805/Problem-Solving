@@ -1,30 +1,40 @@
+from collections import deque
+
 class Solution:
 
 	def numIslands(self, grid):
 
-		numRows, numColumns, visited, count = len(grid), len(grid[0]), set({}), 0
+		numRows, numColumns, count, visited, directions = len(grid), len(grid[0]), 0, set(), [(0,1),(0,-1),(1,0),(-1,0)]
 
-		for row in range(numRows):
+		for startRow in range(numRows):
 
-			for column in range(numColumns):
+			for startColumn in range(numColumns):
 
-				if grid[row][column] == "1" and (row, column) not in visited:
-					
+				if grid[startRow][startColumn] == '1' and (startRow, startColumn) not in visited:
+
 					count += 1
-					self.dfs(grid, row, column, numRows, numColumns, visited)
+					self.bfs(grid, startRow, startColumn, numRows, numColumns, visited, directions)
 
 		return count
 
-	def dfs(self, grid, row, column, numRows, numColumns, visited):
+	def bfs(self, grid, startRow, startColumn, numRows, numColumns, visited, directions):
 
-		visited.add((row,column))
+		visited.add((startRow,startColumn))
+		queue = deque([(startRow,startColumn)])
 
-		searchDirections = [(-1,0), (1,0), (0,1), (0,-1)]
+		while queue:
 
-		for rowDirection, columnDirection in searchDirections:
+			for _ in range(len(queue)):
 
-			neighborRow, neighborColumn = row+rowDirection, column+columnDirection
- 
-			if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and grid[neighborRow][neighborColumn] == "1" and (neighborRow, neighborColumn) not in visited:
+				currRow, currColumn = queue.popleft()
 
-				self.dfs(grid, neighborRow, neighborColumn, numRows, numColumns, visited)
+				for rowDirection, columnDirection in directions:
+
+					neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
+				
+					if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and grid[neighborRow][neighborColumn] == '1' and (neighborRow,neighborColumn) not in visited:
+
+						visited.add((neighborRow,neighborColumn))
+						queue.append((neighborRow,neighborColumn))
+
+			
