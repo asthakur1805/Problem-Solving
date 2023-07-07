@@ -2,26 +2,31 @@ class Solution:
 
 	def insertionSortList(self, head):
 
-		dummy = ListNode(0,head)
+		if not head:
 
-		curr, prev = head.next, head
+			return
+
+		dummy = ListNode(0, head)
+
+		prev, curr = head, head.next
 
 		while curr:
 
-			if curr.val >= prev.val:
+			if prev.val <= curr.val:
 
-				curr, prev = curr.next, prev.next
+				prev, curr = prev.next, curr.next
+
 				continue
 
-			iter = dummy
+			temp = dummy
 
-			while iter.next.val <= curr.val:
+			while temp.next.val <= curr.val:
 
-				iter = iter.next
+				temp = temp.next
 
 			prev.next = curr.next
-			curr.next = iter.next
-			iter.next = curr
+			curr.next = temp.next
+			temp.next = curr
 			curr = prev.next
 
 		return dummy.next
