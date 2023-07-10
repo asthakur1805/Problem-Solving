@@ -24,7 +24,6 @@ class Solution:
 			if neighborNode not in visited:
 
 				if self.dfs(graph, neighborNode, visited):
-					visited[neighborNode] = False
 					return True
 
 			else:
