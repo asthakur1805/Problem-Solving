@@ -10,17 +10,16 @@ class Solution:
 
 			if startNode not in colored:
 
-				if not self.helper(graph, startNode, colored):
+				if not self.bfs(graph, startNode, colored):
 
 					return False
 
-		
-
 		return True
 
-	def helper(self, graph, startNode, colored):
+	def bfs(self, graph, startNode, colored):
 
-		colored[startNode], currColor, neighborColor = 'A', 'A', 'B'
+		colored[startNode], neighborColor = 0, 1
+
 		queue = deque([startNode])
 
 		while queue:
@@ -38,10 +37,11 @@ class Solution:
 
 					else:
 
-						if colored[neighborNode] == currColor:
+						if colored[neighborNode] != neighborColor:
 
 							return False
 
-			neighborColor, currColor = currColor, neighborColor
+			neighborColor = 1 - neighborColor
 
 		return True
+		
