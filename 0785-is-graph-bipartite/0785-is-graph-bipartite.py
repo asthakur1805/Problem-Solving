@@ -20,7 +20,7 @@ class Solution:
 
 	def helper(self, graph, startNode, colored):
 
-		colored[startNode], currColor = 'A', 'B'
+		colored[startNode], currColor, neighborColor = 'A', 'A', 'B'
 		queue = deque([startNode])
 
 		while queue:
@@ -34,20 +34,14 @@ class Solution:
 					if neighborNode not in colored:
 
 						queue.append(neighborNode)
-						colored[neighborNode] = currColor
+						colored[neighborNode] = neighborColor
 
 					else:
 
-						if colored[neighborNode] == colored[currNode]:
+						if colored[neighborNode] == currColor:
 
 							return False
 
-			currColor = colored[currNode]
+			neighborColor, currColor = currColor, neighborColor
 
 		return True
-		
-
-		
-
-		
-		
