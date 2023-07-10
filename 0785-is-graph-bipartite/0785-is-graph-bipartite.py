@@ -20,7 +20,7 @@ class Solution:
 
 	def helper(self, graph, startNode, colored):
 
-		colored[startNode], prevColor, currColor = 'A', 'A', 'B'
+		colored[startNode], currColor = 'A', 'B'
 		queue = deque([startNode])
 
 		while queue:
@@ -42,7 +42,7 @@ class Solution:
 
 							return False
 
-			prevColor, currColor = currColor, prevColor
+			currColor = colored[currNode]
 
 		return True
 		
