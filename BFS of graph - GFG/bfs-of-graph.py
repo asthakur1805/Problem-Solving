@@ -2,14 +2,11 @@ from collections import deque
 
 class Solution:
 
-	def bfsOfGraph(self, numberNodes, adjList):
+	def bfsOfGraph(self, numberNodes, graph):
 
-		if not numberNodes:
-
-			return
+		queue = deque([0])
 
 		visited = set({0})
-		queue = deque([0])
 
 		result = []
 
@@ -17,20 +14,20 @@ class Solution:
 
 			for _ in range(len(queue)):
 
-				node = queue.popleft()
+				currNode = queue.popleft()
 
-				result.append(node)
+				result.append(currNode)
 
-				for neighbor in adjList[node]:
+				for neighborNode in graph[currNode]:
 
-					if neighbor not in visited:
+					if neighborNode not in visited:
 
-						visited.add(neighbor)
-						queue.append(neighbor)
+						queue.append(neighborNode)
+						visited.add(neighborNode)
 
 		return result
+				
 
-		
 
 #{ 
  # Driver Code Starts
