@@ -4,33 +4,35 @@ class Solution:
 
 	def updateMatrix(self, matrix):
 
-		numberRows, numberColumns, queue, visited, directions = len(matrix), len(matrix[0]), deque([]), set(), [(-1,0),(1,0),(0,-1),(0,1)]
+		numRows, numColumns, visited, directions = len(matrix), len(matrix[0]), set({}), [(0,1),(0,-1),(1,0),(-1,0)]
 
-		for row in range(numberRows):
+		queue = deque([])
 
-			for column in range(numberColumns):
+		for currRow in range(numRows):
 
-				if matrix[row][column] == 0:
+			for currColumn in range(numColumns):
 
-					visited.add((row,column))
-					queue.append((row,column))
+				if matrix[currRow][currColumn] == 0:
+
+					queue.append((currRow,currColumn))
+
+					visited.add((currRow,currColumn))
 
 		while queue:
 
 			for _ in range(len(queue)):
-
+			
 				currRow, currColumn = queue.popleft()
 
 				for rowDirection, columnDirection in directions:
 
 					neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
 
-					if 0 <= neighborRow < numberRows and 0 <= neighborColumn < numberColumns and (neighborRow, neighborColumn) not in visited:
+					if 0<=neighborRow<numRows and 0<=neighborColumn<numColumns and (neighborRow,neighborColumn) not in visited and matrix[neighborRow][neighborColumn]==1:
 
 						matrix[neighborRow][neighborColumn] = matrix[currRow][currColumn]+1
-
-						visited.add((neighborRow, neighborColumn))
-
-						queue.append((neighborRow, neighborColumn))
+						queue.append((neighborRow,neighborColumn))
+						visited.add((neighborRow,neighborColumn))
 
 		return matrix
+		
