@@ -4,31 +4,16 @@ class Solution:
 
 	def solve(self, board):
 
-		numRows, numColumns, visited, queue, directions = len(board), len(board[0]), set(), deque([]), [(-1,0),(1,0),(0,-1),(0,1)]
+		numRows, numColumns, visited, queue, directions = len(board), len(board[0]), set({}), deque([]), [(0,1),(0,-1),(1,0),(-1,0)]
 
-		for column in range(numColumns):
+		for currRow in range(numRows):
 
-			if board[0][column] == 'O' and board[0][column] not in visited:
+			for currColumn in range(numColumns):
 
-				visited.add((0,column))
-				queue.append((0,column))
+				if (currRow in (0,numRows-1) or currColumn in (0,numColumns-1)) and board[currRow][currColumn]=='O':
 
-			if board[numRows-1][column] == 'O' and board[numRows-1][column] not in visited:
-
-				visited.add((numRows-1,column))
-				queue.append((numRows-1,column))
-
-		for row in range(1,numRows-1):
-
-			if board[row][0] == 'O' and board[row][0] not in visited:
-
-				visited.add((row,0))
-				queue.append((row,0))
-
-			if board[row][numColumns-1] == 'O' and board[row][numColumns-1] not in visited:
-
-				visited.add((row,numColumns-1))
-				queue.append((row,numColumns-1))
+					visited.add((currRow,currColumn))
+					queue.append((currRow,currColumn))
 
 		while queue:
 
@@ -40,16 +25,21 @@ class Solution:
 
 					neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
 
-					if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and board[neighborRow][neighborColumn]=='O' and (neighborRow, neighborColumn) not in visited:
+					if 0<=neighborRow<numRows and 0<=neighborColumn<numColumns and (neighborRow,neighborColumn) not in visited and board[neighborRow][neighborColumn]=='O':
 
 						visited.add((neighborRow,neighborColumn))
-						queue.append((neighborRow, neighborColumn))
+						queue.append((neighborRow,neighborColumn))
 
-		for row in range(numRows):
+		for currRow in range(1,numRows-1):
 
-			for column in range(numColumns):
+			for currColumn in range(1, numColumns-1):
 
-				if board[row][column] == 'O' and (row,column) not in visited:
+				if board[currRow][currColumn] == 'O' and (currRow,currColumn) not in visited:
 
-					board[row][column] = 'X'
+					board[currRow][currColumn] = 'X'
+
+		return board
+
+						
+
 		
