@@ -1,10 +1,10 @@
-from heapq import heapify,heappush,heappop,heappushpop
+from heapq import heappush, heappop, heappushpop, heapify
 
 class KthLargest:
-
+		
 	def __init__(self, K, nums):
 
-		self.K, self.minHeap = K, nums
+		self.minHeap, self.K = nums, K
 
 		heapify(self.minHeap)
 
@@ -12,14 +12,15 @@ class KthLargest:
 
 			heappop(self.minHeap)
 
-	def add(self, val):
+	def add(self, element):
 
 		if len(self.minHeap) < self.K:
 
-			heappush(self.minHeap, val)
+			heappush(self.minHeap, element)
 
-		elif val > self.minHeap[0]:
+		else:
 
-			heappushpop(self.minHeap, val)
+			heappushpop(self.minHeap, element)
 
 		return self.minHeap[0]
+				
