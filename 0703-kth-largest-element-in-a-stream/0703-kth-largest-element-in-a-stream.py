@@ -1,7 +1,7 @@
-from heapq import heappush, heappop, heappushpop, heapify
+from heapq import heapify, heappush, heappop, heappushpop
 
 class KthLargest:
-		
+
 	def __init__(self, K, nums):
 
 		self.minHeap, self.K = nums, K
@@ -23,4 +23,5 @@ class KthLargest:
 			heappushpop(self.minHeap, element)
 
 		return self.minHeap[0]
-				
+
+		
