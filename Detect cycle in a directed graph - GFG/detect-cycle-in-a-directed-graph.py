@@ -1,43 +1,35 @@
 class Solution:
 
 	def isCyclic(self, numberNodes, graph):
-		
-		# Key: Whether node is visited, Value: Whether node is path visited
-		visited = {}
 
-		for currNode in range(numberNodes):
+		visited = [0]*len(graph)
 
-			if currNode not in visited:
+		for currNode in range(len(graph)):
 
-				if self.dfs(graph, currNode, visited):
+			if not visited[currNode] and self.dfs(graph,currNode,visited):
 
 					return True
 
 		return False
 
-	def dfs(self, graph, currNode, visited):
+	def dfs(self,graph,currNode,visited):
 
-		visited[currNode] = True
+		visited[currNode] = 2
 
 		for neighborNode in graph[currNode]:
 
-			if neighborNode not in visited:
+			if not visited[neighborNode]: 
 
-				if self.dfs(graph, neighborNode, visited):
-					return True
-
-			else:
-
-				if visited[neighborNode]:
+				if self.dfs(graph,neighborNode,visited):
 
 					return True
-		
-		visited[currNode] = False
+
+			elif visited[neighborNode] == 2:
+
+				return True
+
+		visited[currNode] = 1
 		return False
-
-	
-
-		
 
 
 #{ 
