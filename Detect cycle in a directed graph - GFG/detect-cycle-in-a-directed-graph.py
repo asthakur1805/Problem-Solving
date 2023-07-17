@@ -1,37 +1,40 @@
+from collections import deque
+
 class Solution:
 
-	def isCyclic(self, numberNodes, graph):
+	def isCyclic(self,numberNodes, graph):
 
-		visited = [0]*len(graph)
+		indegree = {num:0 for num in range(len(graph))}
 
-		for currNode in range(len(graph)):
+		for parentNode in range(len(graph)):
 
-			if not visited[currNode] and self.dfs(graph,currNode,visited):
+			for neighborNode in graph[parentNode]:
 
-					return True
+				indegree[neighborNode] += 1
 
-		return False
+		result, queue = [], deque([])
 
-	def dfs(self,graph,currNode,visited):
+		for node, degree in indegree.items():
 
-		visited[currNode] = 2
+			if degree == 0:
 
-		for neighborNode in graph[currNode]:
+				queue.append(node)
 
-			if not visited[neighborNode]: 
+		while queue:
 
-				if self.dfs(graph,neighborNode,visited):
+			currNode = queue.popleft()
 
-					return True
+			result.append(currNode)
 
-			elif visited[neighborNode] == 2:
+			for neighborNode in graph[currNode]:
 
-				return True
+				indegree[neighborNode] -= 1
 
-		visited[currNode] = 1
-		return False
+				if indegree[neighborNode] == 0:
 
+					queue.append(neighborNode)
 
+		return len(result) < len(graph)
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
