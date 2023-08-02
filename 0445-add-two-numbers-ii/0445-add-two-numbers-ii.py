@@ -2,31 +2,54 @@ class Solution:
 
 	def addTwoNumbers(self, headFirstList, headSecondList):
 
-		stackFirstList, stackSecondList = [], []
+		firstListLength, secondListLength = self.getLength(headFirstList), self.getLength(headSecondList)
 
-		currFirstList, currSecondList = headFirstList, headSecondList
+		if firstListLength < secondListLength:
 
-		while currFirstList:
+			headFirstList, headSecondList = headSecondList, headFirstList
+			firstListLength, secondListLength = secondListLength, firstListLength
 
-			stackFirstList.append(currFirstList.val)
+		currFirstList, currSecondList, currResultList = headFirstList, headSecondList, None
+
+		for _ in range(firstListLength-secondListLength):
+
+			currResultList = ListNode(currFirstList.val,currResultList)
 			currFirstList = currFirstList.next
 
-		while currSecondList:
+		for _ in range(secondListLength):
 
-			stackSecondList.append(currSecondList.val)
-			currSecondList = currSecondList.next
+			currResultList = ListNode(currFirstList.val+currSecondList.val, currResultList)
+			currFirstList, currSecondList = currFirstList.next, currSecondList.next
 
-		newHead, carry = None, 0
+		prev, carry = None, 0
 
-		while stackFirstList or stackSecondList or carry:
+		while currResultList:
 
-			firstDigit = stackFirstList.pop() if stackFirstList else 0
-			secondDigit = stackSecondList.pop() if stackSecondList else 0
+			currResultList.val += carry
+			
+			carry = currResultList.val // 10
 
-			addition = firstDigit + secondDigit + carry
+			currResultList.val %= 10
 
-			newHead = ListNode(addition % 10, newHead)
+			nextNode = currResultList.next
+			currResultList.next = prev
+			prev = currResultList
+			currResultList = nextNode
 
-			carry = addition // 10
+		if carry:
 
-		return newHead
+			prev = ListNode(1,prev)
+
+		return prev
+			
+
+	def getLength(self, head):
+
+		curr, result = head, 0
+
+		while curr:
+
+			result += 1
+			curr = curr.next
+
+		return result
