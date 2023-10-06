@@ -4,28 +4,25 @@ class MyStack:
 
 	def __init__(self):
 
-		self.mainQueue = deque([])
-		self.tempQueue = deque([])
+		self.queue = deque([])
 
 	def push(self,element):
 
-		self.tempQueue.append(element)
+		self.queue.append(element)
 
-		while self.mainQueue:
+		for _ in range(len(self.queue)-1):
 
-			self.tempQueue.append(self.mainQueue.popleft())
-
-		self.mainQueue, self.tempQueue = self.tempQueue, self.mainQueue
+			self.queue.append(self.queue.popleft())
 
 	def pop(self):
 
-		return self.mainQueue.popleft()
+		return self.queue.popleft()
 
 	def top(self):
 
-		return self.mainQueue[0]
+		return self.queue[0]
 
 	def empty(self):
 
-		return not self.mainQueue
-		
+		return not self.queue
+
