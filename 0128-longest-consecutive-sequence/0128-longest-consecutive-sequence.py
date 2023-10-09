@@ -2,18 +2,26 @@ class Solution:
 
 	def longestConsecutive(self, nums):
 
-		numSet, resultLength = set(nums), 0
+		if not nums:
 
-		for num in numSet:
+			return 0
 
-			if num-1 not in numSet:
+		nums.sort()
 
-				currLength = 1
+		currLength, resultLength = 1, 0
 
-				while num + currLength in numSet:
+		for index in range(1, len(nums)):
+
+			if nums[index] != nums[index-1]:
+
+				if nums[index] == nums[index-1] + 1:
 
 					currLength += 1
 
-				resultLength = max(resultLength, currLength)
+				else:
 
-		return resultLength
+					resultLength = max(resultLength,currLength)
+
+					currLength = 1
+
+		return max(resultLength,currLength)
