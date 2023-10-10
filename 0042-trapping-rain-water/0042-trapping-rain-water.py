@@ -1,27 +1,26 @@
 class Solution:
 
-	def trap(self, heights):
+	def trap(self,heights):
 
-		left, right, result = 0, len(heights)-1, 0
+		maxLeft = [0]*len(heights)
 
-		maxLeft, maxRight = heights[left], heights[right]
+		currMax = 0
 
-		while left < right:
+		for index in range(len(heights)):
 
-			if maxLeft <= maxRight:
+			maxLeft[index] = currMax
+			currMax = max(currMax,heights[index])
 
-				left += 1
+		currMax, result = 0, 0
 
-				result += max(0, maxLeft-heights[left])
+		for index in range(len(heights)-1,-1,-1):
 
-				maxLeft = max(maxLeft, heights[left])
-
-			else:
-
-				right -= 1
-
-				result += max(0, maxRight-heights[right])
-
-				maxRight = max(maxRight, heights[right])
+			result += max(0,min(maxLeft[index],currMax)-heights[index])
+			currMax = max(currMax,heights[index])
 
 		return result
+
+			
+
+
+			
