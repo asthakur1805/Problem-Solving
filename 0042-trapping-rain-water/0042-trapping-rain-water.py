@@ -2,25 +2,29 @@ class Solution:
 
 	def trap(self,heights):
 
-		maxLeft = [0]*len(heights)
+		left, right = 0, len(heights)-1
 
-		currMax = 0
+		maxLeft, maxRight, result = heights[left], heights[right], 0
 
-		for index in range(len(heights)):
+		while left < right:
 
-			maxLeft[index] = currMax
-			currMax = max(currMax,heights[index])
+			if maxLeft <= maxRight:
 
-		currMax, result = 0, 0
+				left += 1
 
-		for index in range(len(heights)-1,-1,-1):
+				maxLeft = max(maxLeft,heights[left])
 
-			result += max(0,min(maxLeft[index],currMax)-heights[index])
-			currMax = max(currMax,heights[index])
+				result += maxLeft - heights[left]
+
+			else:
+
+				right -= 1
+
+				maxRight = max(maxRight,heights[right])
+
+				result += maxRight - heights[right]
 
 		return result
 
-			
 
-
-			
+		
