@@ -1,17 +1,42 @@
 class Solution:
 
-	def lowestCommonAncestor(self, root, firstNode, secondNode):
+	def lowestCommonAncestor(self,root,firstNode,secondNode):
 
-		if not root: return None
+		self.firstPath, self.secondPath = [], []
 
-		if root.val in (firstNode.val,secondNode.val): return root
+		builder = []
 
-		leftResult, rightResult = self.lowestCommonAncestor(root.left, firstNode, secondNode), self.lowestCommonAncestor(root.right, firstNode, secondNode)
+		self.helper(root,builder,firstNode,secondNode)
+	
+		firstIndex, secondIndex, result = 0, 0, None
 
-		if not leftResult and not rightResult: return None
+		while firstIndex < len(self.firstPath) and secondIndex < len(self.secondPath) and self.firstPath[firstIndex] == self.secondPath[secondIndex]:
 
-		if leftResult and rightResult: return root
+			result = self.firstPath[firstIndex]
+			
+			firstIndex += 1
+			secondIndex += 1
 
-		return leftResult if leftResult else rightResult
+		return result
 
-		
+	def helper(self,node,builder,firstNode,secondNode):
+
+		if not node:
+
+			return
+
+		builder.append(node)
+
+		if node.val == firstNode.val:
+
+			self.firstPath = builder.copy()
+
+		if node.val == secondNode.val:
+
+			self.secondPath = builder.copy()
+
+		self.helper(node.left,builder,firstNode,secondNode)
+
+		self.helper(node.right,builder,firstNode,secondNode)
+												
+		builder.pop()
