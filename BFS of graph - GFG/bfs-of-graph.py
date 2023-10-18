@@ -2,32 +2,26 @@ from collections import deque
 
 class Solution:
 
-	def bfsOfGraph(self, numberNodes, graph):
+	def bfsOfGraph(self,numberNodes,adjList):
 
-		queue = deque([0])
-
-		visited = set({0})
-
-		result = []
+		queue, visited, result = deque([0]), set({0}), []
 
 		while queue:
 
-			for _ in range(len(queue)):
+			currNode = queue.popleft()
 
-				currNode = queue.popleft()
+			result.append(currNode)
 
-				result.append(currNode)
+			for neighborNode in adjList[currNode]:
 
-				for neighborNode in graph[currNode]:
+				if neighborNode not in visited:
 
-					if neighborNode not in visited:
-
-						queue.append(neighborNode)
-						visited.add(neighborNode)
+					visited.add(neighborNode)
+					queue.append(neighborNode)
 
 		return result
-				
 
+			
 
 #{ 
  # Driver Code Starts
