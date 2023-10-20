@@ -1,28 +1,38 @@
+from collections import deque
+
 class Solution:
 
-	def numIslands(self, grid):
+	def numIslands(self,grid):
 
-		numberRows, numberColumns, count, visited, directions = len(grid), len(grid[0]), 0, set(), [(0,1),(1,0),(0,-1),(-1,0)]
+		result, visited, numRows, numColumns, directions = 0, set(), len(grid), len(grid[0]), [(-1,0),(1,0),(0,-1),(0,1)]
 
-		for currRow in range(numberRows):
+		for startRow in range(numRows):
 
-			for currColumn in range(numberColumns):
+			for startColumn in range(numColumns):
 
-				if grid[currRow][currColumn] == "1" and (currRow,currColumn) not in visited:
+				if grid[startRow][startColumn] == "1" and (startRow,startColumn) not in visited:
 
-					count += 1
-					self.dfs(grid, currRow, currColumn, numberRows, numberColumns, visited, directions)
+					result += 1
+					self.bfs(grid,startRow,startColumn,numRows,numColumns,visited,directions)
 
-		return count
+		return result
 
-	def dfs(self, grid, currRow, currColumn, numberRows, numberColumns, visited, directions):
+	def bfs(self,grid,startRow,startColumn,numRows,numColumns,visited,directions):
 
-		visited.add((currRow, currColumn))
+		queue = deque([(startRow,startColumn)])
+		visited.add((startRow,startColumn))
 
-		for rowDirection, columnDirection in directions:
+		while queue:
 
-			neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
+			currRow, currColumn = queue.popleft()
 
-			if 0 <= neighborRow < numberRows and 0 <= neighborColumn < numberColumns and (neighborRow,neighborColumn) not in visited and grid[neighborRow][neighborColumn] == "1":
+			for rowDirection, columnDirection in directions:
 
-				self.dfs(grid, neighborRow, neighborColumn, numberRows, numberColumns, visited, directions)
+				neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
+
+				if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and grid[neighborRow][neighborColumn] == "1" and (neighborRow,neighborColumn) not in visited:
+
+					queue.append((neighborRow,neighborColumn))
+					visited.add((neighborRow,neighborColumn))
+
+					
