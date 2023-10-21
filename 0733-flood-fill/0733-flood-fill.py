@@ -2,38 +2,32 @@ from collections import deque
 
 class Solution:
 
-	def floodFill(self, image, startRow, startColumn, newColor):
+	def floodFill(self,image,startRow,startColumn,newColor):
 
-		numRows, numColumns = len(image), len(image[0])
+		numRows, numColumns, directions, oldColor = len(image), len(image[0]), [(-1,0),(1,0),(0,-1),(0,1)], image[startRow][startColumn]
 
-		self.bfs(image, startRow, startColumn, numRows, numColumns, newColor)
-
-		return image
-
-	def bfs(self, image, startRow, startColumn, numRows, numColumns, newColor):
-
-		oldColor = image[startRow][startColumn]
-		visited = set({(startRow,startColumn)})
 		queue = deque([(startRow,startColumn)])
-		directions = [(-1,0), (1,0), (0,-1), (0,1)]
+		visited = set({(startRow,startColumn)})
 
 		while queue:
 
-			for _ in range(len(queue)):
-	
-				currRow, currColumn = queue.popleft()
-				image[currRow][currColumn] = newColor
+			currRow, currColumn = queue.popleft()
 
-				for rowDirection, columnDirection in directions:
+			image[currRow][currColumn] = newColor
 
-					neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
+			for rowDirection, columnDirection in directions:
 
-					if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and image[neighborRow][neighborColumn] == oldColor and (neighborRow,neighborColumn) not in visited:
+				neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
 
-						queue.append((neighborRow, neighborColumn))
-						visited.add((neighborRow, neighborColumn))
-	
+				if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and (neighborRow,neighborColumn) not in visited and image[neighborRow][neighborColumn] == oldColor:
+
+					queue.append((neighborRow,neighborColumn))
+					visited.add((neighborRow,neighborColumn))
+
+		return image
+
 				
-				
 
-		
+			
+
+			
