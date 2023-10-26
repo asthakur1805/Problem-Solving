@@ -1,8 +1,6 @@
-from heapq import heapify, heappop
-
 class Solution:
 
-	def topKFrequent(self, nums, K):
+	def topKFrequent(self,nums,K):
 
 		counts = {}
 
@@ -10,14 +8,6 @@ class Solution:
 
 			counts[num] = counts.get(num,0) + 1
 
-		maxHeap = [(-count, num) for num, count in counts.items()]
+		sortedCounts = sorted([item for item in counts.items()],key=lambda count:count[1],reverse=True)
 
-		heapify(maxHeap)
-
-		result = []
-
-		for _ in range(K):
-
-			result.append(heappop(maxHeap)[1])
-
-		return result
+		return [sortedCounts[index][0] for index in range(K)]
