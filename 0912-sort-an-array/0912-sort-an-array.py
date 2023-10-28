@@ -1,60 +1,55 @@
 class Solution:
 
-	def sortArray(self, nums):
+	def sortArray(self,nums):
 
-		self.mergeSort(nums, 0, len(nums)-1)
+		self.mergeSort(nums,0,len(nums)-1)
 
 		return nums
 
-	def mergeSort(self, nums, leftPointer, rightPointer):
+	def mergeSort(self,nums,left,right):
 
-		if leftPointer >= rightPointer:
+		if left >= right:
 
 			return
 
-		midPointer = leftPointer + (rightPointer-leftPointer) // 2
+		mid = left + (right - left) // 2
 
-		self.mergeSort(nums, leftPointer, midPointer)
+		self.mergeSort(nums,left,mid)
 
-		self.mergeSort(nums, midPointer+1, rightPointer)
+		self.mergeSort(nums,mid+1,right)
 
-		self.merge(nums, leftPointer, midPointer, rightPointer)
+		self.merge(nums,left,mid,right)
 
-	def merge(self, nums, leftPointer, midPointer, rightPointer):
+	def merge(self,nums,left,mid,right):
 
-		leftSubArray, rightSubArray = nums[leftPointer:midPointer+1], nums[midPointer+1:rightPointer+1]
+		leftResult, rightResult = nums[left:mid+1], nums[mid+1:right+1]
 
-		firstIndex, secondIndex, resultIndex = 0, 0, leftPointer
+		firstIndex, secondIndex, resultIndex = 0, 0, left
 
-		while firstIndex < len(leftSubArray) and secondIndex < len(rightSubArray):
+		while firstIndex < len(leftResult) and secondIndex < len(rightResult):
 
-			if leftSubArray[firstIndex] <= rightSubArray[secondIndex]:
+			if leftResult[firstIndex] <= rightResult[secondIndex]:
 
-				nums[resultIndex] = leftSubArray[firstIndex]
+				nums[resultIndex] = leftResult[firstIndex]
 				firstIndex += 1
-
+			
 			else:
 
-				nums[resultIndex] = rightSubArray[secondIndex]
+				nums[resultIndex] = rightResult[secondIndex]
 				secondIndex += 1
 
 			resultIndex += 1
 
-		while firstIndex < len(leftSubArray):
+		while firstIndex < len(leftResult):
 
-			nums[resultIndex] = leftSubArray[firstIndex]
+			nums[resultIndex] = leftResult[firstIndex]
 			firstIndex += 1
 			resultIndex += 1
 
-		while secondIndex < len(rightSubArray):
+		while secondIndex < len(rightResult):
 
-			nums[resultIndex] = rightSubArray[secondIndex]
+			nums[resultIndex] = rightResult[secondIndex]
 			secondIndex += 1
 			resultIndex += 1
 
-
-				
-
-				
-		
 		
