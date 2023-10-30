@@ -1,34 +1,48 @@
+from collections import deque
+
 class Solution:
 
-	def isBipartite(self, graph):
+	def isBipartite(self,adjList):
 
-		colored, visited = {}, set()
+		numberNodes, visited = len(adjList), {}
 
-		for startNode in range(len(graph)-1):
+		for startNode in range(numberNodes):
 
-			if startNode not in visited:
+			if startNode not in visited and not self.bfs(adjList,startNode,visited):
 
-				if not self.dfs(graph,startNode,colored,visited,0):
-
-					return False
+				return False
 
 		return True
 
-	def dfs(self,graph,startNode,colored,visited,currColor):
+	def bfs(self,adjList,startNode,visited):
 
-		visited.add(startNode)
-		colored[startNode]=currColor
+		currColor = 0
 
-		for neighborNode in graph[startNode]:
+		queue = deque([startNode])
+		visited[startNode] = currColor
 
-			if neighborNode not in visited:
+		while queue:
 
-				if not self.dfs(graph,neighborNode,colored,visited,1-currColor):
+			currColor = 1 - currColor
 
-					return False
+			for _ in range(len(queue)):
 
-			elif colored[neighborNode] == currColor:
+				currNode = queue.popleft()
+				
+				for neighborNode in adjList[currNode]:
 
-					return False
+					if neighborNode not in visited:
+
+						visited[neighborNode] = currColor
+						queue.append(neighborNode)
+
+					elif visited[neighborNode] != currColor:
+
+						return False
 
 		return True
+
+						
+					
+
+		
