@@ -2,16 +2,14 @@ class Solution:
 
 	def searchBST(self,root,inputVal):
 
-		curr = root
+		if not root:
 
-		while curr:
+			return
 
-			if curr.val == inputVal:
+		if root.val == inputVal:
 
-				break
+			return root
 
-			curr = curr.left if inputVal < curr.val else curr.right
-
-		return curr
+		return self.searchBST(root.left,inputVal) if inputVal < root.val else self.searchBST(root.right,inputVal)
 
 				 
