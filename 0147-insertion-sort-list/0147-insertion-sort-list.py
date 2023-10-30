@@ -1,12 +1,16 @@
+class ListNode:
+
+	def __init__(self,val=0,next=None):
+
+		self.val = val
+		self.next = next
+
+
 class Solution:
 
 	def insertionSortList(self, head):
 
-		if not head:
-
-			return
-
-		dummy = ListNode(0, head)
+		dummy = ListNode(0,head)
 
 		prev, curr = head, head.next
 
@@ -15,18 +19,17 @@ class Solution:
 			if prev.val <= curr.val:
 
 				prev, curr = prev.next, curr.next
-
 				continue
 
-			temp = dummy
+			firstNode, secondNode = dummy, dummy.next
 
-			while temp.next.val <= curr.val:
+			while secondNode.val < curr.val:
 
-				temp = temp.next
+				firstNode, secondNode = firstNode.next, secondNode.next
 
 			prev.next = curr.next
-			curr.next = temp.next
-			temp.next = curr
+			curr.next = secondNode
+			firstNode.next = curr
 			curr = prev.next
 
 		return dummy.next
