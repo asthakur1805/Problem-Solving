@@ -1,35 +1,36 @@
 class Solution:
 
-	def sortList(self, head):
+	def sortList(self,head):
 
 		if not head:
 
-			return
+			return 
 
 		return self.mergeSort(head)
 
 	def mergeSort(self, head):
 
-		if not head.next:
-
-			return head
-
-		prev, mid, fast = head, head, head
+		prev, slow, fast = None, head, head
 
 		while fast and fast.next:
 
-			prev, mid, fast = mid, mid.next, fast.next.next
+			prev = slow
+			slow = slow.next
+			fast = fast.next.next
+
+		if slow == head:
+
+			return head
 
 		prev.next = None
 
-		headLeftList, headRightList = self.mergeSort(head), self.mergeSort(mid)
+		dummy = ListNode(0)
 
-		dummy = ListNode()
+		currResultList, currLeftList, currRightList = dummy, self.mergeSort(head), self.mergeSort(slow)
 
-		currLeftList, currRightList, currResultList = headLeftList, headRightList, dummy
 
 		while currLeftList and currRightList:
-
+			
 			if currLeftList.val <= currRightList.val:
 
 				currResultList.next = currLeftList
@@ -45,3 +46,6 @@ class Solution:
 		currResultList.next = currLeftList if currLeftList else currRightList
 
 		return dummy.next
+		
+
+		
