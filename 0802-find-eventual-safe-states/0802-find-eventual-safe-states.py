@@ -1,41 +1,47 @@
+from collections import deque
+
 class Solution:
 
 	def eventualSafeNodes(self,graph):
 
 		numberNodes = len(graph)
+		queue, result, indegree = deque([]), [], {currNode: 0 for currNode in range(numberNodes)}
 
-		visited = [0] * numberNodes
-
-		for startNode in range(numberNodes):
-
-			if visited[startNode] == 0:
-
-				self.dfs(graph,startNode,visited)
-
-		result = []
+		graphRev = [[] for _ in range(numberNodes)]
 
 		for currNode in range(numberNodes):
 
-			if visited[currNode] == 1:
+			for neighborNode in graph[currNode]:
 
-				result.append(currNode)
+				graphRev[neighborNode].append(currNode)
+				indegree[currNode] += 1
+
+		for node, degree in indegree.items():
+
+			if degree == 0:
+
+				queue.append(node)
+
+		while queue:
+
+			currNode = queue.popleft()
+
+			result.append(currNode)
+
+			for neighborNode in graphRev[currNode]:
+
+				indegree[neighborNode] -= 1
+
+				if indegree[neighborNode] == 0:
+
+					queue.append(neighborNode)
+
+		
+		result.sort()
 
 		return result
-
-	def dfs(self,graph,currNode,visited):
-
-		visited[currNode] = 2
-
-		for neighborNode in graph[currNode]:
-
-			if (visited[neighborNode] == 0 and self.dfs(graph,neighborNode,visited)) or visited[neighborNode] == 2 : 
-
-					return
-
-		visited[currNode] = 1
-
-		return
 		
 
-				
+		
+
 		
