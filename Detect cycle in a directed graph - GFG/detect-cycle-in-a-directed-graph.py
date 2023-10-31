@@ -2,17 +2,15 @@ from collections import deque
 
 class Solution:
 
-	def isCyclic(self,numberNodes, graph):
+	def isCyclic(self,numberNodes,adjList):
 
-		indegree = {num:0 for num in range(len(graph))}
+		queue,indegree,topoSort = deque([]), {currNode:0 for currNode in range(numberNodes)}, []
 
-		for parentNode in range(len(graph)):
+		for currNode in range(numberNodes):
 
-			for neighborNode in graph[parentNode]:
+			for neighborNode in adjList[currNode]:
 
 				indegree[neighborNode] += 1
-
-		result, queue = [], deque([])
 
 		for node, degree in indegree.items():
 
@@ -24,9 +22,9 @@ class Solution:
 
 			currNode = queue.popleft()
 
-			result.append(currNode)
+			topoSort.append(currNode)
 
-			for neighborNode in graph[currNode]:
+			for neighborNode in adjList[currNode]:
 
 				indegree[neighborNode] -= 1
 
@@ -34,7 +32,15 @@ class Solution:
 
 					queue.append(neighborNode)
 
-		return len(result) < len(graph)
+		return len(topoSort) < numberNodes
+
+				
+		
+
+	
+				
+
+
 #{ 
  # Driver Code Starts
 #Initial Template for Python 3
