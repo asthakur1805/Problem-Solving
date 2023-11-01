@@ -1,6 +1,6 @@
 class Solution:
 
-	def kthSmallest(self, root, K):
+	def kthSmallest(self, root,K):
 
 		self.K, self.result = K, None
 
@@ -8,9 +8,9 @@ class Solution:
 
 		return self.result
 
-	def inorder(self, node):
+	def inorder(self,node):
 
-		if not node:
+		if not node or self.K == 0:
 
 			return
 
@@ -22,5 +22,5 @@ class Solution:
 
 			self.result = node.val
 			return
-		
+
 		self.inorder(node.right)
