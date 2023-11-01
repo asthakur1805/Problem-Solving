@@ -2,36 +2,37 @@ from collections import deque
 
 class Solution:
 
-	def canFinish(self, numCourses, prerequisites):
+	def canFinish(self,numCourses,prerequisites):
 
-		adjList = [[] for _ in range(numCourses)]
-		indegree = {course:0 for course in range(numCourses)}
+		adjList, indegree, queue, result = [[] for _ in range(numCourses)], {currNode: 0 for currNode in range(numCourses)}, deque([]), []
 
-		for [currCourse, prerequisiteCourse] in prerequisites:
+		for [firstNode,secondNode] in prerequisites:
 
-			adjList[prerequisiteCourse].append(currCourse)
-			indegree[currCourse]+=1
+			adjList[secondNode].append(firstNode)
+			indegree[firstNode] += 1
 
-		result, queue = [], deque([])
+		for node, degree in indegree.items():
 
-		for currCourse in range(numCourses):
-				
-			if indegree[currCourse] == 0:
+			if degree == 0:
 
-				queue.append(currCourse)
+				queue.append(node)
 
 		while queue:
 
-			prerequisiteCourse = queue.popleft()
+			currNode = queue.popleft()
 
-			result.append(prerequisiteCourse)
+			result.append(currNode)
 
-			for currCourse in adjList[prerequisiteCourse]:
+			for neighborNode in adjList[currNode]:
 
-				indegree[currCourse] -= 1
+				indegree[neighborNode] -= 1
 
-				if indegree[currCourse] == 0:
+				if indegree[neighborNode] == 0:
 
-					queue.append(currCourse)
+					queue.append(neighborNode)
 
 		return len(result) == numCourses
+
+		
+
+			
