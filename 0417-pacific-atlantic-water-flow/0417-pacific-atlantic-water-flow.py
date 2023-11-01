@@ -1,37 +1,52 @@
+from collections import deque
+
 class Solution:
 
-	def pacificAtlantic(self, heights):
+	def pacificAtlantic(self,heights):
 
-		numRows, numColumns, visitedPacific, visitedAtlantic, directions = len(heights), len(heights[0]), set(), set(), [(0,1),(0,-1),(1,0),(-1,0)]
+		numRows, numColumns, directions, result = len(heights), len(heights[0]), [(-1,0),(1,0),(0,-1),(0,1)], []
 
-		for column in range(numColumns):
-	
-			self.dfs(heights,0,column,numRows,numColumns,visitedPacific,directions)
-			self.dfs(heights,numRows-1,column,numRows,numColumns,visitedAtlantic,directions)
+		for startRow in range(numRows):
 
-		for row in range(1,numRows):
+			for startColumn in range(numColumns):
 
-			self.dfs(heights,row,0,numRows,numColumns,visitedPacific,directions)
-			self.dfs(heights,row-1,numColumns-1,numRows,numColumns,visitedAtlantic,directions)
+				self.visitedPacific, self.visitedAtlantic = False, False
 
-		result = []
-
-		for (row,column) in visitedPacific:
-
-			if (row,column) in visitedAtlantic:
-
-				result.append([row,column])
+				self.bfs(heights,startRow,startColumn,numRows,numColumns,directions,result)
 
 		return result
 
-	def dfs(self,heights,currRow,currColumn,numRows,numColumns,visited,directions):
+	def bfs(self,heights,startRow,startColumn,numRows,numColumns,directions,result):
 
-		visited.add((currRow,currColumn))
+		queue = deque([(startRow,startColumn)])
+		visited = set({(startRow,startColumn)})
 
-		for rowDirection,columnDirection in directions:
+		while queue:
 
-			neighborRow,neighborColumn = currRow+rowDirection, currColumn+columnDirection
+			currRow, currColumn = queue.popleft()
 
-			if 0<=neighborRow<numRows and 0<=neighborColumn<numColumns and (neighborRow,neighborColumn) not in visited and heights[neighborRow][neighborColumn]>=heights[currRow][currColumn]:
-				
-				self.dfs(heights,neighborRow,neighborColumn,numRows,numColumns,visited,directions)
+			for rowDirection, columnDirection in directions:
+
+				neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
+
+				if neighborRow == -1 or neighborColumn == -1:
+
+					self.visitedPacific = True
+
+				if neighborRow == numRows or neighborColumn == numColumns:
+
+					self.visitedAtlantic = True
+
+				if self.visitedPacific and self.visitedAtlantic:
+
+					result.append([startRow,startColumn])
+					return
+
+				if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and (neighborRow,neighborColumn) not in visited and heights[neighborRow][neighborColumn] <= heights[currRow][currColumn]:
+
+					queue.append((neighborRow,neighborColumn))
+					visited.add((neighborRow,neighborColumn))
+
+
+
+		
