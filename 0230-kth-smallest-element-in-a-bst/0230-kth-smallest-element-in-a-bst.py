@@ -1,26 +1,46 @@
 class Solution:
 
-	def kthSmallest(self, root,K):
+	def kthSmallest(self,root,K):
 
-		self.K, self.result = K, None
+		curr, count = root, 0
 
-		self.inorder(root)
+		while curr:
 
-		return self.result
+			if not curr.left:
 
-	def inorder(self,node):
+				count += 1
 
-		if not node or self.K == 0:
+				if count == K:
 
-			return
+					return curr.val
 
-		self.inorder(node.left)
+				curr = curr.right
 
-		self.K -= 1
+			else:
 
-		if self.K == 0:
+				prev = curr.left
 
-			self.result = node.val
-			return
+				while prev.right and prev.right != curr:
 
-		self.inorder(node.right)
+					prev = prev.right
+
+				if not prev.right:
+
+					prev.right = curr
+					curr = curr.left
+
+				else:
+
+					prev.right = None
+					
+					count += 1
+
+					if count == K:
+
+						return curr.val
+
+					curr = curr.right
+
+		
+					
+		
