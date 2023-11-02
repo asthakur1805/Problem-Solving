@@ -1,7 +1,11 @@
+from heapq import heapify, heappop
+
 class Solution:
 
 	def kClosest(self,points,K):
 
-		points.sort(key=lambda point:point[0]**2+point[1]**2)
+		minHeap = [(x**2+y**2,[x,y]) for [x,y] in points]
 
-		return points[:K]
+		heapify(minHeap)
+
+		return [heappop(minHeap)[1] for _ in range(K)]
