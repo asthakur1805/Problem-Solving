@@ -1,22 +1,20 @@
 class Solution:
 
-	def oddEvenList(self, headOdd):
+	def oddEvenList(self,head):
 
-		if not headOdd:
+		if not head:
 
 			return
 
-		headEven = headOdd.next
+		evenHead = head.next
 
-		currOdd, currEven = headOdd, headEven
+		currOdd, currEven = head, evenHead
 
 		while currEven and currEven.next:
 
-			currOdd.next = currOdd.next.next
-			currOdd = currOdd.next
-			currEven.next = currEven.next.next
-			currEven = currEven.next
+			currOdd.next, currEven.next = currOdd.next.next, currEven.next.next
+			currOdd, currEven = currOdd.next, currEven.next
 
-		currOdd.next = headEven
+		currOdd.next = evenHead
 
-		return headOdd
+		return head
