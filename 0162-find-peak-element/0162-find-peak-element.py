@@ -1,23 +1,17 @@
 class Solution:
 
-	def findPeakElement(self, nums):
+	def findPeakElement(self,nums):
 
-		left, right = 0, len(nums)-1
+		if len(nums) == 1 or nums[0] > nums[1]:
 
-		while left <= right:
+			return 0
 
-			mid = left + (right - left) // 2
+		if nums[len(nums)-1] > nums[len(nums)-2]:
 
-			if mid > 0 and nums[mid-1] > nums[mid]:
+			return len(nums)-1
 
-				right = mid - 1
+		for index in range(1,len(nums)-1):
 
-			elif mid < len(nums)-1 and nums[mid+1] > nums[mid]:
+			if nums[index-1] < nums[index] > nums[index+1]:
 
-				left = mid + 1
-
-			else:
-
-				return mid
-
-		
+				return index
