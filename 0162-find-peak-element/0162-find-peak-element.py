@@ -2,16 +2,22 @@ class Solution:
 
 	def findPeakElement(self,nums):
 
-		if len(nums) == 1 or nums[0] > nums[1]:
+		left, right = 0, len(nums)-1
 
-			return 0
+		while left <= right:
 
-		if nums[len(nums)-1] > nums[len(nums)-2]:
+			mid = left + (right-left) // 2
 
-			return len(nums)-1
+			if mid > 0 and nums[mid-1] > nums[mid]:
 
-		for index in range(1,len(nums)-1):
+				right = mid - 1
 
-			if nums[index-1] < nums[index] > nums[index+1]:
+			elif mid < len(nums)-1 and nums[mid+1] > nums[mid]:
 
-				return index
+				left = mid + 1
+
+			else:
+
+				return mid 
+
+		
