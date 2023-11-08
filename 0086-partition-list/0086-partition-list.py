@@ -1,26 +1,25 @@
 class Solution:
 
-	def partition(self, head, midValue):
+	def partition(self,head,inputVal):
 
 		leftDummy, rightDummy = ListNode(), ListNode()
 
-		leftTail, rightTail, curr = leftDummy, rightDummy, head
+		currLeft, currRight, curr = leftDummy, rightDummy, head
 
 		while curr:
 
-			if curr.val < midValue:
+			if curr.val < inputVal:
 
-				leftTail.next = curr
-				leftTail = leftTail.next
-
+				currLeft.next = curr
+				currLeft = currLeft.next
+			
 			else:
-
-				rightTail.next = curr
-				rightTail = rightTail.next
+				
+				currRight.next = curr
+				currRight = currRight.next
 
 			curr = curr.next
 
-		leftTail.next = rightDummy.next
-		rightTail.next = None
+		currLeft.next, currRight.next = rightDummy.next, None
 
 		return leftDummy.next
