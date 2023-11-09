@@ -1,24 +1,34 @@
+from collections import deque
+
 class Solution:
 
-	def findCircleNum(self, isConnected):
+	def findCircleNum(self,isConnected):
 
-		visited, count = set({}), 0
+		result, visited = 0, set({})
 
 		for startNode in range(len(isConnected)):
 
 			if startNode not in visited:
 
-				count += 1
-				self.dfs(isConnected, startNode, visited)
+				result += 1
 
-		return count
+				self.bfs(isConnected,startNode,visited)
 
-	def dfs(self, isConnected, startNode, visited):
+		return result
 
+	def bfs(self,isConnected,startNode,visited):
+
+		queue = deque([startNode])
 		visited.add(startNode)
-		
-		for otherNode in range(len(isConnected)):
 
-			if isConnected[startNode][otherNode] and otherNode not in visited:
+		while queue:
 
-				self.dfs(isConnected, otherNode, visited)
+			currNode = queue.popleft()
+
+			for neighborNode in range(len(isConnected)):
+
+				if neighborNode not in visited and isConnected[currNode][neighborNode]:
+
+					visited.add(neighborNode)
+					queue.append(neighborNode)
+			
