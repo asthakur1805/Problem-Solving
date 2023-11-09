@@ -4,8 +4,9 @@ class Solution:
 
 	def orangesRotting(self,grid):
 
-		numRows, numColumns, numFresh, directions, time, queue = len(grid), len(grid[0]), 0, [(-1,0),(1,0),(0,-1),(0,1)], 0, deque([])
-
+		numRows, numColumns, directions, numFresh, time = len(grid), len(grid[0]), [(-1,0),(1,0),(0,-1),(0,1)], 0, 0
+		
+		queue = deque([])
 
 		for currRow in range(numRows):
 
@@ -19,7 +20,7 @@ class Solution:
 
 					queue.append((currRow,currColumn))
 
-		while queue and numFresh > 0:
+		while queue and numFresh>0:
 
 			for _ in range(len(queue)):
 
@@ -29,16 +30,14 @@ class Solution:
 
 					neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
 
-					if 0 <= neighborRow < numRows and 0 <= neighborColumn < numColumns and grid[neighborRow][neighborColumn] == 1:
+					if 0<=neighborRow<numRows and 0<=neighborColumn<numColumns and grid[neighborRow][neighborColumn] == 1:
 
 						queue.append((neighborRow,neighborColumn))
+						
+						numFresh -= 1
 	
 						grid[neighborRow][neighborColumn] = 2
-	
-						numFresh -= 1
 
 			time += 1
 
-		return time if numFresh == 0 else -1
-
-		
+		return -1 if numFresh > 0 else time
