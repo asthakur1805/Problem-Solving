@@ -4,7 +4,16 @@ class Solution:
 
 	def bfsOfGraph(self,numberNodes,adjList):
 
-		queue, visited, result = deque([0]), set({0}), []
+		numberNodes, visited, result = len(adjList), set({}), []
+
+		self.bfs(adjList,0,visited,result)
+
+		return result
+
+	def bfs(self,adjList,startNode,visited,result):
+
+		queue = deque([startNode])
+		visited.add(startNode)
 
 		while queue:
 
@@ -16,12 +25,23 @@ class Solution:
 
 				if neighborNode not in visited:
 
-					visited.add(neighborNode)
 					queue.append(neighborNode)
-
-		return result
+					visited.add(neighborNode)
 
 			
+	
+	
+
+		
+
+		
+			
+	
+	
+
+		
+
+		
 
 #{ 
  # Driver Code Starts
