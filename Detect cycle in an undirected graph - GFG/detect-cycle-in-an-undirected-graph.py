@@ -2,49 +2,47 @@ from collections import deque
 
 class Solution:
 
-	def isCycle(self, numberNodes, adjList):
+	def isCycle(self,numberNodes,adjList):
 
-		if not numberNodes:
-
-			return False
-
-		visited = set()
+		numberNodes, visited = len(adjList), set({})
 
 		for startNode in range(numberNodes):
 
-			if startNode not in visited and self.bfs(adjList, startNode, visited):
+			if startNode not in visited and self.bfs(adjList,startNode,visited):
 
 				return True
 
 		return False
 
-	def bfs(self, adjList, startNode, visited):
+		
 
+	def bfs(self,adjList,startNode,visited):
+
+		queue = deque([(startNode,None)])
 		visited.add(startNode)
-		queue = deque([(startNode, -1)])
 
 		while queue:
 
-			for _ in range(len(queue)):
+			currNode, parentNode = queue.popleft()
 
-				currNode, parentNode = queue.popleft()
+			for neighborNode in adjList[currNode]:
 
-				for neighborNode in adjList[currNode]:
+				if neighborNode not in visited:
 
-					if neighborNode not in visited:
+					queue.append((neighborNode,currNode))
+					visited.add(neighborNode)
 
-						visited.add(neighborNode)
-						queue.append((neighborNode, currNode))
+				elif neighborNode != parentNode:
 
-					else:
-
-						if neighborNode != parentNode:
-
-							return True
+					return True
 
 		return False
 
+
+
+					
 				
+
 #{ 
  # Driver Code Starts
 
