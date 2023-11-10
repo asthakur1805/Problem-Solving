@@ -1,5 +1,3 @@
-from collections import deque
-
 class Solution:
 
 	def isCycle(self,numberNodes,adjList):
@@ -8,33 +6,27 @@ class Solution:
 
 		for startNode in range(numberNodes):
 
-			if startNode not in visited and self.bfs(adjList,startNode,visited):
+			if startNode not in visited and self.dfs(adjList,startNode,None,visited):
 
 				return True
 
 		return False
 
-		
+	def dfs(self,adjList,currNode,parentNode,visited):
 
-	def bfs(self,adjList,startNode,visited):
+		visited.add(currNode)
 
-		queue = deque([(startNode,None)])
-		visited.add(startNode)
+		for neighborNode in adjList[currNode]:
 
-		while queue:
+			if neighborNode not in visited:
 
-			currNode, parentNode = queue.popleft()
-
-			for neighborNode in adjList[currNode]:
-
-				if neighborNode not in visited:
-
-					queue.append((neighborNode,currNode))
-					visited.add(neighborNode)
-
-				elif neighborNode != parentNode:
+				if self.dfs(adjList,neighborNode,currNode,visited):
 
 					return True
+
+			elif neighborNode != parentNode:
+
+				return True
 
 		return False
 
