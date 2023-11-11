@@ -1,21 +1,33 @@
-from heapq import heapify
-
 class Solution:
 
 	def topKFrequent(self,nums,K):
 
-		counts, result = {}, []
+		counts, maxCount, result = {}, 0, []
 
 		for num in nums:
 
 			counts[num] = counts.get(num,0) + 1
 
-		maxHeap = [(-count,num) for num,count in counts.items()]
+			maxCount = max(maxCount,counts[num])
 
-		heapify(maxHeap)
+		buckets = [[] for _ in range(maxCount+1)]
 
-		for _ in range(K):
+		for num,count in counts.items():
 
-			result.append(heappop(maxHeap)[1])
+			buckets[count].append(num)
 
-		return result
+		for index in range(len(buckets)-1,-1,-1):
+
+			currBucket = buckets[index]
+
+			for num in currBucket:
+
+				result.append(num)
+
+				K-=1
+
+				if K == 0:
+
+					return result
+
+		
