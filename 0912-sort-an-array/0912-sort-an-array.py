@@ -15,41 +15,41 @@ class Solution:
 		mid = left + (right - left) // 2
 
 		self.mergeSort(nums,left,mid)
-
+		
 		self.mergeSort(nums,mid+1,right)
 
 		self.merge(nums,left,mid,right)
 
 	def merge(self,nums,left,mid,right):
 
-		leftResult, rightResult = nums[left:mid+1], nums[mid+1:right+1]
+		firstArr, secondArr = nums[left:mid+1], nums[mid+1:right+1]
 
 		firstIndex, secondIndex, resultIndex = 0, 0, left
 
-		while firstIndex < len(leftResult) and secondIndex < len(rightResult):
+		while firstIndex < len(firstArr) and secondIndex < len(secondArr):
 
-			if leftResult[firstIndex] <= rightResult[secondIndex]:
+			if firstArr[firstIndex] < secondArr[secondIndex]:
 
-				nums[resultIndex] = leftResult[firstIndex]
+				nums[resultIndex] = firstArr[firstIndex]
 				firstIndex += 1
-			
+
 			else:
 
-				nums[resultIndex] = rightResult[secondIndex]
+				nums[resultIndex] = secondArr[secondIndex]
 				secondIndex += 1
 
 			resultIndex += 1
 
-		while firstIndex < len(leftResult):
+		while firstIndex < len(firstArr):
 
-			nums[resultIndex] = leftResult[firstIndex]
+			nums[resultIndex] = firstArr[firstIndex]
 			firstIndex += 1
 			resultIndex += 1
 
-		while secondIndex < len(rightResult):
+		while secondIndex < len(secondArr):
 
-			nums[resultIndex] = rightResult[secondIndex]
-			secondIndex += 1
+			nums[resultIndex] = secondArr[secondIndex]
 			resultIndex += 1
+			secondIndex += 1
 
-		
+	
