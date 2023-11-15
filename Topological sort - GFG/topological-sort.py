@@ -1,41 +1,32 @@
-from collections import deque
-
 class Solution:
 
-	def topoSort(self, numberNodes, graph):
+	def topoSort(self,numberNodes,adjList):
 
-		indegree = {num:0 for num in range(len(graph))}
+		numberNodes, stack, result, visited = len(adjList), [], [], set({})
+
+		for startNode in range(numberNodes):
+
+			if startNode not in visited:
+
+				self.dfs(adjList,startNode,visited,stack)
 		
-		queue, result = deque([]), []
+		while stack:
 
-		for currNode in range(len(graph)):
-
-			for neighborNode in graph[currNode]:
-                
-				indegree[neighborNode] += 1
-
-		for currNode in indegree:
-
-			if indegree[currNode] == 0:
-
-				queue.append(currNode)
-			
-		while queue:
-
-			currNode = queue.popleft()
-
-			result.append(currNode)
-
-			for neighborNode in graph[currNode]:
-
-				indegree[neighborNode] -= 1
-
-				if indegree[neighborNode] == 0:
-
-					queue.append(neighborNode)
+			result.append(stack.pop())
 
 		return result
 
+	def dfs(self,adjList,currNode,visited,stack):
+
+		visited.add(currNode)
+
+		for neighborNode in adjList[currNode]:
+
+			if neighborNode not in visited:
+
+				self.dfs(adjList,neighborNode,visited,stack)
+
+		stack.append(currNode)
 
 
 #{ 
