@@ -1,31 +1,44 @@
+from collections import deque
+
 class Solution:
 
 	def isCyclic(self,numberNodes,adjList):
 
 		numberNodes = len(adjList)
 
-		visited = [0]*numberNodes
+		indegree, queue, topoResult = {node:0 for node in range(numberNodes)}, deque([]), []
 
-		for startNode in range(numberNodes):
+		for currNode in range(numberNodes):
 
-			if visited[startNode] == 0 and self.dfs(adjList,startNode,visited):
+			for neighborNode in adjList[currNode]:
 
-				return True
+				indegree[neighborNode] += 1
 
-		return False
+		for node, degree in indegree.items():
 
-	def dfs(self,adjList,currNode,visited):
+			if degree == 0:
 
-		visited[currNode] = 2
+				queue.append(node)
 
-		for neighborNode in adjList[currNode]:
+		while queue:
 
-			if (visited[neighborNode] == 0 and self.dfs(adjList,neighborNode,visited)) or visited[neighborNode] == 2:
+			currNode = queue.popleft()
 
-					return True
+			topoResult.append(currNode)
 
-		visited[currNode] = 1
+			for neighborNode in adjList[currNode]:
 
+				indegree[neighborNode] -= 1
+
+				if indegree[neighborNode] == 0:
+
+					queue.append(neighborNode)
+
+		return len(topoResult) != numberNodes
+
+
+
+				
 
 #{ 
  # Driver Code Starts
