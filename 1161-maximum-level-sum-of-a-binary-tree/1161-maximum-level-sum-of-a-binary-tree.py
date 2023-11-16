@@ -6,18 +6,17 @@ class Solution:
 
 		queue = deque([root])
 
-		resultSum, currLevel, resultLevel = -(1<<31), 0, 0
+		result, maxSum, currLevel = 0, float(-inf), 1
 
 		while queue:
 
-			currLevelSum = 0
-			currLevel += 1
+			currSum = 0
 
 			for _ in range(len(queue)):
 
 				node = queue.popleft()
 
-				currLevelSum += node.val
+				currSum += node.val
 
 				if node.left:
 
@@ -27,9 +26,12 @@ class Solution:
 
 					queue.append(node.right)
 
-			if currLevelSum > resultSum:
+			if currSum > maxSum:
 
-				resultSum, resultLevel = currLevelSum, currLevel
-				
+				maxSum, result = currSum, currLevel
 
-		return resultLevel
+			currLevel += 1
+
+		return result
+
+		
