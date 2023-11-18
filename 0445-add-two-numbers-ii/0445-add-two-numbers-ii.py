@@ -2,32 +2,56 @@ class Solution:
 
 	def addTwoNumbers(self,headFirstList,headSecondList):
 
-		stackFirstList, stackSecondList = self.helper(headFirstList), self.helper(headSecondList)
+		firstListLength, secondListLength = self.calculateLength(headFirstList), self.calculateLength(headSecondList)
 
-		headResultList, carry = None, 0
+		if firstListLength < secondListLength:
 
-		while stackFirstList or stackSecondList or carry:
+			headFirstList, headSecondList = headSecondList, headFirstList
 
-			firstDigit = stackFirstList.pop() if stackFirstList else 0
+			firstListLength, secondListLength = secondListLength, firstListLength
 
-			secondDigit = stackSecondList.pop() if stackSecondList else 0
+		currFirstList, currSecondList, currResultList = headFirstList, headSecondList, None
 
-			addition = firstDigit + secondDigit + carry
+		for _ in range(firstListLength-secondListLength):
 
-			headResultList = ListNode(addition%10,headResultList)
+			currResultList = ListNode(currFirstList.val,currResultList)
 
-			carry = addition // 10
+			currFirstList = currFirstList.next
 
-		return headResultList
+		for _ in range(secondListLength):
 
-	def helper(self,head):
+			currResultList = ListNode(currFirstList.val+currSecondList.val,currResultList)
+	
+			currFirstList, currSecondList = currFirstList.next, currSecondList.next
 
-		curr, stack = head, []
+		prev, carry = None, 0
+
+		while currResultList:
+
+			currResultList.val += carry
+			carry = currResultList.val // 10
+			currResultList.val %= 10
+
+			currNext = currResultList.next
+			currResultList.next = prev
+			prev = currResultList
+			currResultList = currNext
+
+		if carry:
+
+			prev = ListNode(1,prev)
+	
+		return prev
+		
+
+	def calculateLength(self,head):
+
+		result, curr = 0, head
 
 		while curr:
 
-			stack.append(curr.val)
+			result += 1
 
 			curr = curr.next
 
-		return stack
+		return result
