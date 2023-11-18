@@ -1,55 +1,43 @@
 class Solution:
 
-	def addTwoNumbers(self, headFirstList, headSecondList):
+	def addTwoNumbers(self,headFirstList,headSecondList):
 
-		firstListLength, secondListLength = self.getLength(headFirstList), self.getLength(headSecondList)
+		headFirstList, headSecondList, dummy = self.reverse(headFirstList), self.reverse(headSecondList), ListNode()
 
-		if firstListLength < secondListLength:
+		currFirstList, currSecondList, currResultList, carry = headFirstList, headSecondList, dummy, 0
 
-			headFirstList, headSecondList = headSecondList, headFirstList
-			firstListLength, secondListLength = secondListLength, firstListLength
+		while currFirstList or currSecondList or carry:
 
-		currFirstList, currSecondList, currResultList = headFirstList, headSecondList, None
+			firstDigit = currFirstList.val if currFirstList else 0
+		
+			secondDigit = currSecondList.val if currSecondList else 0
 
-		for _ in range(firstListLength-secondListLength):
+			addition = firstDigit + secondDigit + carry
 
-			currResultList = ListNode(currFirstList.val,currResultList)
-			currFirstList = currFirstList.next
+			currResultList.next = ListNode(addition%10)
 
-		for _ in range(secondListLength):
+			carry = addition // 10
 
-			currResultList = ListNode(currFirstList.val+currSecondList.val, currResultList)
-			currFirstList, currSecondList = currFirstList.next, currSecondList.next
+			currFirstList = currFirstList.next if currFirstList else None
 
-		prev, carry = None, 0
+			currSecondList = currSecondList.next if currSecondList else None
 
-		while currResultList:
+			currResultList = currResultList.next
 
-			currResultList.val += carry
-			
-			carry = currResultList.val // 10
+		return self.reverse(dummy.next)
 
-			currResultList.val %= 10
+	def reverse(self,head):
 
-			nextNode = currResultList.next
-			currResultList.next = prev
-			prev = currResultList
-			currResultList = nextNode
-
-		if carry:
-
-			prev = ListNode(1,prev)
-
-		return prev
-			
-
-	def getLength(self, head):
-
-		curr, result = head, 0
+		prev, curr = None, head
 
 		while curr:
 
-			result += 1
-			curr = curr.next
+			currNext = curr.next
 
-		return result
+			curr.next = prev
+	
+			prev = curr
+
+			curr = currNext
+
+		return prev
