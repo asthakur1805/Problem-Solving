@@ -2,42 +2,32 @@ class Solution:
 
 	def addTwoNumbers(self,headFirstList,headSecondList):
 
-		headFirstList, headSecondList, dummy = self.reverse(headFirstList), self.reverse(headSecondList), ListNode()
+		stackFirstList, stackSecondList = self.helper(headFirstList), self.helper(headSecondList)
 
-		currFirstList, currSecondList, currResultList, carry = headFirstList, headSecondList, dummy, 0
+		headResultList, carry = None, 0
 
-		while currFirstList or currSecondList or carry:
+		while stackFirstList or stackSecondList or carry:
 
-			firstDigit = currFirstList.val if currFirstList else 0
-		
-			secondDigit = currSecondList.val if currSecondList else 0
+			firstDigit = stackFirstList.pop() if stackFirstList else 0
+
+			secondDigit = stackSecondList.pop() if stackSecondList else 0
 
 			addition = firstDigit + secondDigit + carry
 
-			currResultList.next = ListNode(addition%10)
+			headResultList = ListNode(addition%10,headResultList)
 
 			carry = addition // 10
 
-			currFirstList = currFirstList.next if currFirstList else None
+		return headResultList
 
-			currSecondList = currSecondList.next if currSecondList else None
+	def helper(self,head):
 
-			currResultList = currResultList.next
-
-		return self.reverse(dummy.next)
-
-	def reverse(self,head):
-
-		prev, curr = None, head
+		curr, stack = head, []
 
 		while curr:
 
-			currNext = curr.next
+			stack.append(curr.val)
 
-			curr.next = prev
-	
-			prev = curr
+			curr = curr.next
 
-			curr = currNext
-
-		return prev
+		return stack
