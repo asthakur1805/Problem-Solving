@@ -2,25 +2,42 @@ class Solution:
 
 	def kthSmallest(self,root,K):
 
-		self.result, self.K = None, K
+		curr = root
 
-		self.helper(root)
+		while curr:
 
-		return self.result
+			if not curr.left:
 
-	def helper(self,node):
+				K -= 1
 
-		if not node or self.K == 0:
+				if K == 0:
 
-			return
+					return curr.val
 
-		self.helper(node.left)
+				curr = curr.right
 
-		self.K -= 1
+			else:
 
-		if self.K == 0: 
+				prev = curr.left
 
-			self.result = node.val
-			return
+				while prev.right and prev.right != curr:
 
-		self.helper(node.right)
+					prev = prev.right
+
+				if not prev.right:
+
+					prev.right = curr
+
+					curr = curr.left
+
+				else:
+
+					prev.right = None
+
+					K -= 1
+
+					if K == 0:
+
+						return curr.val
+
+					curr = curr.right
