@@ -12,7 +12,7 @@ class Solution:
 
 		while queue:
 
-			result = queue[0].val
+			resultNode = queue[0]
 
 			for _ in range(len(queue)):
 
@@ -26,4 +26,4 @@ class Solution:
 
 					queue.append(node.right)
 
-		return result
+		return resultNode.val
