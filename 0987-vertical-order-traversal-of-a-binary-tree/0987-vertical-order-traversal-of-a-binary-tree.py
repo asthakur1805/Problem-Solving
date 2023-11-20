@@ -1,18 +1,22 @@
-from collections import deque, defaultdict
+from collections import defaultdict
 
 class Solution:
 
-	def verticalTraversal(self, root):
+	def verticalTraversal(self,root):
 
 		if not root:
 
 			return
 
-		verticalNodes = defaultdict(list)
+		# (node,vertical,level)
 
 		queue = deque([(root,0,0)])
 
-		minVertical, maxVertical = float('inf'), float('-inf')
+		# vertical : [(level, nodeVal)]
+
+		verticalNodes = defaultdict(list)
+
+		minVertical, maxVertical = 0, 0
 
 		while queue:
 
@@ -20,7 +24,7 @@ class Solution:
 
 				node, vertical, level = queue.popleft()
 
-				minVertical, maxVertical = min(minVertical,vertical), max(maxVertical,vertical)	
+				minVertical, maxVertical = min(minVertical,vertical), max(maxVertical,vertical)
 
 				verticalNodes[vertical].append((level,node.val))
 
@@ -30,8 +34,7 @@ class Solution:
 
 				if node.right:
 
-					queue.append((node.right, vertical+1,level+1))
-
+					queue.append((node.right,vertical+1,level+1))
 
 		result = []
 
@@ -39,12 +42,12 @@ class Solution:
 
 			verticalResult = []
 
-			for levelNodes in sorted(verticalNodes[vertical]):
+			for verticalNode in sorted(verticalNodes[vertical]):
 
-				verticalResult.append(levelNodes[1])
+				verticalResult.append(verticalNode[1])
 
 			result.append(verticalResult)
 
 		return result
-
-		
+			
+			
