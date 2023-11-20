@@ -2,28 +2,17 @@ class Solution:
 
 	def pacificAtlantic(self,heights):
 
-		numRows, numColumns, queuePacific, queueAtlantic, visitedPacific, visitedAtlantic = len(heights), len(heights[0]), deque([]), deque([]), set({}), set({})
-		directions, result = [(-1,0),(1,0),(0,-1),(0,1)], []
+		numRows, numColumns, visitedPacific, visitedAtlantic, directions, result = len(heights), len(heights[0]), set(), set(), [(-1,0),(1,0),(0,-1),(0,1)], []
 
 		for currColumn in range(numColumns):
 
-			queuePacific.append((0,currColumn))
-			visitedPacific.add((0,currColumn))
-
-			queueAtlantic.append((numRows-1,currColumn))
-			visitedAtlantic.add((numRows-1,currColumn))
+			self.dfs(heights,0,currColumn,numRows,numColumns,visitedPacific,directions)
+			self.dfs(heights,numRows-1,currColumn,numRows,numColumns,visitedAtlantic,directions)
 
 		for currRow in range(1,numRows):
 
-			queuePacific.append((currRow,0))
-			visitedPacific.add((currRow,0))
-
-			queueAtlantic.append((currRow-1,numColumns-1))
-			visitedAtlantic.add((currRow-1,numColumns-1))
-
-		self.bfs(heights,queuePacific,visitedPacific,numRows,numColumns,directions)
-
-		self.bfs(heights,queueAtlantic,visitedAtlantic,numRows,numColumns,directions)
+			self.dfs(heights,currRow,0,numRows,numColumns,visitedPacific,directions)
+			self.dfs(heights,currRow-1,numColumns-1,numRows,numColumns,visitedAtlantic,directions)
 
 		for (resultRow,resultColumn) in visitedPacific:
 
@@ -33,22 +22,19 @@ class Solution:
 
 		return result
 
-	def bfs(self,heights,queue,visited,numRows,numColumns,directions):
+	def dfs(self,heights,currRow,currColumn,numRows,numColumns,visited,directions):
 
-		while queue:
+		visited.add((currRow,currColumn))
 
-			currRow, currColumn = queue.popleft()
+		for rowDirection,columnDirection in directions:
 
-			for rowDirection,columnDirection in directions:
+			neighborRow, neighborColumn = currRow+rowDirection,currColumn+columnDirection
 
-				neighborRow, neighborColumn = currRow+rowDirection, currColumn+columnDirection
+			if 0<=neighborRow<numRows and 0<=neighborColumn<numColumns and (neighborRow,neighborColumn) not in visited and heights[neighborRow][neighborColumn]>=heights[currRow][currColumn]:
 
-				if 0<=neighborRow<numRows and 0<=neighborColumn<numColumns and (neighborRow,neighborColumn) not in visited and heights[neighborRow][neighborColumn]>=heights[currRow][currColumn]:
-
-					queue.append((neighborRow,neighborColumn))
-					visited.add((neighborRow,neighborColumn))
+				self.dfs(heights,neighborRow,neighborColumn,numRows,numColumns,visited,directions)
 
 	
 
 
-	
+			
