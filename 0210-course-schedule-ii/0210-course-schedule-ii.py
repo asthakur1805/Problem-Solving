@@ -4,14 +4,21 @@ class Solution:
 
 	def findOrder(self,numCourses,prerequisites):
 
-		adjList, indegree, queue, result = [[] for _ in range(numCourses)], {currNode: 0 for currNode in range(numCourses)}, deque([]), []
+		adjList = [[] for _ in range(numCourses)]
 
-		for [firstNode,secondNode] in prerequisites:
+		indegree = {course:0 for course in range(numCourses)}
 
-			adjList[secondNode].append(firstNode)
-			indegree[firstNode] += 1
+		queue = deque([])
 
-		for node, degree in indegree.items():
+		topoResult = []
+
+		for [secondCourse,firstCourse] in prerequisites:
+
+			adjList[firstCourse].append(secondCourse)
+
+			indegree[secondCourse] += 1
+
+		for node,degree in indegree.items():
 
 			if degree == 0:
 
@@ -21,7 +28,7 @@ class Solution:
 
 			currNode = queue.popleft()
 
-			result.append(currNode)
+			topoResult.append(currNode)
 
 			for neighborNode in adjList[currNode]:
 
@@ -31,8 +38,4 @@ class Solution:
 
 					queue.append(neighborNode)
 
-		return result if len(result) == numCourses else []
-
-		
-
-			
+		return topoResult if len(topoResult) == numCourses else []
