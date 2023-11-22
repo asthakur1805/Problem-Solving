@@ -14,13 +14,9 @@ class Solution:
 
 			return
 
-		if not node.left and not node.right:
-
-			if isLeftNode:
+		if not node.left and not node.right and isLeftNode:
 
 				self.resultSum += node.val
-
-			return
 
 		self.preorder(node.left,True)
 
