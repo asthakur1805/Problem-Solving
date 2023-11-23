@@ -2,12 +2,12 @@ class Solution:
 
 	def runningSum(self,nums):
 
-		currSum, result = 0, []
+		result = nums.copy()
 
-		for num in nums:
+		for index in range(1,len(result)):
 
-			currSum += num
-
-			result.append(currSum)
+			result[index] += result[index-1]
 
 		return result
+
+		
