@@ -8,7 +8,7 @@ class Solution:
 
 			currSum += nums[right]
 
-			while left <= right and currSum >= target:
+			while currSum >= target:
 
 				result = min(result,right-left+1)
 
