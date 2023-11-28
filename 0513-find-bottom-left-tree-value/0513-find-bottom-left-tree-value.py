@@ -4,10 +4,6 @@ class Solution:
 
 	def findBottomLeftValue(self,root):
 
-		if not root:
-
-			return
-
 		queue = deque([root])
 
 		while queue:
@@ -27,3 +23,5 @@ class Solution:
 					queue.append(node.right)
 
 		return resultNode.val
+
+		
