@@ -8,46 +8,36 @@ class Solution:
 
 			return
 
-		# (node,vertical,level)
+		stack, result = [(root,0,0)], []
 
-		queue = deque([(root,0,0)])
+		minVertical, maxVertical = float('inf'), float('-inf')
 
-		# vertical : [(level, nodeVal)]
+		verticalMap = defaultdict(list)
 
-		verticalNodes = defaultdict(list)
+		while stack:
 
-		minVertical, maxVertical = 0, 0
+			node,vertical,level = stack.pop()
 
-		while queue:
+			minVertical, maxVertical = min(minVertical,vertical), max(maxVertical,vertical)
 
-			for _ in range(len(queue)):
+			verticalMap[vertical].append((level,node.val))
 
-				node, vertical, level = queue.popleft()
+			if node.right:
 
-				minVertical, maxVertical = min(minVertical,vertical), max(maxVertical,vertical)
+				stack.append((node.right,vertical+1,level+1))
 
-				verticalNodes[vertical].append((level,node.val))
+			if node.left:
 
-				if node.left:
-
-					queue.append((node.left,vertical-1,level+1))
-
-				if node.right:
-
-					queue.append((node.right,vertical+1,level+1))
-
-		result = []
+				stack.append((node.left,vertical-1,level+1))
 
 		for vertical in range(minVertical,maxVertical+1):
 
 			verticalResult = []
 
-			for verticalNode in sorted(verticalNodes[vertical]):
+			for _ , verticalNode in sorted(verticalMap[vertical]):
 
-				verticalResult.append(verticalNode[1])
+				verticalResult.append(verticalNode)
 
 			result.append(verticalResult)
 
 		return result
-			
-			
