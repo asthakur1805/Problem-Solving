@@ -8,9 +8,9 @@ class Solution:
 
 		oldToNew = {}
 
-		return self.dfs(node,oldToNew)
+		return self.clone(node,oldToNew)
 
-	def dfs(self,node,oldToNew):
+	def clone(self,node,oldToNew):
 
 		if node in oldToNew:
 
@@ -22,6 +22,6 @@ class Solution:
 
 		for neighborNode in node.neighbors:
 
-			copy.neighbors.append(self.dfs(neighborNode,oldToNew))
+			copy.neighbors.append(self.clone(neighborNode,oldToNew))
 
 		return copy
