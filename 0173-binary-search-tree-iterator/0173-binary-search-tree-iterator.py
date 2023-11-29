@@ -8,6 +8,10 @@ class BSTIterator:
 
 		self.helper(curr)
 
+	def hasNext(self):
+
+		return len(self.stack) > 0
+
 	def next(self):
 
 		curr = self.stack.pop()
@@ -19,11 +23,6 @@ class BSTIterator:
 		self.helper(curr)
 
 		return result
-
-
-	def hasNext(self):
-
-		return len(self.stack) > 0
 
 	def helper(self,curr):
 
