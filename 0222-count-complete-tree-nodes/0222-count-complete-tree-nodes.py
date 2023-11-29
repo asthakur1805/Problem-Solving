@@ -2,28 +2,20 @@ class Solution:
 
 	def countNodes(self,root):
 
-		if not root:
+		self.count = 0
+
+		self.preorder(root)
+
+		return self.count
+
+	def preorder(self,node):
+
+		if not node:
 
 			return 0
 
-		leftHeight, rightHeight = 0, 0
+		self.count += 1
 
-		curr = root
+		self.preorder(node.left)
 
-		while curr:
-
-			leftHeight += 1
-
-			curr = curr.left
-
-		curr = root
-
-		while curr:
-
-			rightHeight += 1
-
-			curr = curr.right
-
-		if leftHeight == rightHeight: return (1<<leftHeight) - 1
-
-		return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+		self.preorder(node.right)
