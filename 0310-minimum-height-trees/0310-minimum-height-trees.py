@@ -4,19 +4,14 @@ class Solution:
 
 	def findMinHeightTrees(self,numberNodes,edges):
 
-		if numberNodes == 0:
-
-			return []
-
 		if numberNodes <= 2:
 
-			return [currNode for currNode in range(numberNodes)]
+			return [node for node in range(numberNodes)]
 
 		adjList = [[] for _ in range(numberNodes)]
+		degree = {node:0 for node in range(numberNodes)}
 
 		queue = deque([])
-
-		degree = {currNode:0 for currNode in range(numberNodes)}
 
 		for [firstNode,secondNode] in edges:
 
@@ -26,11 +21,11 @@ class Solution:
 			degree[firstNode] += 1
 			degree[secondNode] += 1
 
-		for currNode,currDegree in degree.items():
+		for node, currDegree in degree.items():
 
 			if currDegree == 1:
 
-				queue.append(currNode)
+				queue.append(node)
 
 		while numberNodes > 2:
 
@@ -41,18 +36,13 @@ class Solution:
 				currNode = queue.popleft()
 
 				for neighborNode in adjList[currNode]:
-
+	
 					degree[neighborNode] -= 1
 
 					if degree[neighborNode] == 1:
 
 						queue.append(neighborNode)
 
-		result = []
+		return [node for node in queue]
 
-		for node in queue:
-
-			result.append(node)
-
-		return result
 		
