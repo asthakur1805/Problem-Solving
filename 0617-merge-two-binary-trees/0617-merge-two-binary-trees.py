@@ -1,7 +1,7 @@
 class Solution:
 
 	def mergeTrees(self,firstTreeNode,secondTreeNode):
-	
+
 		if not firstTreeNode and not secondTreeNode:
 
 			return
@@ -11,11 +11,9 @@ class Solution:
 
 		root = TreeNode(firstVal+secondVal)
 
-		root.left = self.mergeTrees(firstTreeNode.left if firstTreeNode else None, secondTreeNode.left if secondTreeNode else None)
+		root.left = self.mergeTrees(firstTreeNode.left if firstTreeNode else None,secondTreeNode.left if secondTreeNode else None)
 
-		root.right = self.mergeTrees(firstTreeNode.right if firstTreeNode else None, secondTreeNode.right if secondTreeNode else None)
+		root.right = self.mergeTrees(firstTreeNode.right if firstTreeNode else None,secondTreeNode.right if secondTreeNode else None)
 
 		return root
-		
-
-		
+	
