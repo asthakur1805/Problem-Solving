@@ -1,8 +1,8 @@
 class Solution:
 
-	def firstBadVersion(self,numberVersions):
+	def firstBadVersion(self,totalVersions):
 
-		left, right = 1, numberVersions
+		left, right = 1, totalVersions
 
 		while left <= right:
 
@@ -10,12 +10,13 @@ class Solution:
 
 			if isBadVersion(mid):
 
-				result = mid
-
-				right = mid - 1
+				result = mid 
+				right = mid-1
 
 			else:
 
-				left = mid + 1
+				left = mid+1
 
 		return result
+
+		
