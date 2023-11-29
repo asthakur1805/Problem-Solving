@@ -2,11 +2,7 @@ class Solution:
 
 	def findDisappearedNumbers(self,nums):
 
-		numSet = set()
-
-		for num in nums:
-
-			numSet.add(num)
+		numSet = set(nums)
 
 		result = []
 
@@ -17,7 +13,4 @@ class Solution:
 				result.append(num)
 
 		return result
-
-		
-
-		
+	
