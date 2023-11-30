@@ -16,9 +16,9 @@ class Solution:
 
 		if row == N:
 
-			deepCopy = [''.join(row) for row in board]
-			
-			result.append(deepCopy)
+			boardCopy = [''.join(row) for row in board]
+
+			result.append(boardCopy)
 
 			return
 
@@ -31,13 +31,13 @@ class Solution:
 			colSet.add(column)
 			posDiagSet.add(row+column)
 			negDiagSet.add(row-column)
-			board[row][column] = 'Q'
+			board[row][column]='Q'
 
 			self.helper(board,row+1,N,colSet,posDiagSet,negDiagSet,result)
 
 			colSet.remove(column)
 			posDiagSet.remove(row+column)
 			negDiagSet.remove(row-column)
-			board[row][column] = '.'
+			board[row][column]='.'
 
-		
+			
