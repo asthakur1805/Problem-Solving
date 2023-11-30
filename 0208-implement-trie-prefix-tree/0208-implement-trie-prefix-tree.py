@@ -3,7 +3,6 @@ class TrieNode:
 	def __init__(self):
 
 		self.children = {}
-
 		self.endOfWord = False
 
 class Trie:
@@ -41,16 +40,15 @@ class Trie:
 		return curr.endOfWord
 
 	def startsWith(self,prefix):
-	
+
 		curr = self.root
 
 		for char in prefix:
 
 			if char not in curr.children:
-		
+
 				return False
 
 			curr = curr.children[char]
 
 		return True
-
