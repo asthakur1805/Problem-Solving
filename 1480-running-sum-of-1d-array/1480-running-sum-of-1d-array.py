@@ -2,12 +2,16 @@ class Solution:
 
 	def runningSum(self,nums):
 
-		result = nums.copy()
+		if not nums:
 
-		for index in range(1,len(result)):
+			return []
 
-			result[index] += result[index-1]
+		result = []
+
+		result.append(nums[0])
+
+		for index in range(1,len(nums)):
+
+			result.append(nums[index]+result[index-1])
 
 		return result
-
-		
