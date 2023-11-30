@@ -4,17 +4,17 @@ class Solution:
 
 		colSet, posDiagSet, negDiagSet = set(), set(), set()
 
-		self.resultCount = 0
+		self.count = 0
 
 		self.helper(0,N,colSet,posDiagSet,negDiagSet)
 
-		return self.resultCount
+		return self.count
 
 	def helper(self,row,N,colSet,posDiagSet,negDiagSet):
 
 		if row == N:
 
-			self.resultCount += 1
+			self.count += 1
 
 			return
 
@@ -27,7 +27,7 @@ class Solution:
 			colSet.add(column)
 			posDiagSet.add(row+column)
 			negDiagSet.add(row-column)
-
+	
 			self.helper(row+1,N,colSet,posDiagSet,negDiagSet)
 
 			colSet.remove(column)
@@ -35,4 +35,5 @@ class Solution:
 			negDiagSet.remove(row-column)
 
 	
+
 		
