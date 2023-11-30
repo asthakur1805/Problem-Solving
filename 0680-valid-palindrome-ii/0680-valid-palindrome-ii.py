@@ -4,7 +4,7 @@ class Solution:
 
 		left, right = 0, len(inputStr)-1
 
-		while left < right:
+		while left <= right:
 
 			if inputStr[left] != inputStr[right]:
 
@@ -18,14 +18,14 @@ class Solution:
 
 	def isPalindrome(self,inputStr,left,right):
 
-		while left < right:
+		while left <= right:
 
 			if inputStr[left] != inputStr[right]:
 
 				return False
 
 			left += 1
-
+	
 			right -= 1
 
 		return True
