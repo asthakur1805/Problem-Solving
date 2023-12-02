@@ -2,18 +2,19 @@ class Solution:
 
 	def countBits(self,upperBound):
 
-		return [self.countSetBits(num) for num in range(upperBound+1)]
+		cache, offset = [0], 1
 
-	def countSetBits(self,inputNumber):
+		for num in range(1,upperBound+1):
 
-		result = 0
+			if (offset << 1) == num:
 
-		while inputNumber:
+				offset <<= 1
 
-			result += (inputNumber % 2)
+			cache.append(cache[num-offset]+1)
 
-			inputNumber //= 2
+		return cache
 
-		return result
+			
 
+		
 			
