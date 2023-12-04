@@ -11,26 +11,37 @@ class Solution:
 			firstStrCounts[ord(firstStr[index])-ord('a')] += 1
 			secondStrCounts[ord(secondStr[index])-ord('a')] += 1
 
+		matches = 0
+
+		for firstCount,secondCount in zip(firstStrCounts,secondStrCounts):
+
+			matches += (firstCount == secondCount)
+
 		start = 0
 
 		for end in range(len(firstStr),len(secondStr)):
 
-			if self.equals(firstStrCounts,secondStrCounts): return True
+			if matches == 26: return True
 
-			secondStrCounts[ord(secondStr[start])-ord('a')] -= 1
-			secondStrCounts[ord(secondStr[end])-ord('a')] += 1
+			secondChar = secondStr[start]
+
+			secondStrCounts[ord(secondChar)-ord('a')] -= 1
+
+			if firstStrCounts[ord(secondChar)-ord('a')] == secondStrCounts[ord(secondChar)-ord('a')]: matches += 1
+			elif firstStrCounts[ord(secondChar)-ord('a')] - 1 == secondStrCounts[ord(secondChar)-ord('a')]: matches -= 1
+
+			secondChar = secondStr[end]
+
+			secondStrCounts[ord(secondChar)-ord('a')] += 1
+
+			if firstStrCounts[ord(secondChar)-ord('a')] == secondStrCounts[ord(secondChar)-ord('a')]: matches += 1
+			elif firstStrCounts[ord(secondChar)-ord('a')] + 1 == secondStrCounts[ord(secondChar)-ord('a')]: matches -= 1
 
 			start += 1
 
-		return self.equals(firstStrCounts,secondStrCounts)
+		return matches == 26
 
-	def equals(self,firstArr,secondArr):
 
-		for firstNum,secondNum in zip(firstArr,secondArr):
 
-			if firstNum != secondNum:
-
-				return False
-
-		return True
-			
+				
+	
