@@ -2,14 +2,16 @@ class Solution:
 
 	def fib(self,inputNumber):
 
-		return self.memoization(inputNumber,{})
+		if inputNumber <= 1:
 
-	def memoization(self,inputNumber,cache):
+			return inputNumber
 
-		if inputNumber <= 1: return inputNumber
+		first, second = 0, 1
 
-		if inputNumber in cache: return cache[inputNumber]
+		for _ in range(inputNumber-1):
 
-		cache[inputNumber] = self.memoization(inputNumber-1,cache) + self.memoization(inputNumber-2,cache)
+			first, second = second, first+second
 
-		return cache[inputNumber]
+		return second
+
+		
