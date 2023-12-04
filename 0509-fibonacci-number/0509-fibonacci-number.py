@@ -2,12 +2,14 @@ class Solution:
 
 	def fib(self,inputNumber):
 
-		return self.bruteForce(inputNumber)
+		return self.memoization(inputNumber,{})
 
-	def bruteForce(self,inputNumber):
+	def memoization(self,inputNumber,cache):
 
-		if inputNumber <= 1:
+		if inputNumber <= 1: return inputNumber
 
-			return inputNumber
+		if inputNumber in cache: return cache[inputNumber]
 
-		return self.bruteForce(inputNumber-1) + self.bruteForce(inputNumber-2)
+		cache[inputNumber] = self.memoization(inputNumber-1,cache) + self.memoization(inputNumber-2,cache)
+
+		return cache[inputNumber]
