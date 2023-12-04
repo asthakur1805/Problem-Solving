@@ -1,44 +1,33 @@
+from heapq import heappush, heappop
+
 class Solution:
+
+	ListNode.__lt__ = lambda firstNode,secondNode: firstNode.val < secondNode.val
 
 	def mergeKLists(self,lists):
 
-		while len(lists) > 1:
+		minHeap = []
 
-			mergedLists = []
-	
-			for index in range(0,len(lists),2):
+		for headCurrList in lists:
 
-				headFirstList = lists[index]
-				headSecondList = lists[index+1] if index+1<len(lists) else None
+			if headCurrList:
 
-				mergedLists.append(self.mergeTwoLists(headFirstList,headSecondList))
-
-			lists = mergedLists
-
-		return lists[0] if lists else None
-
-	def mergeTwoLists(self,headFirstList,headSecondList):
+				heappush(minHeap,headCurrList)
 
 		dummy = ListNode()
 
-		currFirstList, currSecondList, currResultList = headFirstList, headSecondList, dummy
+		currResultList = dummy
 
-		while currFirstList and currSecondList:
+		while len(minHeap) > 0:
 
-			if currFirstList.val <= currSecondList.val:
-
-				currResultList.next = currFirstList
-				currFirstList = currFirstList.next
-	
-			else:
-
-				currResultList.next = currSecondList
-				currSecondList = currSecondList.next
+			currResultList.next = heappop(minHeap)
 
 			currResultList = currResultList.next
 
-		currResultList.next = currFirstList if currFirstList else currSecondList
-	
-		return dummy.next
+			if currResultList.next:
 
-		
+				heappush(minHeap,currResultList.next)
+
+		return dummy.next
+			
+			
