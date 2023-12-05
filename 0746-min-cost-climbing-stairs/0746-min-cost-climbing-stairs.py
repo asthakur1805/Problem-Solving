@@ -1,13 +1,25 @@
 class Solution:
 
-	def minCostClimbingStairs(self, cost):
+	def minCostClimbingStairs(self,cost):
 
-		first, second = cost[-1], 0
+		targetStep = len(cost)
 
-		for index in range(len(cost)-2,-1,-1):
+		return min(self.calculateMinCost(cost,targetStep-1,{}),self.calculateMinCost(cost,targetStep-2,{}))
 
-			temp = first
-			first = cost[index] + min(first,second)
-			second = temp
+	def calculateMinCost(self,cost,currStep,cache):
 
-		return min(first,second)
+		if currStep <= 1:
+
+			return cost[currStep]
+
+		if currStep in cache:
+
+			return cache[currStep]
+
+		cache[currStep] = cost[currStep] + min(self.calculateMinCost(cost,currStep-1,cache),self.calculateMinCost(cost,currStep-2,cache))
+
+		return cache[currStep]
+
+
+
+		
