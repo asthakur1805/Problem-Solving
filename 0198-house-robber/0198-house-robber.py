@@ -2,22 +2,16 @@ class Solution:
 
 	def rob(self,nums):
 
-		return self.helper(nums,len(nums)-1,{})
+		cache = [0]*len(nums)
 
-	def helper(self,nums,index,cache):
+		cache[0] = nums[0]
 
-		if index == 0: return nums[index]
+		for index in range(1,len(nums)):
 
-		if index < 0: return 0
+			rob = nums[index] + cache[index-2] if index > 1 else nums[index]
 
-		if index in cache:
+			skip = cache[index-1]
 
-			return cache[index]
+			cache[index] = max(rob,skip)
 
-		rob = nums[index] + self.helper(nums,index-2,cache)
-
-		skip = self.helper(nums,index-1,cache)
-
-		cache[index] = max(rob,skip)
-
-		return cache[index]
+		return cache[len(nums)-1]
