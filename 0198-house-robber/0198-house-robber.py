@@ -2,16 +2,18 @@ class Solution:
 
 	def rob(self,nums):
 
-		cache = [0]*len(nums)
-
-		cache[0] = nums[0]
+		secondPrev, firstPrev = 0, nums[0]
 
 		for index in range(1,len(nums)):
 
-			rob = nums[index] + cache[index-2] if index > 1 else nums[index]
+			rob = nums[index] + secondPrev 
 
-			skip = cache[index-1]
+			skip = firstPrev
 
-			cache[index] = max(rob,skip)
+			result = max(rob,skip)
 
-		return cache[len(nums)-1]
+			secondPrev = firstPrev
+	
+			firstPrev = result
+
+		return firstPrev
