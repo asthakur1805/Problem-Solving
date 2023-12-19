@@ -2,25 +2,25 @@ class Solution:
 
 	def minPathSum(self,grid):
 
-		return self.helper(grid,0,0,len(grid),len(grid[0]),{})
+		numRows, numColumns = len(grid), len(grid[0])
 
-	def helper(self,grid,currRow,currColumn,numRows,numColumns,cache):
+		dp = [[0]*numColumns for _ in range(numRows)]
 
-		if currRow >= numRows or currColumn >= numColumns:
+		for currRow in range(numRows-1,-1,-1):
 
-			return float('inf')
+			for currColumn in range(numColumns-1,-1,-1):
 
-		if (currRow,currColumn) == (numRows-1,numColumns-1):
+				if (currRow,currColumn) == (numRows-1,numColumns-1):
 
-			return grid[currRow][currColumn]
+					dp[currRow][currColumn] = grid[currRow][currColumn]
 
-		if (currRow,currColumn) in cache:
+				else:
+					
+					right = dp[currRow][currColumn+1] if currColumn < numColumns-1 else float('inf')
+					down = dp[currRow+1][currColumn] if currRow < numRows-1 else float('inf')
 
-			return cache[(currRow,currColumn)]
+					dp[currRow][currColumn] = grid[currRow][currColumn] + min(right,down)
 
-		right = self.helper(grid,currRow,currColumn+1,numRows,numColumns,cache)
-		down = self.helper(grid,currRow+1,currColumn,numRows,numColumns,cache)
+		return dp[0][0]
 
-		cache[(currRow,currColumn)] = grid[currRow][currColumn] + min(right,down)
-
-		return cache[(currRow,currColumn)]
+					
