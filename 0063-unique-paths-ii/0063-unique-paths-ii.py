@@ -4,25 +4,29 @@ class Solution:
 
 		numRows, numColumns = len(obstacleGrid), len(obstacleGrid[0])
 
-		dp = [[0]*numColumns for _ in range(numRows)]
+		prev = [0]*numColumns
 
 		for currRow in range(numRows-1,-1,-1):
+
+			curr = [0]*numColumns
 
 			for currColumn in range(numColumns-1,-1,-1):
 
 				if obstacleGrid[currRow][currColumn]:
 
-					dp[currRow][currColumn] = 0
+					curr[currColumn] = 0
 
 				elif (currRow,currColumn) == (numRows-1,numColumns-1):
 
-					dp[currRow][currColumn] = 1
+					curr[currColumn] = 1
 				
 				else:
 					
-					right = dp[currRow][currColumn+1] if currColumn < numColumns-1 else 0
-					down = dp[currRow+1][currColumn] if currRow < numRows-1 else 0
+					right = curr[currColumn+1] if currColumn < numColumns-1 else 0
+					down = prev[currColumn] if currRow < numRows-1 else 0
 
-					dp[currRow][currColumn] = right+down
+					curr[currColumn] = right+down
 
-		return dp[0][0]
+			prev = curr
+
+		return prev[0]
