@@ -2,27 +2,23 @@ class Solution:
 
 	def uniquePaths(self,numRows,numColumns):
 
-		return self.helper(0,0,numRows,numColumns,{})
+		dp = [[0]*numColumns for _ in range(numRows)]
 
-	def helper(self,currRow,currColumn,numRows,numColumns,cache):
+		for currRow in range(numRows-1,-1,-1):
 
-		if currRow >= numRows or currColumn >= numColumns:
+			for currColumn in range(numColumns-1,-1,-1):
 
-			return 0
+				if (currRow,currColumn) == (numRows-1,numColumns-1):
 
-		if (currRow,currColumn) == (numRows-1,numColumns-1):
+					dp[currRow][currColumn] = 1
 
-			return 1
+				else:
 
-		if (currRow,currColumn) in cache:
+					right = dp[currRow][currColumn+1] if currColumn < numColumns-1 else 0
+					down = dp[currRow+1][currColumn] if currRow < numRows-1 else 0
 
-			return cache[(currRow,currColumn)]
+					dp[currRow][currColumn] = right+down
 
-		right = self.helper(currRow,currColumn+1,numRows,numColumns,cache)
-		down = self.helper(currRow+1,currColumn,numRows,numColumns,cache)
+		return dp[0][0]
 
-		cache[(currRow,currColumn)]=right+down
-
-		return cache[(currRow,currColumn)]
-
-	
+					
