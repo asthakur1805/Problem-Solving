@@ -2,25 +2,27 @@ class Solution:
 
 	def uniquePathsWithObstacles(self,obstacleGrid):
 
-		return self.helper(obstacleGrid,0,0,len(obstacleGrid),len(obstacleGrid[0]),{})
+		numRows, numColumns = len(obstacleGrid), len(obstacleGrid[0])
 
-	def helper(self,obstacleGrid,currRow,currColumn,numRows,numColumns,cache):
+		dp = [[0]*numColumns for _ in range(numRows)]
 
-		if currRow >= numRows or currColumn >= numColumns or obstacleGrid[currRow][currColumn]:
+		for currRow in range(numRows-1,-1,-1):
 
-			return 0
+			for currColumn in range(numColumns-1,-1,-1):
 
-		if (currRow,currColumn) == (numRows-1,numColumns-1):
+				if obstacleGrid[currRow][currColumn]:
 
-			return 1
+					dp[currRow][currColumn] = 0
 
-		if (currRow,currColumn) in cache:
+				elif (currRow,currColumn) == (numRows-1,numColumns-1):
 
-			return cache[(currRow,currColumn)]
+					dp[currRow][currColumn] = 1
+				
+				else:
+					
+					right = dp[currRow][currColumn+1] if currColumn < numColumns-1 else 0
+					down = dp[currRow+1][currColumn] if currRow < numRows-1 else 0
 
-		right = self.helper(obstacleGrid,currRow,currColumn+1,numRows,numColumns,cache)
-		down = self.helper(obstacleGrid,currRow+1,currColumn,numRows,numColumns,cache)
+					dp[currRow][currColumn] = right+down
 
-		cache[(currRow,currColumn)] = right+down
-
-		return cache[(currRow,currColumn)]
+		return dp[0][0]
