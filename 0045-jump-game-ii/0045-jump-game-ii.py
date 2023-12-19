@@ -2,19 +2,21 @@ class Solution:
 
 	def jump(self,nums):
 
-		dp = [0]*len(nums)
+		result = 0
 
-		for index in range(len(nums)-2,-1,-1):
-		
-			dp[index] = float('inf')
+		left, right = 0, 0
 
-			for jump in range(1,nums[index]+1):
+		while right < len(nums)-1:
 
-				if index + jump < len(nums):
+			farthest = 0
 
-					dp[index] = min(dp[index],1+dp[index+jump])
+			for index in range(left, right+1):
 
-		return dp[0]
+				farthest = max(farthest,index+nums[index])
+
+			left, right, result = right+1, farthest, result+1
+
+		return result
 
 		
 		
