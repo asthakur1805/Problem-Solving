@@ -1,18 +1,42 @@
-from re import search
-
 class Solution:
 
 	def validIPAddress(self,queryIP):
 
-		v4Regex = "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){4}$"
+		if '.' in queryIP:
 
-		v6Regex = "^(([0-9a-fA-F]){1,4}\:){8}$"
+			splitted = queryIP.split('.')
 
-		if search(v4Regex,queryIP+"."):
+			if len(splitted) != 4: return 'Neither'
+
+			allowedSymbols = set(str(num) for num in range(10))
+
+			for part in splitted:
+
+				if len(part) == 0 or (len(part)>1 and part[0]=='0'): return 'Neither'
+
+				for char in part:
+
+					if char not in allowedSymbols: return 'Neither'
+
+				if int(part) > 255: return 'Neither'
 
 			return 'IPv4'
 
-		if search(v6Regex,queryIP+":"):
+		elif ':' in queryIP:
+
+			splitted = queryIP.split(':')
+
+			if len(splitted) != 8: return 'Neither'
+
+			allowedSymbols = set({'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','A','B','C','D','E','F'})
+
+			for part in splitted:
+
+				if len(part) == 0 or len(part) > 4: return 'Neither'
+
+				for char in part:
+
+					if char not in allowedSymbols: return 'Neither'
 
 			return 'IPv6'
 
