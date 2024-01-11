@@ -2,18 +2,23 @@ class Solution:
 
 	def rob(self,nums):
 
-		secondPrev, firstPrev = 0, nums[0]
+		return self.helper(nums,len(nums)-1,{})
 
-		for index in range(1,len(nums)):
+	def helper(self,nums,index,cache):
 
-			rob = nums[index] + secondPrev 
+		if index == 0: return nums[index]
 
-			skip = firstPrev
+		if index < 0: return 0
 
-			result = max(rob,skip)
+		if index in cache:
 
-			secondPrev = firstPrev
-	
-			firstPrev = result
+			return cache[index]
 
-		return firstPrev
+		rob = nums[index] + self.helper(nums,index-2,cache)
+
+		skip = self.helper(nums,index-1,cache)
+
+		cache[index] = max(rob,skip)
+
+		return cache[index]
+		
