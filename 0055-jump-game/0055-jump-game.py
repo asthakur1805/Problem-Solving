@@ -2,27 +2,17 @@ class Solution:
 
 	def canJump(self,nums):
 
-		goal = len(nums)-1
+		dp = [False] * len(nums)
+
+		dp[-1] = True
 
 		for index in range(len(nums)-2,-1,-1):
 
-			if goal-index <= nums[index]:
+			for jump in range(1,nums[index]+1):
 
-				goal = index
+				if index + jump < len(nums) and dp[index+jump]:
 
-		return goal == 0
+					dp[index] = True
+					break
 
-		
-		
-		
-
-		
-
-		
-		
-		
-
-		
-		
-
-		
+		return dp[0]
