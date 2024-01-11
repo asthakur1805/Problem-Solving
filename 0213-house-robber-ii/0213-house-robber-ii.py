@@ -6,20 +6,16 @@ class Solution:
 
 	def helper(self,nums):
 
-		if len(nums)==0: return 0
+		if len(nums) == 0: return 0
 
-		secondPrev, firstPrev = 0, nums[0]
+		firstNum, secondNum = 0, nums[0]
 
 		for index in range(1,len(nums)):
 
-			rob = nums[index] + secondPrev 
+			currRob = nums[index] + firstNum
 
-			skip = firstPrev
+			currSkip = secondNum
 
-			result = max(rob,skip)
+			firstNum, secondNum = secondNum, max(currRob,currSkip)
 
-			secondPrev = firstPrev
-	
-			firstPrev = result
-
-		return firstPrev
+		return secondNum
