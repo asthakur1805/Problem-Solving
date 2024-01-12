@@ -1,16 +1,26 @@
 class Solution:
 
 	def uniquePaths(self,numRows,numColumns):
+	
+		return self.helper(0,0,numRows,numColumns,{})
 
-		totalItems = numRows+numColumns-2
-		chosenItems = numRows-1
+	def helper(self,currRow,currColumn,numRows,numColumns,cache):
+	
+		if (currRow,currColumn) == (numRows-1,numColumns-1):
 
-		result = 1
+			return 1
 
-		for curr in range(chosenItems):
+		if currRow >= numRows or currColumn >= numColumns:
 
-			result *= (totalItems - curr) / (curr + 1)
+			return 0
 
-		return int(result+0.5)
+		if (currRow,currColumn) in cache:
 
-			
+			return cache[(currRow,currColumn)]
+
+		right = self.helper(currRow,currColumn+1,numRows,numColumns,cache) 
+		down = self.helper(currRow+1,currColumn,numRows,numColumns,cache)
+
+		cache[(currRow,currColumn)] = right+down
+
+		return cache[(currRow,currColumn)]
