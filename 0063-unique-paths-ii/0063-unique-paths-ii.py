@@ -4,25 +4,25 @@ class Solution:
 
 		numRows, numColumns = len(obstacleGrid), len(obstacleGrid[0])
 
-		return self.helper(0,0,numRows,numColumns,obstacleGrid,{})
+		dp = [[0]*numColumns for _ in range(numRows)]
 
-	def helper(self,currRow,currColumn,numRows,numColumns,obstacleGrid,cache):
+		for currRow in range(numRows-1,-1,-1):
 
-		if currRow >= numRows or currColumn >= numColumns or obstacleGrid[currRow][currColumn]:
+			for currColumn in range(numColumns-1,-1,-1):
 
-			return 0
+				if obstacleGrid[currRow][currColumn]:
 
-		if (currRow,currColumn) == (numRows-1,numColumns-1):
+					dp[currRow][currColumn] = 0
 
-			return 1
+				elif (currRow,currColumn) == (numRows-1,numColumns-1):
 
-		if (currRow,currColumn) in cache:
+					dp[currRow][currColumn] = 1
 
-			return cache[(currRow,currColumn)]
+				else:
 
-		right = self.helper(currRow,currColumn+1,numRows,numColumns,obstacleGrid,cache)
-		down = self.helper(currRow+1,currColumn,numRows,numColumns,obstacleGrid,cache)
+					right = dp[currRow][currColumn+1] if currColumn+1<numColumns else 0
+					down = dp[currRow+1][currColumn] if currRow+1<numRows else 0
 
-		cache[(currRow,currColumn)] = right+down
+					dp[currRow][currColumn] = right+down
 
-		return cache[(currRow,currColumn)]
+		return dp[0][0]
