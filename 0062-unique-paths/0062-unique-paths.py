@@ -2,26 +2,10 @@ class Solution:
 
 	def uniquePaths(self,numRows,numColumns):
 
-		prev = [0]*numColumns
+		totalItems, chosenItems, result = numRows+numColumns-2, numRows-1, 1
 
-		for currRow in range(numRows-1,-1,-1):
+		for curr in range(chosenItems):
 
-			dp = [0]*numColumns
+			result *= (totalItems - curr) / (curr + 1)
 
-			for currColumn in range(numColumns-1,-1,-1):
-
-				if (currRow,currColumn) == (numRows-1,numColumns-1):
-
-					dp[currColumn] = 1
-
-				else:
-
-					right = dp[currColumn+1] if currColumn+1<numColumns else 0 
-					down = prev[currColumn]
-
-					dp[currColumn] = right+down
-
-			prev = dp
-
-		return dp[0]
-					
+		return int(round(result,1))
