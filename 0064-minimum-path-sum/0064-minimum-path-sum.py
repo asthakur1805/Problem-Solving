@@ -4,29 +4,23 @@ class Solution:
 
 		numRows, numColumns = len(grid), len(grid[0])
 
-		prev = [0]*numColumns
+		dp = [[0]*numColumns for _ in range(numRows)]
 
 		for currRow in range(numRows-1,-1,-1):
-
-			curr = [0]*numColumns 
 
 			for currColumn in range(numColumns-1,-1,-1):
 
 				if (currRow,currColumn) == (numRows-1,numColumns-1):
 
-					curr[currColumn] = grid[currRow][currColumn]
+					dp[currRow][currColumn] = grid[currRow][currColumn]
 
 				else:
-					
-					right = curr[currColumn+1] if currColumn < numColumns-1 else float('inf')
-					down = prev[currColumn] if currRow < numRows-1 else float('inf')
 
-					curr[currColumn] = grid[currRow][currColumn] + min(right,down)
+					right = dp[currRow][currColumn+1] if currColumn+1<numColumns else float('inf')
+					down = dp[currRow+1][currColumn] if currRow+1<numRows else float('inf')
+
+					dp[currRow][currColumn] = grid[currRow][currColumn] + min(right,down)
+
+		return dp[0][0]
+
 			
-			prev = curr
-
-		return prev[0]
-
-					
-
-					
