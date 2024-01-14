@@ -6,37 +6,43 @@ class Solution:
 
 			return []
 
-		result = []
-
-		countsFirstStr = [0]*26
-		countsSecondStr = [0]*26
+		firstStrCounts, secondStrCounts = [0]*26, [0]*26
 
 		for index in range(len(secondStr)):
 
-			countsFirstStr[ord(firstStr[index])-ord('a')] += 1
-			countsSecondStr[ord(secondStr[index])-ord('a')] += 1
+			firstStrCounts[ord(firstStr[index])-ord('a')] += 1
+			secondStrCounts[ord(secondStr[index])-ord('a')] += 1
 
-		start = 0
+		matches = 0
+
+		for index in range(26):
+
+			matches += (firstStrCounts[index] == secondStrCounts[index])
+
+		start, result = 0, []
 
 		for end in range(len(secondStr),len(firstStr)):
 
-			self.checkAnagram(countsFirstStr,countsSecondStr,result,start)
-			
-			countsFirstStr[ord(firstStr[end])-ord('a')] += 1
-			countsFirstStr[ord(firstStr[start])-ord('a')] -= 1
+			self.checkAnagram(matches,result,start)
+
+			index = ord(firstStr[end])-ord('a')
+			firstStrCounts[index] += 1
+			if firstStrCounts[index] == secondStrCounts[index]: matches += 1
+			elif firstStrCounts[index] == secondStrCounts[index]+1: matches -= 1
+
+			index = ord(firstStr[start])-ord('a')
+			firstStrCounts[index] -= 1
+			if firstStrCounts[index] == secondStrCounts[index]: matches += 1
+			elif firstStrCounts[index] == secondStrCounts[index]-1: matches -= 1
 
 			start += 1
 
-		self.checkAnagram(countsFirstStr,countsSecondStr,result,start)
+		self.checkAnagram(matches,result,start)
 
 		return result
 
-	def checkAnagram(self,firstArr,secondArr,result,start):
+	def checkAnagram(self,matches,result,start):
 
-		for index in range(len(firstArr)):
+		if matches == 26:
 
-			if firstArr[index] != secondArr[index]:
-
-				return
-
-		result.append(start)
+			result.append(start)
