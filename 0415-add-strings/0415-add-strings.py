@@ -2,23 +2,21 @@ class Solution:
 
 	def addStrings(self,firstStr,secondStr):
 
-		firstIndex, secondIndex, carry = len(firstStr)-1, len(secondStr)-1, 0
+		firstIndex, secondIndex = len(firstStr)-1, len(secondStr)-1
 
-		result = []
+		carry, result = 0, []
 
 		while firstIndex >= 0 or secondIndex >= 0 or carry:
 
 			firstDigit = ord(firstStr[firstIndex])-ord('0') if firstIndex >= 0 else 0
 			secondDigit = ord(secondStr[secondIndex])-ord('0') if secondIndex >= 0 else 0
 
-			addition = firstDigit + secondDigit + carry
-
-			result.append(chr((addition%10)+ord('0')))
-
+			addition = firstDigit+secondDigit+carry
+			result.append(chr(addition%10+ord('0')))
 			carry = addition // 10
 
-			firstIndex = firstIndex - 1 if firstIndex >= 0 else firstIndex
-			secondIndex = secondIndex - 1 if secondIndex >= 0 else secondIndex
+			firstIndex = firstIndex-1 if firstIndex >= 0 else firstIndex
+			secondIndex = secondIndex-1 if secondIndex >= 0 else secondIndex
 
 		self.reverse(result)
 
@@ -31,8 +29,8 @@ class Solution:
 		while left < right:
 
 			inputArr[left], inputArr[right] = inputArr[right], inputArr[left]
-
 			left, right = left+1, right-1
 
 		
 
+		
