@@ -8,20 +8,18 @@ class Solution:
 
 		sieve = [True] * upperBound
 
-		upperPrimeLimit = int(upperBound ** 0.5)
-	
-		for prime in range(2,upperPrimeLimit+1):
+		for prime in range(2,int(upperBound**0.5)+1):
 
 			if sieve[prime]:
 
-				for composite in range(prime**2,upperBound,prime):
+				for composite in range(prime*prime,upperBound,prime):
 
 					sieve[composite] = False
 
-		count = 0
+		result = 0
 
-		for num in range(2,upperBound):
+		for currNum in range(2,upperBound):
 
-			count += sieve[num]
+			result += sieve[currNum]
 
-		return count
+		return result
