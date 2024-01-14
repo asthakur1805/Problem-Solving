@@ -8,15 +8,13 @@ class Solution:
 
 			if len(splitted) != 4: return 'Neither'
 
-			allowedSymbols = set(str(num) for num in range(10))
-
 			for part in splitted:
 
-				if len(part) == 0 or (len(part)>1 and part[0]=='0'): return 'Neither'
+				if len(part) == 0 or len(part)>1 and part[0]=='0': return 'Neither'
 
 				for char in part:
 
-					if char not in allowedSymbols: return 'Neither'
+					if not(ord('0')<=ord(char)<=ord('9')): return 'Neither'
 
 				if int(part) > 255: return 'Neither'
 
@@ -28,16 +26,15 @@ class Solution:
 
 			if len(splitted) != 8: return 'Neither'
 
-			allowedSymbols = set({'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','A','B','C','D','E','F'})
-
 			for part in splitted:
 
 				if len(part) == 0 or len(part) > 4: return 'Neither'
 
 				for char in part:
 
-					if char not in allowedSymbols: return 'Neither'
+					if not(ord('0')<=ord(char)<=ord('9') or ord('a')<=ord(char)<=ord('f') or ord('A')<=ord(char)<=ord('F')): return 'Neither'
 
+	
 			return 'IPv6'
 
 		return 'Neither'
