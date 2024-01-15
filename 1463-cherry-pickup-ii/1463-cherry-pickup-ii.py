@@ -2,44 +2,35 @@ class Solution:
 
 	def cherryPickup(self,grid):
 
-		numRows,numColumns = len(grid),len(grid[0])
+		numRows, numColumns = len(grid), len(grid[0])
 
-		return self.helper(grid,0,0,numColumns-1,numRows,numColumns,{})
+		dp = [[[0]*numColumns for _ in range(numColumns)] for _ in range(numRows)]
 
-	def helper(self,grid,row,firstColumn,secondColumn,numRows,numColumns,cache):
+		for row in range(numRows-1,-1,-1):
 
-		if firstColumn < 0 or firstColumn >= numColumns or secondColumn < 0 or secondColumn >= numColumns:
+			for firstColumn in range(numColumns-1,-1,-1):
 
-			return 0
+				for secondColumn in range(numColumns-1,-1,-1):
 
-		if row == numRows-1:
+					if firstColumn == secondColumn:
 
-			if firstColumn == secondColumn:
+						dp[row][firstColumn][secondColumn] = grid[row][firstColumn]
 
-				return grid[row][firstColumn]
+					else:
 
-			return grid[row][firstColumn] + grid[row][secondColumn]
+						dp[row][firstColumn][secondColumn] = grid[row][firstColumn]+grid[row][secondColumn]
 
-		if (row,firstColumn,secondColumn) in cache:
+					if row < numRows-1:
 
-			return cache[(row,firstColumn,secondColumn)]
+						maxResult = 0
 
-		if firstColumn == secondColumn:
+						for firstColumnDirection in range(-1,2):
 
-			currCherries = grid[row][firstColumn]
+							for secondColumnDirection in range(-1,2):
 
-		else:
+								maxResult = max(maxResult,dp[row+1][firstColumn+firstColumnDirection][secondColumn+secondColumnDirection] if (0 <= firstColumn+firstColumnDirection < numColumns and 0 <= secondColumn+secondColumnDirection < numColumns) else 0)
 
-			currCherries = (grid[row][firstColumn] + grid[row][secondColumn])
+						dp[row][firstColumn][secondColumn] += maxResult
 
-		maxResult = float('-inf')
 
-		for firstColumnDirection in range(-1,2):
-
-			for secondColumnDirection in range(-1,2):
-
-				maxResult = max(maxResult,self.helper(grid,row+1,firstColumn+firstColumnDirection,secondColumn+secondColumnDirection,numRows,numColumns,cache))
-
-		cache[(row,firstColumn,secondColumn)] = currCherries + maxResult
-
-		return cache[(row,firstColumn,secondColumn)]
+		return dp[0][0][numColumns-1]
