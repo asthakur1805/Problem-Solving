@@ -4,9 +4,11 @@ class Solution:
 
 		numRows, numColumns = len(grid), len(grid[0])
 
-		dp = [[[0]*numColumns for _ in range(numColumns)] for _ in range(numRows)]
+		prev = [[0]*numColumns for _ in range(numColumns)]
 
 		for row in range(numRows-1,-1,-1):
+
+			dp = [[0]*numColumns for _ in range(numColumns)]
 
 			for firstColumn in range(numColumns-1,-1,-1):
 
@@ -14,11 +16,11 @@ class Solution:
 
 					if firstColumn == secondColumn:
 
-						dp[row][firstColumn][secondColumn] = grid[row][firstColumn]
+						dp[firstColumn][secondColumn] = grid[row][firstColumn]
 
 					else:
 
-						dp[row][firstColumn][secondColumn] = grid[row][firstColumn]+grid[row][secondColumn]
+						dp[firstColumn][secondColumn] = grid[row][firstColumn]+grid[row][secondColumn]
 
 					if row < numRows-1:
 
@@ -28,9 +30,10 @@ class Solution:
 
 							for secondColumnDirection in range(-1,2):
 
-								maxResult = max(maxResult,dp[row+1][firstColumn+firstColumnDirection][secondColumn+secondColumnDirection] if (0 <= firstColumn+firstColumnDirection < numColumns and 0 <= secondColumn+secondColumnDirection < numColumns) else 0)
+								maxResult = max(maxResult,prev[firstColumn+firstColumnDirection][secondColumn+secondColumnDirection] if (0 <= firstColumn+firstColumnDirection < numColumns and 0 <= secondColumn+secondColumnDirection < numColumns) else 0)
 
-						dp[row][firstColumn][secondColumn] += maxResult
+						dp[firstColumn][secondColumn] += maxResult
 
+			prev = dp
 
-		return dp[0][0][numColumns-1]
+		return prev[0][numColumns-1]
