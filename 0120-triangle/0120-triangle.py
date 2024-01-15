@@ -4,21 +4,20 @@ class Solution:
 
 		numRows = len(triangle)
 
-		dp = [[0]*rowLength for rowLength in range(1,numRows+1)]
+		prev = triangle[-1].copy()
 
-		for currRow in range(numRows-1,-1,-1):
+		for currRow in range(numRows-2,-1,-1):
+
+			dp = [0]*(currRow+1)
 
 			for currColumn in range(currRow,-1,-1):
 
-				if currRow == numRows-1: dp[currRow][currColumn] = triangle[currRow][currColumn]
+				down = prev[currColumn]
+				diagonal = prev[currColumn+1]
 
-				else:
+				dp[currColumn] = triangle[currRow][currColumn] + min(down,diagonal)
 
-					down = dp[currRow+1][currColumn]
-					diagonal = dp[currRow+1][currColumn+1]
+			prev = dp
 
-					dp[currRow][currColumn] = triangle[currRow][currColumn] + min(down,diagonal)
-
-		return dp[0][0]
-
+		return prev[0]
 	
