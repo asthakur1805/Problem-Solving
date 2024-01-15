@@ -4,31 +4,28 @@ class Solution:
 
 		order = len(grid)
 
-		dp = [[0]*order for _ in range(order)]
+		prev = grid[-1].copy()
 
-		for currRow in range(order-1,-1,-1):
+		for currRow in range(order-2,-1,-1):
+
+			dp = [0]*order
 
 			for currColumn in range(order-1,-1,-1):
 
-				if currRow == order-1:
+				leftDiagonal = prev[currColumn-1] if currColumn > 0 else float('inf')
+				down = prev[currColumn]
+				rightDiagonal = prev[currColumn+1] if currColumn < order-1 else float('inf')
 
-					dp[currRow][currColumn] = grid[currRow][currColumn]
+				dp[currColumn] = grid[currRow][currColumn] + min(leftDiagonal,down,rightDiagonal)
 
-				else:
-
-					leftDiagonal = dp[currRow+1][currColumn-1] if currColumn > 0 else float('inf')
-					down = dp[currRow+1][currColumn] 
-					rightDiagonal = dp[currRow+1][currColumn+1] if currColumn < order-1 else float('inf')
-
-					dp[currRow][currColumn] = grid[currRow][currColumn] + min(leftDiagonal,down,rightDiagonal)
-
+			prev = dp
 
 		result = float('inf')
 
 		for column in range(order):
 
-			result = min(result,dp[0][column])
+			result = min(result,prev[column])
 
 		return result
-		
-		
+
+			
