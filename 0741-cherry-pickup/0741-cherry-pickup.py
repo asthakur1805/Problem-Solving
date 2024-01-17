@@ -4,38 +4,40 @@ class Solution:
 
 		order = len(grid)
 
-		return max(0,self.helper(grid,0,0,0,order,{}))
+		dp = [[[float('-inf')]*order for _ in range(order)] for _ in range(order)]
 
-	def helper(self,grid,firstRow,firstColumn,secondRow,order,cache):
+		for firstRow in range(order-1,-1,-1):
 
-		secondColumn = firstRow+firstColumn-secondRow
+			for firstColumn in range(order-1,-1,-1):
 
-		if firstRow >= order or secondRow >= order or firstColumn >= order or secondColumn >= order or grid[firstRow][firstColumn] == -1 or grid[secondRow][secondColumn] == -1:
+				for secondRow in range(order-1,-1,-1):
 
-			return float('-inf')
+					secondColumn = firstRow+firstColumn-secondRow
 
-		if (firstRow,firstColumn) == (order-1,order-1):
+					# VVVVIMP - TRACE 2x2 GRID WITH ALL 1's TO UNDERSTAND
+					if 0 <= secondColumn < order and grid[firstRow][firstColumn] != -1 and grid[secondRow][secondColumn] != -1:
 
-			return grid[firstRow][firstColumn]
+						if (firstRow,firstColumn) == (order-1,order-1):
 
-		if (firstRow,firstColumn,secondRow) in cache:
+							dp[firstRow][firstColumn][secondRow] = grid[firstRow][firstColumn]
 
-			return cache[(firstRow,firstColumn,secondRow)]
+						else:
 
-		if (firstRow,firstColumn) == (secondRow,secondColumn):
+							if (firstRow,firstColumn) == (secondRow,secondColumn):
 
-			currCherries = grid[firstRow][firstColumn]
+								dp[firstRow][firstColumn][secondRow] = grid[firstRow][firstColumn]
 
-		else:
+							else:
 
-			currCherries = grid[firstRow][firstColumn] + grid[secondRow][secondColumn]
+								dp[firstRow][firstColumn][secondRow] = grid[firstRow][firstColumn] + grid[secondRow][secondColumn]
 
-		bothRight = self.helper(grid,firstRow,firstColumn+1,secondRow,order,cache)
-		rightDown = self.helper(grid,firstRow,firstColumn+1,secondRow+1,order,cache)
-		downRight = self.helper(grid,firstRow+1,firstColumn,secondRow,order,cache)
-		bothDown = self.helper(grid,firstRow+1,firstColumn,secondRow+1,order,cache)
+							if (firstRow,firstColumn) != (order-1,order-1):
 
-		cache[(firstRow,firstColumn,secondRow)] = currCherries + max(bothRight,rightDown,downRight,bothDown)
+								bothRight = dp[firstRow][firstColumn+1][secondRow] if firstColumn+1<order else float('-inf')
+								rightDown = dp[firstRow][firstColumn+1][secondRow+1] if firstColumn+1<order and secondRow+1<order else float('-inf')
+								downRight = dp[firstRow+1][firstColumn][secondRow] if firstRow+1<order else float('-inf') 
+								bothDown = dp[firstRow+1][firstColumn][secondRow+1] if firstRow+1<order and secondRow+1<order else float('-inf')
 
-		return cache[(firstRow,firstColumn,secondRow)]
-		
+								dp[firstRow][firstColumn][secondRow] += max(bothRight,rightDown,downRight,bothDown)
+
+		return max(0,dp[0][0][0])
