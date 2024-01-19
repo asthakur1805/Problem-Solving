@@ -10,17 +10,14 @@ class Solution:
 
 		for index in range(1,len(coins)):
 
-			dp = [0]*(amount+1)
-
 			for currAmount in range(amount+1):
 
-				pick = dp[currAmount-coins[index]] if currAmount >= coins[index] else 0
+				pick = prev[currAmount-coins[index]] if currAmount >= coins[index] else 0
 				notPick = prev[currAmount]
 
-				dp[currAmount] = pick+notPick
-		
-			prev = dp
-
-
+				prev[currAmount] = pick+notPick
+	
 		return prev[amount]
+				
+
 				
