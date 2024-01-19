@@ -2,21 +2,25 @@ class Solution:
 
 	def coinChange(self,coins,amount):
 
-		dp = [[float('inf')]*(amount+1) for _ in range(len(coins))]
-
+		prev = [float('inf')]*(amount+1)
+		
 		for currAmount in range(amount+1):
 
-			dp[0][currAmount] = currAmount // coins[0] if currAmount % coins[0] == 0 else float('inf')
+			prev[currAmount] = currAmount // coins[0] if currAmount % coins[0] == 0 else float('inf')
 
 		for index in range(1,len(coins)):
+		
+			dp = [float('inf')]*(amount+1)
 
 			for currAmount in range(amount+1):
 
-				pick = 1 + dp[index][currAmount-coins[index]] if currAmount >= coins[index] else float('inf')
-				notPick = dp[index-1][currAmount]
+				pick = 1 + dp[currAmount-coins[index]] if currAmount >= coins[index] else float('inf')
+				notPick = prev[currAmount]
 
-				dp[index][currAmount] = min(pick,notPick)
+				dp[currAmount] = min(pick,notPick)
 
-		result = dp[len(coins)-1][amount]
+			prev = dp
+
+		result = prev[amount]
 
 		return -1 if result == float('inf') else result
