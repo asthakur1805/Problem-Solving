@@ -2,22 +2,21 @@ class Solution:
 
 	def coinChange(self,coins,amount):
 
-		result = self.helper(coins,len(coins)-1,amount,{})
+		dp = [[float('inf')]*(amount+1) for _ in range(len(coins))]
+
+		for currAmount in range(amount+1):
+
+			dp[0][currAmount] = currAmount // coins[0] if currAmount % coins[0] == 0 else float('inf')
+
+		for index in range(1,len(coins)):
+
+			for currAmount in range(amount+1):
+
+				pick = 1 + dp[index][currAmount-coins[index]] if currAmount >= coins[index] else float('inf')
+				notPick = dp[index-1][currAmount]
+
+				dp[index][currAmount] = min(pick,notPick)
+
+		result = dp[len(coins)-1][amount]
 
 		return -1 if result == float('inf') else result
-
-	def helper(self,coins,index,amount,cache):
-
-		if index == 0:
-
-			return amount // coins[0] if amount % coins[0] == 0 else float('inf')
-
-		if (index,amount) in cache:
-
-			return cache[(index,amount)]
-
-		pick = 1 + self.helper(coins,index,amount-coins[index],cache) if amount >= coins[index] else float('inf')
-		notPick = self.helper(coins,index-1,amount,cache)
-
-		cache[(index,amount)] = min(pick,notPick)
-		return cache[(index,amount)]
