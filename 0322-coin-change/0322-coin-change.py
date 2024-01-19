@@ -10,16 +10,12 @@ class Solution:
 
 		for index in range(1,len(coins)):
 		
-			dp = [float('inf')]*(amount+1)
-
 			for currAmount in range(amount+1):
 
-				pick = 1 + dp[currAmount-coins[index]] if currAmount >= coins[index] else float('inf')
+				pick = 1 + prev[currAmount-coins[index]] if currAmount >= coins[index] else float('inf')
 				notPick = prev[currAmount]
 
-				dp[currAmount] = min(pick,notPick)
-
-			prev = dp
+				prev[currAmount] = min(pick,notPick)
 
 		result = prev[amount]
 
