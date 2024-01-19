@@ -2,20 +2,19 @@ class Solution:
 
 	def change(self,amount,coins):
 
-		return self.helper(coins,len(coins)-1,amount,{})
+		dp = [[0]*(amount+1) for _ in range(len(coins))]
 
-	def helper(self,coins,index,amount,cache):
+		for currAmount in range(0,amount+1,coins[0]):
 
-		if index == 0:
+			dp[0][currAmount] = 1
 
-			return 1 if amount % coins[0] == 0 else 0
+		for index in range(1,len(coins)):
 
-		if (index,amount) in cache:
+			for currAmount in range(amount+1):
 
-			return cache[(index,amount)]
+				pick = dp[index][currAmount-coins[index]] if currAmount >= coins[index] else 0
+				notPick = dp[index-1][currAmount]
 
-		pick = self.helper(coins,index,amount-coins[index],cache) if amount >= coins[index] else 0
-		notPick = self.helper(coins,index-1,amount,cache)
+				dp[index][currAmount] = pick+notPick
 
-		cache[(index,amount)] = pick + notPick
-		return cache[(index,amount)]
+		return dp[len(coins)-1][amount]
