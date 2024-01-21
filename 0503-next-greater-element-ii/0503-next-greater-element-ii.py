@@ -4,15 +4,14 @@ class Solution:
 
 		result = [-1] * len(nums)
 
-		for currIndex in range(len(nums)):
+		stack = []
 
-			for offset in range(1,len(nums)):
+		for currIndex in range(2*len(nums)):
 
-				nextIndex = (currIndex+offset) % len(nums)
+			while stack and nums[currIndex%len(nums)] > nums[stack[-1]%len(nums)]:
 
-				if nums[nextIndex] > nums[currIndex]:
+				result[stack.pop()%len(nums)] = nums[currIndex%len(nums)]
 
-					result[currIndex] = nums[nextIndex]
-					break
+			stack.append(currIndex)
 
 		return result
