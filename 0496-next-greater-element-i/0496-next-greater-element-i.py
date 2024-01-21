@@ -4,21 +4,21 @@ class Solution:
 
 		numsMap = {num:index for index,num in enumerate(firstArr)}
 
-		result = [-1]*len(firstArr)
+		stack = []
 
-		for currIndex,num in enumerate(secondArr):
+		result = [-1] * len(firstArr)
 
-			if num in numsMap:
+		for currNum in secondArr:
 
-				updateIndex = numsMap[num]
+			while stack and currNum > stack[-1]:
 
-				for nextIndex in range(currIndex+1,len(secondArr)):
+				updateIndex = numsMap[stack.pop()]
 
-					if secondArr[nextIndex] > num:
+				result[updateIndex] = currNum
 
-						result[updateIndex] = secondArr[nextIndex]
-						break
+			if currNum in numsMap:
+
+				stack.append(currNum)
 
 		return result
-
 		
