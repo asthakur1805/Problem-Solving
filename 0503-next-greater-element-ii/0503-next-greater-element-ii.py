@@ -8,7 +8,7 @@ class Solution:
 
 			for offset in range(1,len(nums)):
 
-				nextIndex = (currIndex + offset) % len(nums)
+				nextIndex = (currIndex+offset) % len(nums)
 
 				if nums[nextIndex] > nums[currIndex]:
 
