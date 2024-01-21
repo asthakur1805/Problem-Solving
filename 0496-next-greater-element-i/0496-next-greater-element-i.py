@@ -2,24 +2,22 @@ class Solution:
 
 	def nextGreaterElement(self,firstArr,secondArr):
 
-		numsMap = {num : index for index,num in enumerate(firstArr)}
+		numsMap = {value:index for index,value in enumerate(firstArr)}
 
-		result = [-1]*len(firstArr)
+		stack = []
 
-		for currIndex, val in enumerate(secondArr):
+		result = [-1] * len(firstArr)
 
-			if val in numsMap:
+		for num in secondArr:
 
-				updateIndex = numsMap[val]
+			while stack and num > stack[-1]:
 
-				for nextIndex in range(currIndex+1,len(secondArr)):
+				updateIndex = numsMap[stack.pop()]
 
-					if secondArr[nextIndex] > val:
+				result[updateIndex] = num
 
-						result[updateIndex] = secondArr[nextIndex]
-						break
+			if num in numsMap:
+
+				stack.append(num)
 
 		return result
-				
-
-					
