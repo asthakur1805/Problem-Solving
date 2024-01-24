@@ -2,21 +2,20 @@ class Solution:
 
 	def maxProduct(self,nums):
 
-		currMax, currMin, result = 1, 1, float('-inf')
+		prefix, suffix, result = 1, 1, float('-inf')
 
-		for num in nums:
+		for index in range(len(nums)):
 
-			product = currMax*num 
-	
-			currMax = max(product,currMin*num,num)
-			currMin = min(product,currMin*num,num)
+			prefix, suffix = prefix*nums[index], suffix*nums[len(nums)-1-index]
 
-			result = max(result,currMax)
+			result = max(result,prefix,suffix)
 
-			if num == 0:
-
-				currMax, currMin = 1, 1
+			if prefix == 0: prefix = 1
+			
+			if suffix == 0: suffix = 1
 
 		return result
+
+			
 
 		
