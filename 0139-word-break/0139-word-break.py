@@ -2,26 +2,18 @@ class Solution:
 
 	def wordBreak(self,inputStr,wordDict):
 
+		dp = [False]*(len(inputStr)+1)
+
+		dp[len(inputStr)] = True
+
 		wordSet = set(wordDict)
 
-		return self.helper(inputStr,0,wordSet,{})
+		for start in range(len(inputStr)-1,-1,-1):
 
-	def helper(self,inputStr,start,wordSet,cache):
+			for end in range(start,len(inputStr)):
 
-		if start == len(inputStr):
+				if inputStr[start:end+1] in wordSet and dp[end+1]:
 
-			return True
+					dp[start] = True
 
-		if start in cache:
-
-			return cache[start]
-
-		for end in range(start,len(inputStr)):
-
-			if inputStr[start:end+1] in wordSet and self.helper(inputStr,end+1,wordSet,cache):
-
-				cache[start] = True
-				return cache[start]
-
-		cache[start] = False
-		return cache[start]
+		return dp[0]
