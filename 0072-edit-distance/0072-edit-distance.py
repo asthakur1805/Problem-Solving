@@ -2,22 +2,30 @@ class Solution:
 
 	def minDistance(self,firstStr,secondStr):
 
-		return self.helper(firstStr,secondStr,len(firstStr),len(secondStr),{})
+		dp = [[0]*(len(secondStr)+1) for _ in range(len(firstStr)+1)]
 
-	def helper(self,firstStr,secondStr,firstIndex,secondIndex,cache):
+		for firstIndex in range(len(firstStr)+1):
 
-		if firstIndex == 0: return secondIndex 
-	
-		if secondIndex == 0: return firstIndex
+			dp[firstIndex][0] = firstIndex
+		
+		for secondIndex in range(len(secondStr)+1):
 
-		if firstStr[firstIndex-1] == secondStr[secondIndex-1]: return self.helper(firstStr,secondStr,firstIndex-1,secondIndex-1,cache)
+			dp[0][secondIndex] = secondIndex
 
-		if (firstIndex,secondIndex) in cache: return cache[(firstIndex,secondIndex)]
+		for firstIndex in range(1,len(firstStr)+1):
 
-		insertion = self.helper(firstStr,secondStr,firstIndex,secondIndex-1,cache)
-		deletion = self.helper(firstStr,secondStr,firstIndex-1,secondIndex,cache)
-		replacement = self.helper(firstStr,secondStr,firstIndex-1,secondIndex-1,cache)
+			for secondIndex in range(1,len(secondStr)+1):
 
-		cache[(firstIndex,secondIndex)] = 1 + min(insertion,deletion,replacement)
-		return cache[(firstIndex,secondIndex)]
-	
+				if firstStr[firstIndex-1] == secondStr[secondIndex-1]: 
+
+					dp[firstIndex][secondIndex] = dp[firstIndex-1][secondIndex-1]
+
+				else:
+
+					insertion = dp[firstIndex][secondIndex-1]
+					deletion = dp[firstIndex-1][secondIndex]
+					replacement = dp[firstIndex-1][secondIndex-1]
+
+					dp[firstIndex][secondIndex] = 1 + min(insertion,deletion,replacement)
+
+		return dp[len(firstStr)][len(secondStr)]
