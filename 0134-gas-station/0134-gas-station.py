@@ -13,26 +13,15 @@ class Solution:
 
 			return -1
 
-		startIndex, currIndex = 0, 0
+		result, totalGas = 0, 0
 
-		while startIndex < len(gas):
-
-			totalGas = 0
-
-			for currIndex in range(startIndex,len(gas)):
-
-				totalGas += (gas[currIndex]-cost[currIndex])
-
-				if totalGas < 0:
-
-					break
-
-			else:
-
-				return startIndex
-
-			startIndex = currIndex+1
-
-		
-
+		for index in range(len(gas)):
 				
+			totalGas += (gas[index]-cost[index])
+
+			if totalGas < 0:
+
+				result = index + 1
+				totalGas = 0
+
+		return result
