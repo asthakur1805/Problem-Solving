@@ -2,24 +2,48 @@ class Solution:
 
 	def majorityElement(self,nums):
 
-		counts = {}
+		firstCandidate, firstCount, secondCandidate, secondCount = None, 0, None, 0
 
 		for num in nums:
 
-			counts[num] = counts.get(num,0) + 1
+			if firstCount == 0 and num != secondCandidate:
+
+				firstCandidate = num
+				firstCount = 1
+
+			elif secondCount == 0 and num != firstCandidate:
+
+				secondCandidate = num
+				secondCount = 1
+
+			elif firstCandidate == num:
+
+				firstCount += 1
+
+			elif secondCandidate == num:
+
+				secondCount += 1
+
+			else:
+
+				firstCount -= 1
+				secondCount -= 1
+		
+		firstCount, secondCount = 0, 0
+
+		for num in nums:
+
+			if num == firstCandidate:
+
+				firstCount += 1
+
+			elif num == secondCandidate:
+
+				secondCount += 1
 
 		result = []
 
-		for num,count in counts.items():
-
-			if count > len(nums) // 3:
-
-				result.append(num)
-
-			if len(result) == 2:
-
-				break
+		if firstCount > len(nums)//3: result.append(firstCandidate)
+		if secondCount > len(nums)//3: result.append(secondCandidate)
 
 		return result
-		
-			
