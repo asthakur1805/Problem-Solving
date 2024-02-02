@@ -6,17 +6,7 @@ class Solution:
 
 		for num in nums:
 
-			if firstCount == 0 and num != secondCandidate:
-
-				firstCandidate = num
-				firstCount = 1
-
-			elif secondCount == 0 and num != firstCandidate:
-
-				secondCandidate = num
-				secondCount = 1
-
-			elif firstCandidate == num:
+			if firstCandidate == num:
 
 				firstCount += 1
 
@@ -24,26 +14,46 @@ class Solution:
 
 				secondCount += 1
 
+			elif firstCount == 0:
+
+				firstCandidate = num
+				firstCount = 1
+
+			elif secondCount == 0:
+
+				secondCandidate = num
+				secondCount = 1
+
 			else:
 
 				firstCount -= 1
 				secondCount -= 1
-		
+
 		firstCount, secondCount = 0, 0
 
 		for num in nums:
 
-			if num == firstCandidate:
+			if firstCandidate == num:
 
 				firstCount += 1
 
-			elif num == secondCandidate:
+			elif secondCandidate == num:
 
 				secondCount += 1
 
 		result = []
 
-		if firstCount > len(nums)//3: result.append(firstCandidate)
-		if secondCount > len(nums)//3: result.append(secondCandidate)
+		if firstCount > len(nums)//3: 
+			
+			result.append(firstCandidate)
+
+		
+		if secondCount > len(nums)//3: 
+			
+			result.append(secondCandidate)
 
 		return result
+		
+
+		
+			
