@@ -4,32 +4,29 @@ class Solution:
 
 		self.result = 0
 
-		self.preorder(root,targetSum)
+		currPathSum, cache = 0, {0:1}
+
+		self.preorder(root,targetSum,currPathSum,cache)
 
 		return self.result
 
-	def preorder(self,node,targetSum):
+	def preorder(self,node,targetSum,currPathSum,cache):
 
 		if not node:
 
 			return 
 
-		self.countPaths(node,targetSum)
+		currPathSum += node.val
 
-		self.preorder(node.left,targetSum)
+		prefixSum = currPathSum - targetSum
 
-		self.preorder(node.right,targetSum)
+		self.result += cache.get(prefixSum,0)
 
-	def countPaths(self,node,targetSum):
+		cache[currPathSum] = cache.get(currPathSum,0) + 1
 
-		if not node:
+		self.preorder(node.left,targetSum,currPathSum,cache)
+		self.preorder(node.right,targetSum,currPathSum,cache)
 
-			return 
+		cache[currPathSum] -= 1
 
-		if node.val == targetSum:
-
-			self.result += 1
-
-		self.countPaths(node.left,targetSum-node.val)
-
-		self.countPaths(node.right,targetSum-node.val)
+		
