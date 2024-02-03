@@ -2,20 +2,14 @@ class Solution:
 
 	def numTrees(self,upperBound):
 
-		return self.helper(upperBound,{})
+		dp = [0]*(upperBound+1)
 
-	def helper(self,upperBound,cache):
+		dp[0] = dp[1] = 1
 
-		if upperBound <= 1:
+		for curr in range(2,upperBound+1):
 
-			return 1
+			for index in range(1,curr+1):
 
-		if upperBound in cache:
+				dp[curr] += dp[index-1]*dp[curr-index]
 
-			return cache[upperBound]
-
-		for index in range(1,upperBound+1):
-
-			cache[upperBound] = cache.get(upperBound,0) + self.helper(index-1,cache) * self.helper(upperBound-index,cache)
-
-		return cache[upperBound]
+		return dp[upperBound]
