@@ -2,14 +2,14 @@ class Solution:
 
 	def numTrees(self,upperBound):
 
-		dp = [0]*(upperBound+1)
+		return int((self.combinations(2*upperBound,upperBound) / (upperBound + 1)) + 0.5) 
 
-		dp[0] = dp[1] = 1
+	def combinations(self,totalItems,chosenItems):
 
-		for curr in range(2,upperBound+1):
+		result = 1
 
-			for index in range(1,curr+1):
+		for index in range(chosenItems):
 
-				dp[curr] += dp[index-1]*dp[curr-index]
+			result *= (totalItems-index) / (index+1)
 
-		return dp[upperBound]
+		return result
