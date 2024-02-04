@@ -6,17 +6,15 @@ class Solution:
 
 		for index in range(len(inputStr)):
 
-			start, end = index, index
+			result += self.countPalindromes(inputStr,index,index) + self.countPalindromes(inputStr,index,index+1)
+		
+		return result
 
-			while start >= 0 and end < len(inputStr) and inputStr[start] == inputStr[end]:
+	def countPalindromes(self,inputStr,start,end):
 
-				result += 1
-				start -= 1
-				end += 1
+		result = 0
 
-			start, end = index, index+1
-
-			while start >= 0 and end < len(inputStr) and inputStr[start] == inputStr[end]:
+		while start >= 0 and end < len(inputStr) and inputStr[start] == inputStr[end]:
 
 				result += 1
 				start -= 1
