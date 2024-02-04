@@ -4,25 +4,22 @@ class Solution:
 
 		result = 0
 
-		for start in range(len(inputStr)):
+		for index in range(len(inputStr)):
 
-			for end in range(start,len(inputStr)):
+			start, end = index, index
 
-				if self.isPalindrome(inputStr,start,end):
+			while start >= 0 and end < len(inputStr) and inputStr[start] == inputStr[end]:
 
-					result += 1
+				result += 1
+				start -= 1
+				end += 1
+
+			start, end = index, index+1
+
+			while start >= 0 and end < len(inputStr) and inputStr[start] == inputStr[end]:
+
+				result += 1
+				start -= 1
+				end += 1
 
 		return result
-
-	def isPalindrome(self,inputStr,start,end):
-
-		while start < end:
-
-			if inputStr[start] != inputStr[end]:
-
-				return False
-
-			start += 1
-			end -= 1
-
-		return True
