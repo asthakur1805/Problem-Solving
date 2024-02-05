@@ -4,11 +4,11 @@ class Solution:
 
 		stack, result = [], 0
 
-		for currIndex, currHeight in enumerate(heights):
+		for currIndex in range(len(heights)+1):
 
-			while stack and currHeight < heights[stack[-1]]:
+			while stack and (currIndex == len(heights) or heights[currIndex] < heights[stack[-1]]):
 
-				nextSmaller = currIndex
+				nextSmaller = currIndex 
 				prevSmaller = stack[-2] if len(stack)>1 else -1
 
 				result = max(result,(nextSmaller-prevSmaller-1)*heights[stack[-1]])
@@ -17,14 +17,5 @@ class Solution:
 
 			stack.append(currIndex)
 
-		nextSmaller = len(heights)
-
-		while stack:
-
-			prevSmaller = stack[-2] if len(stack)>1 else -1
-
-			result = max(result,(nextSmaller-prevSmaller-1)*heights[stack[-1]])
-
-			stack.pop()
-
+		return result
 		return result
