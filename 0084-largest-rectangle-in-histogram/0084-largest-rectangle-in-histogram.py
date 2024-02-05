@@ -18,4 +18,3 @@ class Solution:
 			stack.append(currIndex)
 
 		return result
-		return result
