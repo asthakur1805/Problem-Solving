@@ -2,36 +2,29 @@ class Solution:
 
 	def largestRectangleArea(self,heights):
 
-		stack = []
+		stack, result = [], 0
 
-		rightSmaller = [len(heights)]*len(heights)
+		for currIndex, currHeight in enumerate(heights):
 
-		for currIndex in range(len(heights)):
+			while stack and currHeight < heights[stack[-1]]:
 
-			while stack and heights[currIndex] < heights[stack[-1]]:
+				nextSmaller = currIndex
+				prevSmaller = stack[-2] if len(stack)>1 else -1
 
-				rightSmaller[stack.pop()] = currIndex
+				result = max(result,(nextSmaller-prevSmaller-1)*heights[stack[-1]])
+
+				stack.pop()
 
 			stack.append(currIndex)
+
+		nextSmaller = len(heights)
 
 		while stack:
 
+			prevSmaller = stack[-2] if len(stack)>1 else -1
+
+			result = max(result,(nextSmaller-prevSmaller-1)*heights[stack[-1]])
+
 			stack.pop()
-
-		leftSmaller = [-1]*len(heights)
-		
-		for currIndex in range(len(heights)-1,-1,-1):
-
-			while stack and heights[currIndex] < heights[stack[-1]]:
-
-				leftSmaller[stack.pop()] = currIndex
-
-			stack.append(currIndex)
-
-		result = 0
-
-		for currIndex in range(len(heights)):
-
-			result = max(result,(rightSmaller[currIndex]-leftSmaller[currIndex]-1)*heights[currIndex])
 
 		return result
