@@ -4,36 +4,26 @@ class Solution:
 
 		stack = []
 
-		nextSmaller = [len(nums)]*len(nums)
-
-		for currIndex in range(len(nums)):
-
-			while stack and nums[currIndex] <= nums[stack[-1]]:
-
-				nextSmaller[stack.pop()] = currIndex
-
-			stack.append(currIndex)
-
-		stack = []
-
-		prevSmaller = [-1]*len(nums)
-		
-		for currIndex in range(len(nums)-1,-1,-1):
-
-			while stack and nums[currIndex] < nums[stack[-1]]:
-
-				prevSmaller[stack.pop()] = currIndex
-
-			stack.append(currIndex)
-
 		result = 0
 
-		for currIndex in range(len(nums)):
+		for	currIndex in range(len(nums)+1):
 
-			leftCandidates = currIndex - prevSmaller[currIndex] - 1
+			while stack and (currIndex == len(nums) or nums[currIndex] < nums[stack[-1]]):
 
-			rightCandidates = nextSmaller[currIndex] - currIndex - 1
+				nextSmaller = currIndex
+				prevSmaller = stack[-2] if len(stack) > 1 else -1
 
-			result = (result+(leftCandidates+1)*(rightCandidates+1)*nums[currIndex]) % (10**9+7)
+				prevIndex = stack.pop()
+
+				leftCandidates = (prevIndex-prevSmaller-1)	
+				rightCandidates = (nextSmaller-prevIndex-1)
+
+				result = (result + (leftCandidates+1)*(rightCandidates+1)*nums[prevIndex]) % (10**9+7)
+
+			stack.append(currIndex)
 
 		return result
+
+				
+
+				
