@@ -4,18 +4,19 @@ class Solution:
 
 	def kthSmallest(self,matrix,K):
 
-		maxHeap = []
+		minHeap = []
 
-		for row in range(len(matrix)):
+		for row in range(min(K,len(matrix))):
 
-			for column in range(len(matrix[0])):
+			heappush(minHeap,(matrix[row][0],row,0))
 
-				heappush(maxHeap,-matrix[row][column])
+		for _ in range(K-1):
 
-				if len(maxHeap) > K:
+			_, currRow, currColumn = heappop(minHeap)
 
-					heappop(maxHeap)
+			if currColumn + 1 < len(matrix):
 
-		return -maxHeap[0]
+				heappush(minHeap,(matrix[currRow][currColumn+1],currRow,currColumn+1))
 
-		
+		return minHeap[0][0]
+
