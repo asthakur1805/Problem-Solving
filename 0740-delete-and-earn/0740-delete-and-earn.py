@@ -7,28 +7,23 @@ class Solution:
 		for num in nums:
 
 			counts[num] = counts.get(num,0) + 1
-
+	
 		nums = sorted(set(nums))
 
-		return self.helper(nums,len(nums)-1,False,counts,{})
+		dp = [0]*len(nums)
 
-	def helper(self,nums,index,isNextDeleted,counts,cache):
+		dp[0] = nums[0] * counts[nums[0]]
 
-		if index < 0:
+		for index in range(1,len(nums)):
 
-			return 0
+			currEarning = nums[index] * counts[nums[index]]
 
-		if (index,isNextDeleted) in cache:
+			deleteCurr = currEarning + (dp[index-1] if index > 0 and nums[index] != nums[index-1]+1 else dp[index-2])
 
-			return cache[(index,isNextDeleted)]
+			notDeleteCurr = dp[index-1]
 
-		deleteCurr = 0 
+			dp[index] = max(deleteCurr,notDeleteCurr)
 
-		if not isNextDeleted or nums[index] != nums[index+1]-1:
+		return dp[len(nums)-1]
 
-			deleteCurr = counts[nums[index]] * nums[index] + self.helper(nums,index-1,True,counts,cache)
-
-		notDeleteCurr = self.helper(nums,index-1,False,counts,cache)
-
-		cache[(index,isNextDeleted)] = max(deleteCurr,notDeleteCurr)
-		return cache[(index,isNextDeleted)]
+				
