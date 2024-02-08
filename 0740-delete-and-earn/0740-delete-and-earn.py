@@ -12,18 +12,21 @@ class Solution:
 
 		dp = [0]*len(nums)
 
-		dp[0] = nums[0] * counts[nums[0]]
+		firstPrev = nums[0] * counts[nums[0]]
+
+		secondPrev = 0
 
 		for index in range(1,len(nums)):
 
 			currEarning = nums[index] * counts[nums[index]]
 
-			deleteCurr = currEarning + (dp[index-1] if index > 0 and nums[index] != nums[index-1]+1 else dp[index-2])
+			deleteCurr = currEarning + (firstPrev if index > 0 and nums[index] != nums[index-1]+1 else secondPrev)
 
-			notDeleteCurr = dp[index-1]
+			notDeleteCurr = firstPrev
 
-			dp[index] = max(deleteCurr,notDeleteCurr)
 
-		return dp[len(nums)-1]
+			secondPrev, firstPrev = firstPrev, max(deleteCurr,notDeleteCurr)
+
+		return firstPrev
 
 				
