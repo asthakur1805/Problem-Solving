@@ -1,22 +1,41 @@
-from heapq import heappush, heappop
-
 class Solution:
 
 	def kthSmallest(self,matrix,K):
 
-		minHeap = []
+		left, right, result = matrix[0][0], matrix[len(matrix)-1][len(matrix)-1], None
 
-		for row in range(min(K,len(matrix))):
+		while left <= right:
 
-			heappush(minHeap,(matrix[row][0],row,0))
+			mid = left + (right - left) // 2
 
-		for _ in range(K-1):
+			if self.countLessOrEqual(matrix,mid) >= K:
 
-			_, currRow, currColumn = heappop(minHeap)
+				result = mid
+				right = mid - 1
 
-			if currColumn + 1 < len(matrix):
+			else:
 
-				heappush(minHeap,(matrix[currRow][currColumn+1],currRow,currColumn+1))
+				left = mid + 1
 
-		return minHeap[0][0]
+		return result
 
+	def countLessOrEqual(self,matrix,inputVal):
+
+		count = 0
+
+		for currRow in range(len(matrix)):
+
+			currColumn = -1
+
+			while currColumn < len(matrix)-1 and matrix[currRow][currColumn+1] <= inputVal:
+
+				currColumn += 1
+
+			count += (currColumn+1)
+
+		return count
+	
+
+		
+
+		
