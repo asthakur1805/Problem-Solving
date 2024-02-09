@@ -2,26 +2,18 @@ class Solution:
 
 	def numSquares(self,inputNumber):
 
-		return self.helper(inputNumber,{})
+		dp = [inputNumber] * (inputNumber+1)
 
-	def helper(self,inputNumber,cache):
+		dp[0] = 0
 
-		if inputNumber == 0:
+		for index in range(1,len(dp)):
 
-			return 0
+			currNumber = 1 
 
-		if inputNumber in cache:
+			while currNumber * currNumber <= inputNumber:
 
-			return cache[inputNumber]
+				dp[index] = min(dp[index],1+dp[index-currNumber*currNumber])
 
-		currNumber, result = 1, inputNumber
+				currNumber += 1
 
-		while currNumber * currNumber <= inputNumber:
-
-			result = min(result,1+self.helper(inputNumber-currNumber*currNumber,cache))
-
-			currNumber += 1
-
-		cache[inputNumber] = result
-		return result
-
+		return dp[inputNumber]
