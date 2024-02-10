@@ -2,18 +2,34 @@ class Solution:
 
 	def numSquares(self,inputNumber):
 
-		dp = [inputNumber] * (inputNumber+1)
+		if self.isPerfectSquare(inputNumber):
 
-		dp[0] = 0
+			return 1
 
-		for index in range(1,len(dp)):
+		firstSquareRoot = 1
 
-			currNumber = 1 
+		while firstSquareRoot*firstSquareRoot < inputNumber:
 
-			while currNumber * currNumber <= inputNumber:
+			secondSquare = inputNumber-firstSquareRoot*firstSquareRoot
 
-				dp[index] = min(dp[index],1+dp[index-currNumber*currNumber])
+			if self.isPerfectSquare(secondSquare):
 
-				currNumber += 1
+				return 2
 
-		return dp[inputNumber]
+			firstSquareRoot += 1
+
+		while inputNumber % 4 == 0:
+
+			inputNumber //= 4
+
+		if inputNumber % 8 == 7:
+
+			return 4
+
+		return 3
+
+	def isPerfectSquare(self,inputNumber):
+
+		squareRoot = int(inputNumber ** 0.5)
+
+		return squareRoot * squareRoot == inputNumber
