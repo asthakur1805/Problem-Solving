@@ -2,35 +2,43 @@ class Solution:
 
 	def backspaceCompare(self,firstStr,secondStr):
 
-		firstStack, secondStack = self.helper(firstStr), self.helper(secondStr)
+		firstStrIndex, secondStrIndex = len(firstStr)-1, len(secondStr)-1
 
-		if len(firstStack) != len(secondStack):
+		while firstStrIndex >= 0 or secondStrIndex >= 0:
 
-			return False
-
-		while firstStack:
-
-			if firstStack.pop() != secondStack.pop():
+			firstStrIndex = self.getNextValidChar(firstStr,firstStrIndex)
+			secondStrIndex = self.getNextValidChar(secondStr,secondStrIndex)
+			
+			firstChar =  firstStr[firstStrIndex] if firstStrIndex >= 0 else ''
+			secondChar = secondStr[secondStrIndex] if secondStrIndex >= 0 else ''
+			
+			if firstChar != secondChar:
 
 				return False
 
+			firstStrIndex = firstStrIndex-1 if firstStrIndex >= 0 else firstStrIndex
+			secondStrIndex = secondStrIndex-1 if secondStrIndex >= 0 else secondStrIndex
+
 		return True
 
-	def helper(self,inputStr):
+	def getNextValidChar(self,inputStr,index):
 
-		stack = []
+		countBackspaces = 0
 
-		for char in inputStr:
+		while index >= 0:
 
-			if char == '#':
+			if countBackspaces == 0 and inputStr[index] != '#':
 
-				if stack:
+				break
 
-					stack.pop()
+			elif inputStr[index] == '#':
+
+				countBackspaces += 1
 
 			else:
 
-				stack.append(char)
+				countBackspaces -= 1
 
-		return stack
-			
+			index -= 1
+
+		return index
