@@ -2,7 +2,7 @@ class Solution:
 
 	def findUnsortedSubarray(self,nums):
 
-		numsCopy = sorted(nums)
+		numsIncreasing = sorted(nums)
 
 		firstMismatch = lastMismatch = -1
 
@@ -10,20 +10,19 @@ class Solution:
 
 		for firstIndex in range(len(nums)):
 
-			if nums[firstIndex] != numsCopy[firstIndex]:
+			if nums[firstIndex] != numsIncreasing[firstIndex]:
 
 				firstMismatch = lastMismatch = firstIndex
 				break
-
+	
 		else:
 
 			return 0
 
 		for lastIndex in range(firstIndex+1,len(nums)):
 
-			if nums[lastIndex] != numsCopy[lastIndex]:
+			if nums[lastIndex] != numsIncreasing[lastIndex]:
 
 				lastMismatch = lastIndex
 
-		return lastMismatch - firstMismatch + 1
-
+		return lastMismatch-firstMismatch+1
