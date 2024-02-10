@@ -4,24 +4,19 @@ class Solution:
 
 		start, end = -1, -2
 
-		currMax = float('-inf')
+		currMax, currMin = float('-inf'), float('inf')
 
 		for index in range(len(nums)):
 
 			currMax = max(currMax,nums[index])
+			currMin = min(currMin,nums[len(nums)-1-index])
 
 			if nums[index] < currMax:
 
 				end = index
 
-		currMin = float('inf')
+			if nums[len(nums)-1-index] > currMin:
 
-		for index in range(len(nums)-1,-1,-1):
-
-			currMin = min(currMin,nums[index])
-
-			if nums[index] > currMin:
-
-				start = index
+				start = len(nums)-1-index
 
 		return end - start + 1
