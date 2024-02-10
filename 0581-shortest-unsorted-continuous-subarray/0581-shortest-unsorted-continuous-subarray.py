@@ -2,27 +2,26 @@ class Solution:
 
 	def findUnsortedSubarray(self,nums):
 
-		numsIncreasing = sorted(nums)
+		start, end = -1, -2
 
-		firstMismatch = lastMismatch = -1
+		currMax = float('-inf')
 
-		firstIndex = 0
+		for index in range(len(nums)):
 
-		for firstIndex in range(len(nums)):
+			currMax = max(currMax,nums[index])
 
-			if nums[firstIndex] != numsIncreasing[firstIndex]:
+			if nums[index] < currMax:
 
-				firstMismatch = lastMismatch = firstIndex
-				break
-	
-		else:
+				end = index
 
-			return 0
+		currMin = float('inf')
 
-		for lastIndex in range(firstIndex+1,len(nums)):
+		for index in range(len(nums)-1,-1,-1):
 
-			if nums[lastIndex] != numsIncreasing[lastIndex]:
+			currMin = min(currMin,nums[index])
 
-				lastMismatch = lastIndex
+			if nums[index] > currMin:
 
-		return lastMismatch-firstMismatch+1
+				start = index
+
+		return end - start + 1
