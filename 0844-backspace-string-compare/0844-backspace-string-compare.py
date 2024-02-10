@@ -28,10 +28,6 @@ class Solution:
 
 					stack.pop()
 
-				else:
-
-					continue
-
 			else:
 
 				stack.append(char)
