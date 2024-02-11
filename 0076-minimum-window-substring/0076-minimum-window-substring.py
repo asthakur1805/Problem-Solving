@@ -9,6 +9,8 @@ class Solution:
 			countsSecondStr[char] = countsSecondStr.get(char,0) + 1
 			countsFirstStr[char] = 0
 
+		have, need = 0, len(countsSecondStr)
+
 		resultStart, resultEnd, resultLength = 0, -1, float('inf') 
 
 		start = 0
@@ -19,7 +21,11 @@ class Solution:
 
 				countsFirstStr[firstStr[end]] += 1
 
-			while self.helper(countsFirstStr,countsSecondStr):
+				if countsFirstStr[firstStr[end]] == countsSecondStr[firstStr[end]]:
+
+					have += 1
+
+			while have >= need:
 
 				if end-start+1 < resultLength:
 
@@ -29,18 +35,10 @@ class Solution:
 
 					countsFirstStr[firstStr[start]] -= 1
 
+					if countsFirstStr[firstStr[start]] == countsSecondStr[firstStr[start]] - 1:
+		
+						have -= 1
+
 				start += 1
 
 		return firstStr[resultStart:resultEnd+1]
-
-	def helper(self,countsFirstStr,countsSecondStr):
-
-		for char in countsFirstStr:
-
-			if countsFirstStr[char] < countsSecondStr[char]:
-
-				return False
-
-		return True
-
-		
