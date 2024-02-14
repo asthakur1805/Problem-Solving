@@ -26,11 +26,15 @@ class Solution:
 
 		for [numerator,denominator] in queries:
 
-			result.append(self.bfs(adjList,numerator,denominator) if numerator in adjList else -1)
+			result.append(self.bfs(adjList,numerator,denominator))
 
 		return result
 
 	def bfs(self,adjList,numerator,denominator):
+
+		if numerator not in adjList or denominator not in adjList:
+
+			return -1
 
 		queue = deque([(numerator,1)])
 		visited = set({numerator})
