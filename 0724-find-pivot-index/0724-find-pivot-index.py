@@ -2,20 +2,25 @@ class Solution:
 
 	def pivotIndex(self,nums):
 
-		total = 0
+		totalSum = 0
 
 		for num in nums:
 
-			total += num
+			totalSum += num
 
 		leftSum = 0
 
-		for currIndex, currNum in enumerate(nums):
+		for candidateIndex in range(len(nums)):
 
-			rightSum = total - currNum - leftSum
+			rightSum = totalSum - leftSum - nums[candidateIndex]
 
-			if rightSum == leftSum: return currIndex
+			if leftSum == rightSum:
 
-			leftSum += currNum
+				return candidateIndex
+
+			leftSum += nums[candidateIndex]
 
 		return -1
+
+		
+	
