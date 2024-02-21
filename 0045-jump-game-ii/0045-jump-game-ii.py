@@ -2,20 +2,16 @@ class Solution:
 
 	def jump(self,nums):
 
-		dp = [0]*len(nums)
+		left, right, result = 0, 0, 0
 
-		for index in range(len(nums)-2,-1,-1):
+		while right < len(nums)-1:
 
-			dp[index] = float('inf')
+			farthest = right
 
-			for jumpSize in range(1,nums[index]+1):
+			for index in range(left,right+1):
 
-				if index + jumpSize < len(nums):
+				farthest = max(farthest,index+nums[index])
 
-					dp[index]=min(dp[index],1+dp[index+jumpSize])
+			left, right, result = right+1, farthest, result+1
 
-		return dp[0]
-
-			
-
-					
+		return result
