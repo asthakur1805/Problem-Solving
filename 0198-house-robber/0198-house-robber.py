@@ -2,14 +2,24 @@ class Solution:
 
 	def rob(self,nums):
 
-		firstNum, secondNum = 0, nums[0]
+		return self.helper(nums,len(nums)-1,{})
 
-		for index in range(1,len(nums)):
+	def helper(self,nums,index,cache):
 
-			rob = nums[index] + firstNum
+		if index == 0:
 
-			skip = secondNum
+			return nums[index]
 
-			firstNum, secondNum = secondNum, max(rob,skip)
+		if index < 0:
 
-		return secondNum
+			return 0
+
+		if index in cache:
+
+			return cache[index]
+
+		steal = nums[index] + self.helper(nums,index-2,cache) 
+		notSteal = self.helper(nums,index-1,cache)
+
+		cache[index] = max(steal,notSteal)
+		return cache[index]
