@@ -2,16 +2,14 @@ class Solution:
 
 	def rob(self,nums):
 
-		dp = [0] * len(nums)
-
-		dp[0] = nums[0]
+		secondPrev, firstPrev = 0, nums[0]
 
 		for index in range(1,len(nums)):
 
-			steal = nums[index] + (dp[index-2] if index > 1 else 0)
-			dontSteal = dp[index-1]
+			steal = nums[index] + secondPrev
+			notSteal = firstPrev
 
-			dp[index] = max(steal,dontSteal)
+			secondPrev, firstPrev = firstPrev, max(steal,notSteal)
 
-		return dp[len(nums)-1]
+		return firstPrev
 			
