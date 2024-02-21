@@ -6,16 +6,17 @@ class Solution:
 
 	def helper(self,nums):
 
-		if len(nums) == 0: return 0
+		if not nums:
 
-		firstNum, secondNum = 0, nums[0]
+			return 0
+
+		secondPrev, firstPrev = 0, nums[0]
 
 		for index in range(1,len(nums)):
 
-			currRob = nums[index] + firstNum
+			steal = nums[index] + secondPrev
+			notSteal = firstPrev
 
-			currSkip = secondNum
+			secondPrev, firstPrev = firstPrev, max(steal,notSteal)
 
-			firstNum, secondNum = secondNum, max(currRob,currSkip)
-
-		return secondNum
+		return firstPrev
