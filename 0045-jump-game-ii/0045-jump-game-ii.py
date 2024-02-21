@@ -2,25 +2,20 @@ class Solution:
 
 	def jump(self,nums):
 
-		return self.helper(nums,0,{})
+		dp = [0]*len(nums)
 
-	def helper(self,nums,index,cache):
+		for index in range(len(nums)-2,-1,-1):
 
-		if index == len(nums)-1:
+			dp[index] = float('inf')
 
-			return 0
+			for jumpSize in range(1,nums[index]+1):
 
-		result = float('inf')
+				if index + jumpSize < len(nums):
 
-		if index in cache:
+					dp[index]=min(dp[index],1+dp[index+jumpSize])
 
-			return cache[index]
+		return dp[0]
 
-		for jumpSize in range(1,nums[index]+1):
+			
 
-			if index+jumpSize < len(nums):
-
-				result = min(result,1+self.helper(nums,index+jumpSize,cache))
-
-		cache[index] = result
-		return result
+					
