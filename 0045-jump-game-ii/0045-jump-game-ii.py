@@ -2,18 +2,25 @@ class Solution:
 
 	def jump(self,nums):
 
-		result = 0
+		return self.helper(nums,0,{})
 
-		left, right = 0, 0
+	def helper(self,nums,index,cache):
 
-		while right < len(nums)-1:
+		if index == len(nums)-1:
 
-			farthest = 0
+			return 0
 
-			for index in range(left, right+1):
+		result = float('inf')
 
-				farthest = max(farthest, index+nums[index])
+		if index in cache:
 
-			left, right, result = right+1, farthest, result+1
+			return cache[index]
 
+		for jumpSize in range(1,nums[index]+1):
+
+			if index+jumpSize < len(nums):
+
+				result = min(result,1+self.helper(nums,index+jumpSize,cache))
+
+		cache[index] = result
 		return result
