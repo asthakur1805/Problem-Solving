@@ -2,31 +2,29 @@ class Solution:
 
 	def numDecodings(self,inputStr):
 
-		return self.helper(inputStr,0,{})
+		dp = [0]*(len(inputStr)+1)
 
-	def helper(self,inputStr,start,cache):
+		dp[len(inputStr)] = 1
 
-		if start == len(inputStr):
+		for start in range(len(inputStr)-1,-1,-1):
 
-			return 1
+			if inputStr[start] == '0':
 
-		if inputStr[start] == '0':
+				dp[start] = 0
 
-			return 0
+			else:
 
-		if start in cache:
+				singlePartition = dp[start+1]
 
-			return cache[start]
+				if start+1<len(inputStr) and (inputStr[start] == '1' or (inputStr[start] == '2' and 0 <= int(inputStr[start+1]) <= 6)):
 
-		singlePartition = self.helper(inputStr,start+1,cache)
+					doublePartition = dp[start+2]
 
-		if start + 1 < len(inputStr) and (inputStr[start] == '1' or (inputStr[start] == '2' and 0 <= int(inputStr[start+1]) <= 6)):
+				else:
+	
+					doublePartition = 0
 
-			doublePartition = self.helper(inputStr,start+2,cache)
+				dp[start] = singlePartition + doublePartition
 
-		else:
-
-			doublePartition = 0
-
-		cache[start]=singlePartition+doublePartition
-		return cache[start]
+		return dp[0]
+		
