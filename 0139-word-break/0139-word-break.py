@@ -1,20 +1,52 @@
+class TrieNode:
+
+	def __init__(self):
+
+		self.children = {}
+		self.endOfWord = False
+		
 class Solution:
 
 	def wordBreak(self,inputStr,wordDict):
 
-		wordSet = set(wordDict)
+		root = TrieNode()
 
-		dp = [False] * (len(inputStr)+1)
+		for word in wordDict:
+
+			curr = root
+
+			for char in word:
+
+				if char not in curr.children:
+
+					curr.children[char] = TrieNode()
+
+				curr = curr.children[char]
+
+			curr.endOfWord = True
+
+		dp = [False]*(len(inputStr)+1)
 
 		dp[len(inputStr)] = True
 
 		for start in range(len(inputStr)-1,-1,-1):
 
+			curr = root
+
 			for end in range(start,len(inputStr)):
 
-				if inputStr[start:end+1] in wordSet and dp[end+1]:
+				char = inputStr[end]
 
-					dp[start] = True
+				if char not in curr.children:
+
 					break
 
+				curr = curr.children[char]
+
+				if curr.endOfWord and dp[end+1]:
+
+					dp[start] = True
+
 		return dp[0]
+
+		
