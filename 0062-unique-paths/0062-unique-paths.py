@@ -2,10 +2,25 @@ class Solution:
 
 	def uniquePaths(self,numRows,numColumns):
 
-		totalItems, chosenItems, result = numRows+numColumns-2, numRows-1, 1
+		return self.helper(0,0,numRows,numColumns,{})
 
-		for curr in range(chosenItems):
+	def helper(self,currRow,currColumn,numRows,numColumns,cache):
 
-			result *= (totalItems - curr) / (curr + 1)
+		if currRow > numRows or currColumn > numColumns:
 
-		return int(round(result,1))
+			return 0
+
+		if (currRow,currColumn) == (numRows-1,numColumns-1):
+
+			return 1
+
+		if (currRow,currColumn) in cache:
+
+			return cache[(currRow,currColumn)]
+
+		down = self.helper(currRow+1,currColumn,numRows,numColumns,cache)
+		right = self.helper(currRow,currColumn+1,numRows,numColumns,cache)
+
+		cache[(currRow,currColumn)] = down+right
+		return cache[(currRow,currColumn)]
+		 
