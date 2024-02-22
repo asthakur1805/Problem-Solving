@@ -46,6 +46,7 @@ class Solution:
 				if curr.endOfWord and dp[end+1]:
 
 					dp[start] = True
+					break
 
 		return dp[0]
 
