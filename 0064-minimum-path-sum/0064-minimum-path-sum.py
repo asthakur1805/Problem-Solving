@@ -4,25 +4,26 @@ class Solution:
 
 		numRows, numColumns = len(grid), len(grid[0])
 
-		prev = [float('inf')] * numColumns
+		return self.helper(grid,0,0,numRows,numColumns,{})
 
-		for currRow in range(numRows-1,-1,-1):
+	def helper(self,grid,currRow,currColumn,numRows,numColumns,cache):
 
-			dp = [0] * numColumns
+		if currRow >= numRows or currColumn >= numColumns:
 
-			for currColumn in range(numColumns-1,-1,-1):
+			return float('inf')
 
-				if (currRow,currColumn) == (numRows-1,numColumns-1):
+		if (currRow,currColumn) in cache:
 
-					dp[currColumn] = grid[currRow][currColumn]
+			return cache[(currRow,currColumn)]
 
-				else:
+		result = grid[currRow][currColumn]
 
-					right = dp[currColumn+1] if currColumn+1<numColumns else float('inf')
-					down = prev[currColumn]
+		if (currRow,currColumn) != (numRows-1,numColumns-1):
 
-					dp[currColumn] = grid[currRow][currColumn] + min(right,down)
+			down = self.helper(grid,currRow+1,currColumn,numRows,numColumns,cache)
+			right = self.helper(grid,currRow,currColumn+1,numRows,numColumns,cache)
 
-			prev = dp
+			result += min(down,right)
 
-		return dp[0]
+		cache[(currRow,currColumn)] = result
+		return result
