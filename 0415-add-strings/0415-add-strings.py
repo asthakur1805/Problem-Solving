@@ -1,5 +1,5 @@
 class Solution:
-
+	
 	def addStrings(self,firstStr,secondStr):
 
 		firstIndex, secondIndex = len(firstStr)-1, len(secondStr)-1
@@ -12,7 +12,9 @@ class Solution:
 			secondDigit = ord(secondStr[secondIndex])-ord('0') if secondIndex >= 0 else 0
 
 			addition = firstDigit+secondDigit+carry
+
 			result.append(chr(addition%10+ord('0')))
+
 			carry = addition // 10
 
 			firstIndex = firstIndex-1 if firstIndex >= 0 else firstIndex
@@ -29,8 +31,5 @@ class Solution:
 		while left < right:
 
 			inputArr[left], inputArr[right] = inputArr[right], inputArr[left]
-			left, right = left+1, right-1
-
-		
-
-		
+			left += 1
+			right -= 1
