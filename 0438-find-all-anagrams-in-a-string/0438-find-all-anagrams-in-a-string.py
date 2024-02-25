@@ -15,35 +15,52 @@ class Solution:
 			firstStrCounts[firstChar] = firstStrCounts.get(firstChar,0) + 1
 			secondStrCounts[secondChar] = secondStrCounts.get(secondChar,0) + 1
 
+		matches = 0
+
+		for currVal in range(26):
+
+			currChar = chr(currVal + ord('a'))
+
+			if secondStrCounts.get(currChar,0) == firstStrCounts.get(currChar,0):
+
+				matches += 1
+
 		start, result = 0, []
 
 		for end in range(len(secondStr),len(firstStr)):
 
-			if self.checkAnagrams(firstStrCounts,secondStrCounts):
+			if matches == 26:
 
 				result.append(start)
 
-			firstStrCounts[firstStr[end]] = firstStrCounts.get(firstStr[end],0) + 1
-			firstStrCounts[firstStr[start]] -= 1
+			currChar = firstStr[end]
+
+			firstStrCounts[currChar] = firstStrCounts.get(currChar,0) + 1
+
+			if firstStrCounts[currChar] == secondStrCounts.get(currChar,0):
+
+				matches += 1
+
+			elif firstStrCounts[currChar] == secondStrCounts.get(currChar,0) + 1:
+
+				matches -= 1
+
+			currChar = firstStr[start]
+
+			firstStrCounts[currChar] -= 1
+
+			if firstStrCounts[currChar] == secondStrCounts.get(currChar,0):
+
+				matches += 1
+
+			elif firstStrCounts[currChar] == secondStrCounts.get(currChar,0) - 1:
+
+				matches -= 1
 
 			start += 1
 
-		if self.checkAnagrams(firstStrCounts,secondStrCounts):
+		if matches == 26:
 
 			result.append(start)
 
 		return result
-
-	def checkAnagrams(self,firstMap,secondMap):
-
-		for currChar in secondMap:
-
-			if secondMap[currChar] != firstMap.get(currChar,0):
-
-				return False
-
-		return True
-
-			
-			
- 
