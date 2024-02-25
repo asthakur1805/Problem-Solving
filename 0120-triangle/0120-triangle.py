@@ -2,22 +2,22 @@ class Solution:
 
 	def minimumTotal(self,triangle):
 
-		numRows = len(triangle)
+		return self.helper(triangle,0,0,{})
 
-		prev = triangle[-1].copy()
+	def helper(self,triangle,currRow,currColumn,cache):
 
-		for currRow in range(numRows-2,-1,-1):
+		if (currRow,currColumn) in cache:
 
-			dp = [0]*(currRow+1)
+			return cache[(currRow,currColumn)]
 
-			for currColumn in range(currRow,-1,-1):
+		result = triangle[currRow][currColumn]
 
-				down = prev[currColumn]
-				diagonal = prev[currColumn+1]
+		if currRow < len(triangle)-1:
 
-				dp[currColumn] = triangle[currRow][currColumn] + min(down,diagonal)
+			down = self.helper(triangle,currRow+1,currColumn,cache)
+			downRight = self.helper(triangle,currRow+1,currColumn+1,cache)
 
-			prev = dp
+			result += min(down,downRight)
 
-		return prev[0]
-	
+		cache[(currRow,currColumn)] = result
+		return result
