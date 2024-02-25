@@ -2,19 +2,23 @@ class Solution:
 
 	def minimumTotal(self,triangle):
 
-		dp = [[0]*currColumn for currColumn in range(1,len(triangle)+1)]
+		prev = [0]*len(triangle)
 
 		for currRow in range(len(triangle)-1,-1,-1):
 
+			dp = [0]*(currRow+1) 
+
 			for currColumn in range(currRow,-1,-1):
 
-				dp[currRow][currColumn] = triangle[currRow][currColumn]
+				dp[currColumn] = triangle[currRow][currColumn]
 
 				if currRow < len(triangle)-1:
 
-					down = dp[currRow+1][currColumn]
-					downRight = dp[currRow+1][currColumn+1]
+					down = prev[currColumn]
+					downRight = prev[currColumn+1]
 
-					dp[currRow][currColumn] += min(down,downRight)
+					dp[currColumn] += min(down,downRight)
 
-		return dp[0][0]
+			prev = dp
+
+		return prev[0]
