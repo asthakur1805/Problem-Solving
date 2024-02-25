@@ -4,45 +4,46 @@ class Solution:
 
 		if len(secondStr) > len(firstStr):
 
-			return []
+			return
 
-		firstStrCounts, secondStrCounts = [0]*26, [0]*26
+		firstStrCounts, secondStrCounts = {}, {}
 
 		for index in range(len(secondStr)):
 
-			firstStrCounts[ord(firstStr[index])-ord('a')] += 1
-			secondStrCounts[ord(secondStr[index])-ord('a')] += 1
+			firstChar, secondChar = firstStr[index], secondStr[index]
 
-		matches = 0
-
-		for index in range(26):
-
-			matches += (firstStrCounts[index] == secondStrCounts[index])
+			firstStrCounts[firstChar] = firstStrCounts.get(firstChar,0) + 1
+			secondStrCounts[secondChar] = secondStrCounts.get(secondChar,0) + 1
 
 		start, result = 0, []
 
 		for end in range(len(secondStr),len(firstStr)):
 
-			self.checkAnagram(matches,result,start)
+			if self.checkAnagrams(firstStrCounts,secondStrCounts):
 
-			index = ord(firstStr[end])-ord('a')
-			firstStrCounts[index] += 1
-			if firstStrCounts[index] == secondStrCounts[index]: matches += 1
-			elif firstStrCounts[index] == secondStrCounts[index]+1: matches -= 1
+				result.append(start)
 
-			index = ord(firstStr[start])-ord('a')
-			firstStrCounts[index] -= 1
-			if firstStrCounts[index] == secondStrCounts[index]: matches += 1
-			elif firstStrCounts[index] == secondStrCounts[index]-1: matches -= 1
+			firstStrCounts[firstStr[end]] = firstStrCounts.get(firstStr[end],0) + 1
+			firstStrCounts[firstStr[start]] -= 1
 
 			start += 1
 
-		self.checkAnagram(matches,result,start)
+		if self.checkAnagrams(firstStrCounts,secondStrCounts):
+
+			result.append(start)
 
 		return result
 
-	def checkAnagram(self,matches,result,start):
+	def checkAnagrams(self,firstMap,secondMap):
 
-		if matches == 26:
+		for currChar in secondMap:
 
-			result.append(start)
+			if secondMap[currChar] != firstMap.get(currChar,0):
+
+				return False
+
+		return True
+
+			
+			
+ 
