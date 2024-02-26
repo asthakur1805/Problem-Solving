@@ -1,40 +1,19 @@
+from re import search
+
 class Solution:
 
 	def validIPAddress(self,queryIP):
 
-		if '.' in queryIP:
+		v4Regex = '^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){4}$'
 
-			splitted = queryIP.split('.')
+		v6Regex = '^(([0-9]|[a-f]|[A-F]){1,4}\:){8}$'
 
-			if len(splitted) != 4: return 'Neither'
-
-			for part in splitted:
-
-				if len(part) == 0 or len(part)>1 and part[0]=='0': return 'Neither'
-
-				for char in part:
-
-					if not(ord('0')<=ord(char)<=ord('9')): return 'Neither'
-
-				if int(part) > 255: return 'Neither'
+		if search(v4Regex,queryIP+'.'):
 
 			return 'IPv4'
 
-		elif ':' in queryIP:
+		if search(v6Regex,queryIP+':'):
 
-			splitted = queryIP.split(':')
-
-			if len(splitted) != 8: return 'Neither'
-
-			for part in splitted:
-
-				if len(part) == 0 or len(part) > 4: return 'Neither'
-
-				for char in part:
-
-					if not(ord('0')<=ord(char)<=ord('9') or ord('a')<=ord(char)<=ord('f') or ord('A')<=ord(char)<=ord('F')): return 'Neither'
-
-	
 			return 'IPv6'
 
 		return 'Neither'
