@@ -4,33 +4,28 @@ class Solution:
 
 		numRows, numColumns = len(matrix), len(matrix[0])
 
+		dp = [[0]*numColumns for _ in range(numRows)]
+
+		for currRow in range(numRows-1,-1,-1):
+
+			for currColumn in range(numColumns-1,-1,-1):
+
+				dp[currRow][currColumn] = matrix[currRow][currColumn]
+
+				if currRow < numRows-1:
+
+					downLeft = dp[currRow+1][currColumn-1] if currColumn >= 1 else float('inf')
+					down = dp[currRow+1][currColumn]
+					downRight = dp[currRow+1][currColumn+1] if currColumn < numRows-1 else float('inf')
+
+					dp[currRow][currColumn] += min(downLeft,down,downRight)
+
 		result = float('inf')
 
 		for currColumn in range(numColumns):
 
-			result = min(result,self.helper(matrix,0,currColumn,numRows,numColumns,{}))
+			result = min(result,dp[0][currColumn])
 
 		return result
 
-	def helper(self,matrix,currRow,currColumn,numRows,numColumns,cache):
-
-		if currColumn < 0 or currColumn >= numColumns:
-
-			return float('inf')
-
-		if (currRow,currColumn) in cache:
-
-			return cache[(currRow,currColumn)]
-
-		result = matrix[currRow][currColumn]
-
-		if currRow < numRows-1:
-
-			downLeft = self.helper(matrix,currRow+1,currColumn-1,numRows,numColumns,cache)
-			down = self.helper(matrix,currRow+1,currColumn,numRows,numColumns,cache)
-			downRight = self.helper(matrix,currRow+1,currColumn+1,numRows,numColumns,cache)
-
-			result += min(downLeft,down,downRight)
-
-		cache[(currRow,currColumn)] = result
-		return result
+				
