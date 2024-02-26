@@ -4,19 +4,21 @@ class Solution:
 
 		numRows, numColumns = len(grid), len(grid[0])
 
-		dp = [[[0]*numColumns for _ in range(numColumns)] for _ in range(numRows)] 
+		prev = [[0]*numColumns for _ in range(numColumns)] 
 
 		for currRow in range(numRows-1,-1,-1):
+
+			dp = [[0]*numColumns for _ in range(numColumns)] 
 
 			for firstColumn in range(numColumns-1,-1,-1):
 
 				for secondColumn in range(numColumns-1,-1,-1):
 
-					dp[currRow][firstColumn][secondColumn] = grid[currRow][firstColumn]
+					dp[firstColumn][secondColumn] = grid[currRow][firstColumn]
 
 					if firstColumn != secondColumn:
 
-						dp[currRow][firstColumn][secondColumn] += grid[currRow][secondColumn]
+						dp[firstColumn][secondColumn] += grid[currRow][secondColumn]
 
 					if currRow < numRows-1:
 
@@ -30,8 +32,10 @@ class Solution:
 
 								if firstNextColumn >= 0 and firstNextColumn < numColumns and secondNextColumn >= 0 and secondNextColumn < numColumns:
 
-									currMax = max(currMax,dp[currRow+1][firstNextColumn][secondNextColumn])
+									currMax = max(currMax,prev[firstNextColumn][secondNextColumn])
 
-						dp[currRow][firstColumn][secondColumn] += currMax
+						dp[firstColumn][secondColumn] += currMax
 
-		return dp[0][0][numColumns-1]
+			prev = dp
+
+		return prev[0][numColumns-1]
