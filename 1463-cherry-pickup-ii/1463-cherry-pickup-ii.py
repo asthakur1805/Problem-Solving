@@ -4,36 +4,42 @@ class Solution:
 
 		numRows, numColumns = len(grid), len(grid[0])
 
-		prev = [[0]*numColumns for _ in range(numColumns)]
+		return self.helper(grid,0,0,numColumns-1,numRows,numColumns,{})
 
-		for row in range(numRows-1,-1,-1):
+	def helper(self,grid,currRow,firstColumn,secondColumn,numRows,numColumns,cache):
 
-			dp = [[0]*numColumns for _ in range(numColumns)]
+		if firstColumn < 0 or firstColumn >= numColumns or secondColumn < 0 or secondColumn >= numColumns:
 
-			for firstColumn in range(numColumns-1,-1,-1):
+			return 0
 
-				for secondColumn in range(numColumns-1,-1,-1):
+		if (currRow,firstColumn,secondColumn) in cache:
 
-					if firstColumn == secondColumn:
+			return cache[(currRow,firstColumn,secondColumn)]
 
-						dp[firstColumn][secondColumn] = grid[row][firstColumn]
+		result = grid[currRow][firstColumn]
 
-					else:
+		if firstColumn != secondColumn:
 
-						dp[firstColumn][secondColumn] = grid[row][firstColumn]+grid[row][secondColumn]
+			result += grid[currRow][secondColumn]
 
-					if row < numRows-1:
+		if currRow < numRows-1:
 
-						maxResult = 0
+			currMax = float('-inf')
 
-						for firstColumnDirection in range(-1,2):
+			for firstColumnDirection in range(-1,2):
 
-							for secondColumnDirection in range(-1,2):
+				for secondColumnDirection in range(-1,2):
 
-								maxResult = max(maxResult,prev[firstColumn+firstColumnDirection][secondColumn+secondColumnDirection] if (0 <= firstColumn+firstColumnDirection < numColumns and 0 <= secondColumn+secondColumnDirection < numColumns) else 0)
+					currMax = max(currMax,self.helper(grid,currRow+1,firstColumn+firstColumnDirection,secondColumn+secondColumnDirection,numRows,numColumns,cache))
 
-						dp[firstColumn][secondColumn] += maxResult
+			result += currMax
 
-			prev = dp
+		cache[(currRow,firstColumn,secondColumn)] = result
+		return result
 
-		return prev[0][numColumns-1]
+
+					
+
+		
+
+				
