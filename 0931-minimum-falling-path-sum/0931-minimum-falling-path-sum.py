@@ -1,31 +1,36 @@
 class Solution:
 
-	def minFallingPathSum(self,grid):
+	def minFallingPathSum(self,matrix):
 
-		order = len(grid)
-
-		prev = grid[-1].copy()
-
-		for currRow in range(order-2,-1,-1):
-
-			dp = [0]*order
-
-			for currColumn in range(order-1,-1,-1):
-
-				leftDiagonal = prev[currColumn-1] if currColumn > 0 else float('inf')
-				down = prev[currColumn]
-				rightDiagonal = prev[currColumn+1] if currColumn < order-1 else float('inf')
-
-				dp[currColumn] = grid[currRow][currColumn] + min(leftDiagonal,down,rightDiagonal)
-
-			prev = dp
+		numRows, numColumns = len(matrix), len(matrix[0])
 
 		result = float('inf')
 
-		for column in range(order):
+		for currColumn in range(numColumns):
 
-			result = min(result,prev[column])
+			result = min(result,self.helper(matrix,0,currColumn,numRows,numColumns,{}))
 
 		return result
 
-			
+	def helper(self,matrix,currRow,currColumn,numRows,numColumns,cache):
+
+		if currColumn < 0 or currColumn >= numColumns:
+
+			return float('inf')
+
+		if (currRow,currColumn) in cache:
+
+			return cache[(currRow,currColumn)]
+
+		result = matrix[currRow][currColumn]
+
+		if currRow < numRows-1:
+
+			downLeft = self.helper(matrix,currRow+1,currColumn-1,numRows,numColumns,cache)
+			down = self.helper(matrix,currRow+1,currColumn,numRows,numColumns,cache)
+			downRight = self.helper(matrix,currRow+1,currColumn+1,numRows,numColumns,cache)
+
+			result += min(downLeft,down,downRight)
+
+		cache[(currRow,currColumn)] = result
+		return result
