@@ -2,40 +2,36 @@ class Solution:
 
 	def cherryPickup(self,grid):
 
-		order = len(grid)
+		return max(0,self.helper(grid,0,0,0,len(grid),{}))
 
-		prev = [[float('-inf')]*order for _ in range(order)]
+	def helper(self,grid,firstRow,firstColumn,secondRow,order,cache):
 
-		for firstRow in range(order-1,-1,-1):
+		secondColumn = firstRow+firstColumn-secondRow
 
-			dp = [[float('-inf')]*order for _ in range(order)] 
+		if firstRow >= order or secondRow >= order or firstColumn >= order or secondColumn >= order or grid[firstRow][firstColumn] == -1 or grid[secondRow][secondColumn] == -1:
 
-			for firstColumn in range(order-1,-1,-1):
+			return float('-inf')
 
-				for secondRow in range(order-1,-1,-1):
+		if (firstRow,firstColumn,secondColumn) in cache:
 
-					secondColumn = firstRow+firstColumn-secondRow
+			return cache[(firstRow,firstColumn,secondColumn)]
 
-					# VVVVIMP - TRACE 2x2 GRID WITH ALL 1's TO UNDERSTAND
-					if 0 <= secondColumn < order and grid[firstRow][firstColumn] != -1 and grid[secondRow][secondColumn] != -1:
+		result = grid[firstRow][firstColumn]
 
-							if (firstRow,firstColumn) == (secondRow,secondColumn):
+		if (firstRow,firstColumn) != (secondRow,secondColumn):
 
-								dp[firstColumn][secondRow] = grid[firstRow][firstColumn]
+			result += grid[secondRow][secondColumn]
 
-							else:
+		if (firstRow,firstColumn) != (order-1,order-1):
 
-								dp[firstColumn][secondRow] = grid[firstRow][firstColumn] + grid[secondRow][secondColumn]
+			bothRight = self.helper(grid,firstRow,firstColumn+1,secondRow,order,cache)
+			bothDown = self.helper(grid,firstRow+1,firstColumn,secondRow+1,order,cache)
+			downRight = self.helper(grid,firstRow+1,firstColumn,secondRow,order,cache)
+			rightDown = self.helper(grid,firstRow,firstColumn+1,secondRow+1,order,cache)
 
-							if (firstRow,firstColumn) != (order-1,order-1):
+			result += max(bothRight,bothDown,downRight,rightDown)
 
-								bothRight = dp[firstColumn+1][secondRow] if firstColumn+1<order else float('-inf')
-								rightDown = dp[firstColumn+1][secondRow+1] if firstColumn+1<order and secondRow+1<order else float('-inf')
-								downRight = prev[firstColumn][secondRow]  
-								bothDown = prev[firstColumn][secondRow+1] if secondRow+1<order else float('-inf')
+		cache[(firstRow,firstColumn,secondColumn)] = result
+		return result
 
-								dp[firstColumn][secondRow] += max(bothRight,rightDown,downRight,bothDown)
-
-			prev = dp
-
-		return max(0,prev[0][0])
+			
