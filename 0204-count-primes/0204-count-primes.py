@@ -6,7 +6,8 @@ class Solution:
 
 			return 0
 
-		sieve = [True] * upperBound
+	
+		sieve = [True]*upperBound
 
 		for prime in range(2,int(upperBound**0.5)+1):
 
@@ -23,3 +24,4 @@ class Solution:
 			result += sieve[currNum]
 
 		return result
+				
