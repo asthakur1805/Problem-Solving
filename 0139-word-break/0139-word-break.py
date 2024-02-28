@@ -4,24 +4,16 @@ class Solution:
 
 		wordSet = set(wordDict)
 
-		return self.helper(inputStr,0,wordSet,{})
+		dp = [False]*(len(inputStr)+1)
 
-	def helper(self,inputStr,start,wordSet,cache):
+		dp[len(inputStr)] = True
 
-		if start == len(inputStr):
+		for start in range(len(inputStr)-1,-1,-1):
 
-			return True
-		
-		if start in cache:
+			for end in range(start,len(inputStr)):
 
-			return cache[start]
+				if inputStr[start:end+1] in wordSet and dp[end+1]:
 
-		for end in range(start,len(inputStr)):
+					dp[start] = True
 
-			if inputStr[start:end+1] in wordSet and self.helper(inputStr,end+1,wordSet,cache):
-
-				cache[start] = True
-				return True
-
-		cache[start] = False
-		return False
+		return dp[0]
