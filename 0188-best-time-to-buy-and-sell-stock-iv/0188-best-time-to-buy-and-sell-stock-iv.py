@@ -2,33 +2,26 @@ class Solution:
 
 	def maxProfit(self,k,prices):
 
-		return self.helper(prices,0,1,k,{})
+		dp = [[[0]*(k+1) for _ in range(2)] for _ in range(len(prices)+1)]
 
-	def helper(self,prices,index,canBuy,maxTransactions,cache):
+		for index in range(len(prices)-1,-1,-1):
 
-		if index == len(prices) or maxTransactions == 0:
+			for canBuy in range(2):
 
-			return 0
+				for maxTransactions in range(1,k+1):
 
-		if (index,canBuy,maxTransactions) in cache:
-	
-			return cache[(index,canBuy,maxTransactions)]
+					if canBuy:
 
-		if canBuy:
+						buy = -prices[index]+dp[index+1][0][maxTransactions]
+						notBuy = dp[index+1][1][maxTransactions]
 
-			buy = -prices[index]+self.helper(prices,index+1,0,maxTransactions,cache)
-			notBuy = self.helper(prices,index+1,1,maxTransactions,cache)
+						dp[index][canBuy][maxTransactions] = max(buy,notBuy)
 
-			profit = max(buy,notBuy)
+					else:
 
-		else:
+						sell = prices[index]+dp[index+1][1][maxTransactions-1]
+						notSell = dp[index+1][0][maxTransactions]
 
-			sell = prices[index]+self.helper(prices,index+1,1,maxTransactions-1,cache)
-			notSell = self.helper(prices,index+1,0,maxTransactions,cache)
+						dp[index][canBuy][maxTransactions] = max(sell,notSell)
 
-			profit = max(sell,notSell)
-
-		cache[(index,canBuy,maxTransactions)] = profit
-		return profit
-
-		
+		return dp[0][1][k]
