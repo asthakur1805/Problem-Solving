@@ -2,31 +2,24 @@ class Solution:
 
 	def maxProfit(self,prices,fee):
 
-		return self.helper(prices,fee,0,1,{})
+		dp = [[0]*2 for _ in range(len(prices)+1)]
 
-	def helper(self,prices,fee,index,canBuy,cache):
+		for index in range(len(prices)-1,-1,-1):
 
-		if index == len(prices):
+			for canBuy in range(2):
 
-			return 0
+				if canBuy:
 
-		if (index,canBuy) in cache:
+					buy = -prices[index]+dp[index+1][0]
+					notBuy = dp[index+1][1]
 
-			return cache[(index,canBuy)]
+					dp[index][canBuy] = max(buy,notBuy)
 
-		if canBuy:
+				else:
 
-			buy = -prices[index]+self.helper(prices,fee,index+1,0,cache)
-			notBuy = self.helper(prices,fee,index+1,1,cache)
+					sell = prices[index]-fee+dp[index+1][1]
+					notSell = dp[index+1][0]
 
-			profit = max(buy,notBuy)
+					dp[index][canBuy] = max(sell,notSell)
 
-		else:
-
-			sell = prices[index]-fee+self.helper(prices,fee,index+1,1,cache)
-			notSell = self.helper(prices,fee,index+1,0,cache)
-
-			profit = max(sell,notSell)
-
-		cache[(index,canBuy)] = profit
-		return profit
+		return dp[0][1]
