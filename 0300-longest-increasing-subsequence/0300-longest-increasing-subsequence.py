@@ -2,20 +2,21 @@ class Solution:
 
 	def lengthOfLIS(self,nums):
 
-		return self.helper(nums,0,-1,{})
+		dp = [1]*len(nums)
 
-	def helper(self,nums,currIndex,prevPickedIndex,cache):
+		for currIndex in range(len(nums)-2,-1,-1):
 
-		if currIndex == len(nums):
+			for prevPickedIndex in range(currIndex+1,len(nums)):
 
-			return 0
+				pick = 1 + dp[prevPickedIndex] if nums[currIndex] < nums[prevPickedIndex] else 1
+				notPick = dp[currIndex]
 
-		if prevPickedIndex in cache:
+				dp[currIndex] = max(pick,notPick)
 
-			return cache[prevPickedIndex]
+		return max(dp)
 
-		pick = (1 + self.helper(nums,currIndex+1,currIndex,cache)) if prevPickedIndex == -1 or nums[currIndex] > nums[prevPickedIndex] else float('-inf')
-		notPick = self.helper(nums,currIndex+1,prevPickedIndex,cache)
 
-		cache[prevPickedIndex] = max(pick,notPick)
-		return cache[prevPickedIndex] 
+
+			
+	
+	
