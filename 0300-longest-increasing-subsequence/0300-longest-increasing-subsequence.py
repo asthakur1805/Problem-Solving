@@ -2,21 +2,17 @@ class Solution:
 
 	def lengthOfLIS(self,nums):
 
-		dp = [1]*len(nums)
+		dp = [[0]*(len(nums)+1) for _ in range(len(nums)+1)]
 
-		for currIndex in range(len(nums)-2,-1,-1):
+		for currIndex in range(len(nums)-1,-1,-1):
 
-			for prevPickedIndex in range(currIndex+1,len(nums)):
+			for prevIndex in range(currIndex-1,-2,-1):
 
-				pick = 1 + dp[prevPickedIndex] if nums[currIndex] < nums[prevPickedIndex] else 1
-				notPick = dp[currIndex]
+					pick = 1 + dp[currIndex+1][currIndex+1] if prevIndex == -1 or nums[currIndex] > nums[prevIndex] else float('-inf')
+					notPick = dp[currIndex+1][prevIndex+1]			
 
-				dp[currIndex] = max(pick,notPick)
+					dp[currIndex][prevIndex+1] = max(pick,notPick)
 
-		return max(dp)
+		return dp[0][0]
 
-
-
-			
-	
-	
+		
