@@ -2,15 +2,40 @@ class Solution:
 
 	def lengthOfLIS(self,nums):
 
-		dp = [1]*len(nums)
+		subSequence = []
 
-		for currIndex in range(1,len(nums)):
+		for num in nums:
 
-			for prevIndex in range(currIndex):
+			if len(subSequence) == 0 or subSequence[-1] < num:
 
-				pick = 1 + dp[prevIndex] if nums[prevIndex] < nums[currIndex] else float('-inf')
-				notPick = dp[currIndex]
+				subSequence.append(num)
 
-				dp[currIndex] = max(pick,notPick)
-		
-		return max(dp)
+			else:
+
+				insertIndex = self.searchInsert(subSequence,num)
+
+				subSequence[insertIndex] = num
+
+		return len(subSequence)
+
+	def searchInsert(self,nums,target):
+
+		left, right = 0, len(nums)-1
+
+		while left <= right:
+
+			mid = left + (right - left) // 2
+
+			if nums[mid] == target:
+
+				return mid
+
+			if target < nums[mid]:
+
+				right = mid - 1
+
+			else:
+
+				left = mid + 1
+
+		return left
