@@ -17,8 +17,7 @@ class Solution:
 						dp[currIndex] = 1 + dp[prevIndex]
 						trace[currIndex] = prevIndex
 						
-
-		resultLength, resultIndex = 0, 0
+		resultIndex, resultLength = 0, 0
 
 		for currIndex,currLength in enumerate(dp):
 
