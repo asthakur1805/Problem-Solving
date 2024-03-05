@@ -2,18 +2,12 @@ class Solution:
 
 	def firstMissingPositive(self,nums):
 
-		nums.sort()
+		numSet = set(nums)
 
-		result = 1
+		for num in range(1,len(nums)+2):
 
-		for num in nums:
+			if num not in numSet:
 
-			if num > result:
+				return num
 
-				break
-
-			if num == result:
-
-				result += 1
-
-		return result
+		
