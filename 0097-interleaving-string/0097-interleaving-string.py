@@ -6,27 +6,21 @@ class Solution:
 
 			return False
 
-		return self.helper(firstStr,secondStr,resultStr,0,0,{})
+		dp = [[False]*(len(secondStr)+1) for _ in range(len(firstStr)+1)]
+		dp[len(firstStr)][len(secondStr)] = True
 
-	def helper(self,firstStr,secondStr,resultStr,firstIndex,secondIndex,cache):
+		for firstIndex in range(len(firstStr),-1,-1):
 
-		if firstIndex == len(firstStr) and secondIndex == len(secondStr):
+			for secondIndex in range(len(secondStr),-1,-1):
 
-			return True
+				if firstIndex < len(firstStr) and firstStr[firstIndex] == resultStr[firstIndex+secondIndex] and dp[firstIndex+1][secondIndex]:
 
-		if (firstIndex,secondIndex) in cache:
+					dp[firstIndex][secondIndex] = True
 
-			return cache[(firstIndex,secondIndex)]
+				elif secondIndex < len(secondStr) and secondStr[secondIndex] == resultStr[firstIndex+secondIndex] and dp[firstIndex][secondIndex+1]:
 
-		if firstIndex < len(firstStr) and firstStr[firstIndex] == resultStr[firstIndex+secondIndex] and self.helper(firstStr,secondStr,resultStr,firstIndex+1,secondIndex,cache):
+					dp[firstIndex][secondIndex] = True
 
-			cache[(firstIndex,secondIndex)] = True
-			return True
-
-		if secondIndex < len(secondStr) and secondStr[secondIndex] == resultStr[firstIndex+secondIndex] and self.helper(firstStr,secondStr,resultStr,firstIndex,secondIndex+1,cache):
-
-			cache[(firstIndex,secondIndex)] = True
-			return True
-
-		cache[(firstIndex,secondIndex)] = False
-		return False
+		return dp[0][0]
+					
+				
