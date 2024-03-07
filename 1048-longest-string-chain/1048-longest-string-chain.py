@@ -1,43 +1,38 @@
 class Solution:
 
-	def compareLengths(self,firstWord,secondWord):
-
-		return -1 if len(firstWord) <= len(secondWord) else 1
-
 	def longestStrChain(self,words):
 
-		words.sort(key=cmp_to_key(self.compareLengths))
+		mapping = {word:index for index,word in enumerate(words)}
 
-		dp = [1]*len(words)
+		cache = {}
 
-		resultLength = 1
+		for wordIndex in range(len(words)):
 
-		for currIndex in range(1,len(words)):
+			self.dfs(words,wordIndex,mapping,cache)
 
-			for prevIndex in range(currIndex):
+		return max(cache.values())
 
-				if self.doesFormChain(words[prevIndex],words[currIndex]) and dp[prevIndex]+1 > dp[currIndex]:
+		
 
-					dp[currIndex] = dp[prevIndex] + 1
+	def dfs(self,words,wordIndex,mapping,cache):
 
-			resultLength = max(resultLength,dp[currIndex])
+		if wordIndex in cache:
 
-		return resultLength
+			return cache[wordIndex]
 
-	def doesFormChain(self,prevWord,currWord):
+		result = 1
 
-		if len(prevWord)+1 != len(currWord):
+		currWord = words[wordIndex]
 
-			return False
+		for charIndex in range(len(currWord)):
 
-		prevIndex, currIndex = 0, 0
+			prevWord = currWord[:charIndex]+currWord[charIndex+1:]
 
-		while currIndex < len(currWord):
+			if prevWord in mapping:
 
-			if prevIndex < len(prevWord) and prevWord[prevIndex] == currWord[currIndex]:
+				result = max(result,1 + self.dfs(words,mapping[prevWord],mapping,cache))
 
-				prevIndex += 1
+		cache[wordIndex] = result
+		return result
 
-			currIndex += 1
-
-		return prevIndex == len(prevWord) and currIndex == len(currWord)
+	
