@@ -2,33 +2,26 @@ class Solution:
 
 	def isMatch(self,inputStr,pattern):
 
-		return self.helper(inputStr,pattern,0,0,{})
+		dp = [[False]*(len(pattern)+1) for _ in range(len(inputStr)+1)]
 
-	def helper(self,inputStr,pattern,strIndex,patIndex,cache):
+		for strIndex in range(len(inputStr),-1,-1):
 
-		if strIndex == len(inputStr) and patIndex == len(pattern):
+			for patIndex in range(len(pattern),-1,-1):
 
-			return True
+				if strIndex == len(inputStr) and patIndex == len(pattern):
 
-		if patIndex == len(pattern):
+					dp[strIndex][patIndex] = True 
 
-			return False
+				elif patIndex < len(pattern):
 
-		if (strIndex,patIndex) in cache:
+					match = strIndex < len(inputStr) and (inputStr[strIndex] == pattern[patIndex] or pattern[patIndex] == '.')
 
-			return cache[(strIndex,patIndex)]
+					if patIndex+1<len(pattern) and pattern[patIndex+1] == '*':
 
-		match = strIndex < len(inputStr) and (inputStr[strIndex] == pattern[patIndex] or pattern[patIndex] == '.')
+						dp[strIndex][patIndex] = dp[strIndex][patIndex+2] or match and dp[strIndex+1][patIndex]
 
-		if patIndex+1<len(pattern) and pattern[patIndex+1] == '*':
+					elif match:
 
-			cache[(strIndex,patIndex)] = self.helper(inputStr,pattern,strIndex,patIndex+2,cache) or match and self.helper(inputStr,pattern,strIndex+1,patIndex,cache)
-			return cache[(strIndex,patIndex)]
+						dp[strIndex][patIndex] = dp[strIndex+1][patIndex+1]
 
-		if match:
-
-			cache[(strIndex,patIndex)] = self.helper(inputStr,pattern,strIndex+1,patIndex+1,cache)
-			return cache[(strIndex,patIndex)]
-
-		cache[(strIndex,patIndex)] = False
-		return False
+		return dp[0][0]
