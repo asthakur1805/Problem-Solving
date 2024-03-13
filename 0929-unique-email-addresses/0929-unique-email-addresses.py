@@ -6,9 +6,28 @@ class Solution:
 
 		for currStr in inputStrs:
 
-			local, domain = currStr.split('@')
-			local = local.split('+')[0]
-			local = local.replace('.','')
+			local, index = "", 0
+
+			while currStr[index] not in ('+','@'):
+
+				if currStr[index] != '.':
+				
+					local += currStr[index]
+
+				index += 1
+
+			while currStr[index] != '@':
+
+				index += 1
+
+			index += 1
+
+			domain = ""
+
+			while index < len(currStr):
+
+				domain += currStr[index]
+				index += 1
 
 			emailSet.add((local,domain))
 
