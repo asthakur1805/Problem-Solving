@@ -8,7 +8,7 @@ class Solution:
 
 		self.helper(root,to_delete,result)
 
-		if root and root.val not in to_delete:
+		if root.val not in to_delete:
 
 			result.append(root)
 
