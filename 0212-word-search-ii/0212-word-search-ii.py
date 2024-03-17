@@ -13,7 +13,7 @@ class Solution:
 
 		numRows, numColumns = len(board), len(board[0])
 
-		result = set()
+		result = []
 
 		for word in words:
 
@@ -25,9 +25,14 @@ class Solution:
 
 				self.dfs(board,startRow,startColumn,root,builder,numRows,numColumns,visited,directions,result)
 
-		return list(result)
+		return result
 
 	def dfs(self,board,currRow,currColumn,curr,builder,numRows,numColumns,visited,directions,result):
+
+		if curr.endOfWord:
+
+			result.append(''.join(builder))
+			curr.endOfWord = False
 
 		if not(0 <= currRow < numRows) or not(0 <= currColumn < numColumns) or (currRow,currColumn) in visited or board[currRow][currColumn] not in curr.children:
 
@@ -36,10 +41,6 @@ class Solution:
 		builder.append(board[currRow][currColumn])
 		visited.add((currRow,currColumn))
 		curr = curr.children[board[currRow][currColumn]]
-
-		if curr.endOfWord:
-
-			result.add(''.join(builder))
 
 		for rowDirection,columnDirection in directions:
 
