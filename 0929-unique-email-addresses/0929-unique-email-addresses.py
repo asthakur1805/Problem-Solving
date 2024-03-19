@@ -1,34 +1,31 @@
 class Solution:
 
-	def numUniqueEmails(self,inputStrs):
+	def numUniqueEmails(self,emails):
 
 		emailSet = set()
 
-		for currStr in inputStrs:
+		for email in emails:
 
-			local, index = "", 0
+			index = 0
 
-			while currStr[index] not in ('+','@'):
+			local = ''
 
-				if currStr[index] != '.':
-				
-					local += currStr[index]
+			while email[index] not in ('+','@'):
 
-				index += 1
-
-			while currStr[index] != '@':
+				if email[index] != '.':
+					
+					local += email[index]
 
 				index += 1
 
-			index += 1
+			while email[index] != '@':
 
-			domain = ""
-
-			while index < len(currStr):
-
-				domain += currStr[index]
 				index += 1
+
+			domain = email[index+1:]
 
 			emailSet.add((local,domain))
 
 		return len(emailSet)
+
+		
