@@ -2,35 +2,20 @@ class Solution:
 
 	def longestCommonSubsequence(self,firstStr,secondStr):
 
-		prev = [0]*(len(secondStr)+1) 
+		def helper(firstIndex,secondIndex,cache):
 
-		for firstIndex in range(1,len(firstStr)+1):
+			if firstIndex < 0 or secondIndex < 0:
 
-			dp = [0]*(len(secondStr)+1)
+				return 0
 
-			for secondIndex in range(1,len(secondStr)+1):
+			if (firstIndex,secondIndex) in cache:
 
-				if firstStr[firstIndex-1] == secondStr[secondIndex-1]:
+				return cache[(firstIndex,secondIndex)]
 
-					dp[secondIndex] = 1 + prev[secondIndex-1]
+			match = 1 + helper(firstIndex-1,secondIndex-1,cache) if firstStr[firstIndex] == secondStr[secondIndex] else 0
+			notMatch = max(helper(firstIndex-1,secondIndex,cache),helper(firstIndex,secondIndex-1,cache))
 
-				else:
-					
-					dp[secondIndex] = max(prev[secondIndex],dp[secondIndex-1])
-		
-			prev = dp
+			cache[(firstIndex,secondIndex)] = max(match,notMatch)
+			return cache[(firstIndex,secondIndex)]
 
-		return prev[len(secondStr)]
-
-		
-		
-
-		
-		
-
-		
-		
-
-
-		
-		
+		return helper(len(firstStr)-1,len(secondStr)-1,{})
