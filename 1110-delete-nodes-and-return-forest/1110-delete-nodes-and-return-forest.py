@@ -1,30 +1,28 @@
 class Solution:
 
-	def delNodes(self,root,to_delete):
+	def delNodes(self,root,toDelete):
+
+		toDelete = set(toDelete)
 
 		result = []
 
-		to_delete = set(to_delete)
+		self.helper(root,toDelete,result)
 
-		self.helper(root,to_delete,result)
-
-		if root.val not in to_delete:
+		if root and root.val not in toDelete:
 
 			result.append(root)
 
 		return result
 
-	def helper(self,node,to_delete,result):
+	def helper(self,node,toDelete,result):
 
 		if not node:
 
 			return
 
-		node.left = self.helper(node.left,to_delete,result)
+		node.left, node.right = self.helper(node.left,toDelete,result), self.helper(node.right,toDelete,result)
 
-		node.right = self.helper(node.right,to_delete,result)
-
-		if node.val in to_delete:
+		if node.val in toDelete:
 
 			if node.left:
 
@@ -34,10 +32,12 @@ class Solution:
 
 				result.append(node.right)
 
-			return
+			node.left, node.right = None, None
 
-		else:
+			return None
 
-			return node
+		return node
 
-		
+	
+
+	
