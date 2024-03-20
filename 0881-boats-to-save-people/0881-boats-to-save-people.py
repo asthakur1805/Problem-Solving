@@ -6,17 +6,17 @@ class Solution:
 
 		left, right = 0, len(people)-1
 
-		result = 0
+		boats = 0
 
 		while left <= right:
 
-			remaining = limit-people[right]
-			result += 1
+			remaining = limit - people[right]
+
+			boats += 1
 			right -= 1
 
 			if people[left] <= remaining:
 
 				left += 1
 
-		return result
-			
+		return boats
